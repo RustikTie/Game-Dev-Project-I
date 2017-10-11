@@ -10,10 +10,22 @@
 j1Player::j1Player() : j1Module()
 {
 	name.create("player");
+	graphics = NULL;
 
-	idle.PushBack({0,0,30,46});
-	idle.loop = false;
-
+	idle.PushBack({1,48,30,46});
+	idle.PushBack({ 32,48,30,46 });
+	idle.PushBack({ 63,48,30,46 });
+	idle.PushBack({ 94,48,30,46 });
+	idle.PushBack({ 125,48,30,46 });
+	idle.PushBack({ 156,48,30,46 });
+	idle.PushBack({ 187,48,30,46 });
+	idle.PushBack({ 218,48,30,46 });
+	idle.PushBack({ 249,48,30,46 });
+	idle.PushBack({ 280,48,30,46 });
+	idle.PushBack({ 311,48,30,46 });
+	idle.loop = true;
+	idle.speed = 0.4f;
+	
 	pos.x = 10;
 	pos.y = 50;
 }

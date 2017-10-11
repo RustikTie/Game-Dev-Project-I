@@ -33,6 +33,9 @@ public:
 	bool CleanUp();
 
 private:
+
+
+
 };
 
 #endif // __j1SCENE_H__

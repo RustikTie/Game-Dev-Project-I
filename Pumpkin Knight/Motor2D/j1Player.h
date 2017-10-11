@@ -25,6 +25,10 @@ private:
 	SDL_Texture* textures = nullptr;
 	Animation* animation = nullptr;
 	Animation idle;
+	Animation foward;
+	Animation backward;
+	Animation jump;
+	Animation death;
 
 	iPoint pos;
 	int speed;
