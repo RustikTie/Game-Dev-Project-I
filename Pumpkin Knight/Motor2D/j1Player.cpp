@@ -56,11 +56,21 @@ j1Player::j1Player() : j1Module()
 	backward.PushBack({ 94, 1, 30, 46 });
 	backward.PushBack({ 63, 1, 30, 46 });
 	backward.PushBack({ 32, 1, 30, 46 });
-	
 	backward.loop = true;
 	backward.speed = 0.02f;
 
-	//jump.PushBack({})
+	jump.PushBack({ 1, 95, 30, 46 });
+	jump.PushBack({ 32, 95, 30, 46 });
+	jump.PushBack({ 63, 95, 30, 46 });
+	jump.PushBack({ 94, 95, 30, 46 });
+	jump.PushBack({ 125, 95, 30, 46 });
+	jump.PushBack({ 156, 95, 30, 46 });
+	jump.PushBack({ 187, 95, 30, 46 });
+	jump.PushBack({ 218, 95, 30, 46 });
+	jump.PushBack({ 249, 95, 30, 46 });
+	jump.PushBack({ 280, 95, 30, 46 });
+	jump.loop = false;
+	jump.speed = 0.006f;
 
 	pos.x = 10;
 	pos.y = 50;
@@ -96,21 +106,53 @@ bool j1Player::Update(float dt)
 
 	// MOVEMENT -------------------------------------------
 	//FOWARDS
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
 		animation = &foward;
 		pos.x += speed;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			jumping = true;
+		}
 	}
 	
 	//BACKWARDS
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && diag_jump == false) 
+	{
 		animation = &backward;
 		pos.x -= speed;
 	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		jumping = true;
+	}
+
 	else{
 		animation = &idle;
 	}
 	
+	if (jumping == true && counter < 835)
+	{
+		animation = &jump;
+		pos.y -= speed;
+		++counter;
+	}
 
+	if (jumping == true && counter >= 835)
+	{
+		++counter;
+		animation = &jump;
+		pos.y += speed;
+		
+		if (jump.Finished())
+		{
+			jumping = false;
+			jump.Reset();
+			counter = 0;
+		}
+	}
+	
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, &(animation->GetCurrentFrame()), 0.75f);
 

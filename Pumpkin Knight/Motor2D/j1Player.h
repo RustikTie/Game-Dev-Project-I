@@ -31,6 +31,10 @@ private:
 	Animation jump;
 	Animation death;
 
+	bool jumping = false;
+	int counter = 0;
+	bool diag_jump = false;
+
 	fPoint pos;
 	float speed;
 };
