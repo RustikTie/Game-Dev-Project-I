@@ -5,14 +5,17 @@
 #include "j1Module.h"
 #include "Animation.h"
 #include "p2Point.h"
+
 struct SDL_Texture;
 
-class j1Player
+class j1Player : public j1Module
 {
 public:
 	j1Player();
 	~j1Player();
 
+
+	bool Awake(pugi::xml_node& config);
 	bool Start();
 	bool Update();
 	bool CleanUp();
@@ -20,7 +23,7 @@ public:
 private:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* textures = nullptr;
-	Animation* current = nullptr;
+	Animation* animation = nullptr;
 	Animation idle;
 
 	iPoint pos;

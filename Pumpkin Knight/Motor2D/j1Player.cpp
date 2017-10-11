@@ -7,8 +7,10 @@
 #include "j1Render.h"
 
 
-j1Player::j1Player()
+j1Player::j1Player() : j1Module()
 {
+	name.create("player");
+
 	idle.PushBack({0,0,30,46});
 	idle.loop = false;
 
@@ -30,6 +32,12 @@ bool j1Player::Start()
 	return true;
 }
 
+bool j1Player::Awake(pugi::xml_node& config) {
+
+	//Load Player info from the config file
+
+	return true;
+}
 
 bool j1Player::Update() 
 {
@@ -46,10 +54,10 @@ bool j1Player::Update()
 		pos.x -= speed;
 	}
 
-	current = &idle;
+	animation = &idle;
 
 	//DRAW PLAYER -----------------------------------------
-	App->render->Blit(graphics, pos.x, pos.y, &(current->GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, pos.x, pos.y, &(animation->GetCurrentFrame()), 0.75f);
 
 	return true;
 
