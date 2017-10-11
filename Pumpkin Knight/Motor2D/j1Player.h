@@ -17,21 +17,22 @@ public:
 
 	bool Awake(pugi::xml_node& config);
 	bool Start();
-	bool Update();
+	bool Update(float dt);
 	bool CleanUp();
 
 private:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* textures = nullptr;
 	Animation* animation = nullptr;
+	Animation* animation2 = nullptr;
 	Animation idle;
 	Animation foward;
 	Animation backward;
 	Animation jump;
 	Animation death;
 
-	iPoint pos;
-	int speed;
+	fPoint pos;
+	float speed;
 };
 
 #endif
