@@ -24,6 +24,7 @@
 
   <map>
     <folder>maps/</folder>
+		<map name = "level1_v1.png"/>		
   </map>
 
 </config>

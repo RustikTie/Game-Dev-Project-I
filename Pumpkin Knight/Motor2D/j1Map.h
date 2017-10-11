@@ -22,6 +22,14 @@ struct MapLayer
 };
 	// TODO 6: Short function to get the value of x,y
 
+struct ImageLayer 
+{
+	p2SString name;
+	uint width;
+	uint height;
+	float speed;
+	SDL_Texture* texture;
+};
 
 // ----------------------------------------------------
 struct TileSet
@@ -63,6 +71,7 @@ struct MapData
 	p2List<TileSet*>	tilesets;
 	// TODO 2: Add a list/array of layers to the map!
 	p2List<MapLayer*>	maplayers;
+	p2List<ImageLayer*>	imagelayers;
 };
 
 // ----------------------------------------------------
@@ -97,7 +106,7 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-
+	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* layer);
 public:
 
 	MapData data;

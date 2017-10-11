@@ -36,7 +36,6 @@ void j1Map::Draw()
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	
-	uint layer_num;
 	for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
 		for (int i = 0; i < data.width; ++i)
@@ -53,6 +52,12 @@ void j1Map::Draw()
 				}
 			}
 		}
+	}
+
+
+	for (uint image_num = 0; image_num < data.imagelayers.count(); ++image_num) {
+		
+		App->render->Blit(data.imagelayers[image_num]->texture, 0, 0, NULL);
 	}
 	
 		// TODO 9: Complete the draw function
@@ -168,6 +173,20 @@ bool j1Map::Load(const char* file_name)
 		data.maplayers.add(set);
 	}
 
+	// Load Image Layer info ----------------------------------------
+
+	xml_node images;
+	for (images = map_file.child("map").child("imagelayer"); images && ret; images = images.next_sibling("imagelayer"))
+	{
+		ImageLayer* setImage = new ImageLayer();
+
+		if (ret == true)
+		{
+			ret = LoadImageLayer(images, setImage);
+		}
+		data.imagelayers.add(setImage);
+	}
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -197,7 +216,21 @@ bool j1Map::Load(const char* file_name)
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
 		}
+
+		p2List_item<ImageLayer*>* image_layer = data.imagelayers.start;
+		while (image_layer != NULL)
+		{
+			ImageLayer* l = image_layer->data;
+			LOG("Image ----");
+			LOG("name: %s", l->name.GetString());
+			LOG("tile width: %d tile height: %d", l->width, l->height);
+			LOG("speed: %f", l->speed);
+			image_layer = image_layer->next;
+		}
 	}
+
+	
+
 
 	map_loaded = ret;
 
@@ -357,3 +390,17 @@ inline uint MapLayer::Get(int x, int y) const
 {
 	return x + y*width;
 }
+
+bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
+{
+	bool ret = true;
+
+	layer->name = node.attribute("name").as_string();
+	layer->width = node.child("image").attribute("width").as_uint();
+	layer->height = node.child("image").attribute("height").as_uint();
+	layer->speed = node.child("properties").child("property").attribute("value").as_float();
+	//layer->texture = App->tex->Load(node.child("image").attribute("source").as_string());
+
+	return ret;
+}
+
