@@ -44,6 +44,7 @@ private:
 	bool diag_jump = false;
 
 	fPoint pos;
+	float gravity;
 	float speed;
 };
 

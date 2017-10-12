@@ -46,8 +46,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 	{
 		camera.w = App->win->screen_surface->w;
 		camera.h = App->win->screen_surface->h;
-		camera.x = 0;
-		camera.y = 0;
+		camera.x = 500;
+		camera.y = -200;
 	}
 
 	return ret;
@@ -136,8 +136,8 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	if(section != NULL)
 	{
-		rect.w = section->w;
-		rect.h = section->h;
+		rect.w = section->w*3;
+		rect.h = section->h*3;
 	}
 	else
 	{

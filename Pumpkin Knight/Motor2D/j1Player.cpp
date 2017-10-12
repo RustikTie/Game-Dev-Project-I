@@ -72,8 +72,8 @@ j1Player::j1Player() : j1Module()
 	jump.loop = false;
 	jump.speed = 0.006f;
 
-	pos.x = 10;
-	pos.y = 50;
+	pos.x = 0.0f;
+	pos.y = 550.0f;
 }
 
 
@@ -102,7 +102,9 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 bool j1Player::Update(float dt) 
 {
-	speed = 1.5f;
+	speed = 0.4f;
+	gravity = 0.1f;
+	
 
 	// MOVEMENT -------------------------------------------
 	//FOWARDS
@@ -110,7 +112,7 @@ bool j1Player::Update(float dt)
 	{
 		animation = &foward;
 		pos.x += speed;
-		App->render->camera.x -= 2;
+		//App->render->camera.x -= 1;
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			jumping = true;
@@ -122,6 +124,7 @@ bool j1Player::Update(float dt)
 	{
 		animation = &backward;
 		pos.x -= speed;
+		//App->render->camera.x += 1;
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
@@ -137,6 +140,7 @@ bool j1Player::Update(float dt)
 	{
 		animation = &jump;
 		pos.y -= speed;
+		//App->render->camera.y += 1;
 		++counter;
 	}
 
@@ -145,6 +149,7 @@ bool j1Player::Update(float dt)
 		++counter;
 		animation = &jump;
 		pos.y += speed;
+		//App->render->camera.y -= 1;
 		
 		if (jump.Finished())
 		{
@@ -155,7 +160,11 @@ bool j1Player::Update(float dt)
 	}
 	
 	//DRAW PLAYER -----------------------------------------
-	App->render->Blit(graphics, pos.x, pos.y, &(animation->GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, pos.x, pos.y, &(animation->GetCurrentFrame()), 1.0f);
+
+	App->render->camera.x = -pos.x;
+	App->render->camera.y = -pos.y + 400;
+
 
 	return true;
 
