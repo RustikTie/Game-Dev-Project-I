@@ -35,7 +35,11 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
-	
+	for (uint image_num = 0; image_num < data.imagelayers.count(); ++image_num)
+	{
+		App->render->Blit(data.imagelayers[image_num]->texture, 0, 0, NULL, data.imagelayers[image_num]->speed);
+
+	}
 	for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
 		for (int i = 0; i < data.width; ++i)
@@ -55,11 +59,8 @@ void j1Map::Draw()
 	}
 
 
-	for (uint image_num = 0; image_num < data.imagelayers.count(); ++image_num) {
-		
-		App->render->Blit(data.imagelayers[image_num]->texture, 0, 0, NULL);
-	}
-	
+
+
 		// TODO 9: Complete the draw function
 
 }
@@ -184,6 +185,7 @@ bool j1Map::Load(const char* file_name)
 		{
 			ret = LoadImageLayer(images, setImage);
 		}
+
 		data.imagelayers.add(setImage);
 	}
 
@@ -226,6 +228,7 @@ bool j1Map::Load(const char* file_name)
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			LOG("speed: %f", l->speed);
 			image_layer = image_layer->next;
+			
 		}
 	}
 
@@ -400,7 +403,10 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 	layer->height = node.child("image").attribute("height").as_uint();
 	layer->speed = node.child("properties").child("property").attribute("value").as_float();
 	//layer->texture = App->tex->Load(node.child("image").attribute("source").as_string());
+	layer->texture = App->tex->Load(PATH(folder.GetString(), node.child("image").attribute("source").as_string()));
 
 	return ret;
 }
+
+
 
