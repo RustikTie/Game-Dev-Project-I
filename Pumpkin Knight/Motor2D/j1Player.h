@@ -46,6 +46,7 @@ private:
 	fPoint pos;
 	float gravity;
 	float speed;
+	float ground;
 };
 
 #endif

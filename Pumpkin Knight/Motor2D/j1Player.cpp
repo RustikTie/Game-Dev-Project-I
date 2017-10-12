@@ -62,10 +62,12 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 1, 95, 30, 46 });
 	jump.PushBack({ 32, 95, 30, 46 });
 	jump.PushBack({ 63, 95, 30, 46 });
+	jump.PushBack({ 63, 95, 30, 46 });
 	jump.PushBack({ 94, 95, 30, 46 });
 	jump.PushBack({ 125, 95, 30, 46 });
 	jump.PushBack({ 156, 95, 30, 46 });
 	jump.PushBack({ 187, 95, 30, 46 });
+	jump.PushBack({ 218, 95, 30, 46 });
 	jump.PushBack({ 218, 95, 30, 46 });
 	jump.PushBack({ 249, 95, 30, 46 });
 	jump.PushBack({ 280, 95, 30, 46 });
@@ -103,7 +105,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 bool j1Player::Update(float dt) 
 {
 	speed = 0.4f;
-	gravity = 0.1f;
+	gravity = 0.6f;
 	
 
 	// MOVEMENT -------------------------------------------
@@ -112,7 +114,6 @@ bool j1Player::Update(float dt)
 	{
 		animation = &foward;
 		pos.x += speed;
-		//App->render->camera.x -= 1;
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			jumping = true;
@@ -124,7 +125,6 @@ bool j1Player::Update(float dt)
 	{
 		animation = &backward;
 		pos.x -= speed;
-		//App->render->camera.x += 1;
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
@@ -136,20 +136,18 @@ bool j1Player::Update(float dt)
 		animation = &idle;
 	}
 	
-	if (jumping == true && counter < 835)
+	if (jumping == true && counter < 1100)
 	{
 		animation = &jump;
 		pos.y -= speed;
-		//App->render->camera.y += 1;
 		++counter;
 	}
 
-	if (jumping == true && counter >= 835)
+	if (jumping == true && counter >= 1100)
 	{
 		++counter;
 		animation = &jump;
-		pos.y += speed;
-		//App->render->camera.y -= 1;
+		pos.y += gravity;
 		
 		if (jump.Finished())
 		{
@@ -162,7 +160,7 @@ bool j1Player::Update(float dt)
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, &(animation->GetCurrentFrame()), 1.0f);
 
-	App->render->camera.x = -pos.x;
+	App->render->camera.x = -pos.x + 400;
 	App->render->camera.y = -pos.y + 400;
 
 
