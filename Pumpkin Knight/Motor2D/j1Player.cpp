@@ -102,7 +102,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 bool j1Player::Update(float dt) 
 {
-	speed = 0.1f;
+	speed = 1.5f;
 
 	// MOVEMENT -------------------------------------------
 	//FOWARDS
@@ -110,6 +110,7 @@ bool j1Player::Update(float dt)
 	{
 		animation = &foward;
 		pos.x += speed;
+		App->render->camera.x -= 2;
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			jumping = true;

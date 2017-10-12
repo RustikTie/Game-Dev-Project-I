@@ -19,6 +19,14 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
+	int getX()
+	{
+		return pos.x;
+	}
+	int getY()
+	{
+		return pos.y;
+	}
 
 private:
 	SDL_Texture* graphics = nullptr;
