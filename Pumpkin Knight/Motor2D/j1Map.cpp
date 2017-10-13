@@ -52,7 +52,7 @@ void j1Map::Draw()
 					SDL_Rect tile_rect = data.tilesets[layer_num]->GetTileRect(id);
 					int x = MapToWorld(i, j).x;
 					int y = MapToWorld(i, j).y;
-					App->render->Blit(data.tilesets[layer_num]->texture, x, y, 3, 3, &tile_rect);
+					App->render->Blit(data.tilesets[layer_num]->texture, x, y, 1, 1, &tile_rect);
 				}
 			}
 		}
@@ -114,6 +114,19 @@ bool j1Map::CleanUp()
 		item2 = item2->next;
 	}
 	data.maplayers.clear();
+
+
+	//Clean Up image layers
+
+	p2List_item<ImageLayer*>* item3;
+	item3 = data.imagelayers.start;
+
+	while (item3 != NULL)
+	{
+		RELEASE(item3->data);
+		item3 = item3->next;
+	}
+	data.imagelayers.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();

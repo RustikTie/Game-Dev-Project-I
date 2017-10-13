@@ -63,6 +63,9 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 1;
 
 	if (App->input->GetKey(SDL_SCANCODE_F1)) {
+		App->map->CleanUp();
+		App->collisions->CleanUp();
+
 		App->map->Load("level1_v2.tmx");
 		App->player->SetPos(10, 400);
 	}
