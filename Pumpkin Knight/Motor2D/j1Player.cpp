@@ -72,10 +72,10 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 249, 95, 30, 46 });
 	jump.PushBack({ 280, 95, 30, 46 });
 	jump.loop = false;
-	jump.speed = 0.015f;
+	jump.speed = 0.03f;
 
-	pos.x = 0.0f;
-	pos.y = 550.0f;
+	pos.x = 0;
+	pos.y = 550;
 }
 
 
@@ -152,7 +152,7 @@ bool j1Player::Update(float dt)
 	{
 		pos.x -= speed;
 	}
-	if (jumping == true && counter < 300)
+	if (jumping == true && counter < 240)
 	{
 		animation = &jump;
 		gravity = 1.0f;
@@ -160,11 +160,11 @@ bool j1Player::Update(float dt)
 		++counter;
 	}
 
-	if (jumping == true && counter >= 300)
+	if (jumping == true && counter >= 240)
 	{
 		++counter;
 		animation = &jump;
-		gravity = 0.6f;
+		gravity = 1.5f;
 		pos.y += gravity;
 		
 		if (jump.Finished())
