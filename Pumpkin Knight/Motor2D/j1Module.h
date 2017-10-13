@@ -69,6 +69,8 @@ public:
 		return true;
 	}
 
+	
+
 public:
 
 	p2SString	name;

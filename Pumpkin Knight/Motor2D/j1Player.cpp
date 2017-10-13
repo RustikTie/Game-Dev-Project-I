@@ -5,7 +5,7 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 #include "j1Render.h"
-
+#include "j1Collisions.h"
 
 j1Player::j1Player() : j1Module()
 {
@@ -72,7 +72,7 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 249, 95, 30, 46 });
 	jump.PushBack({ 280, 95, 30, 46 });
 	jump.loop = false;
-	jump.speed = 0.008f;
+	jump.speed = 0.015f;
 
 	pos.x = 0.0f;
 	pos.y = 550.0f;
@@ -86,6 +86,8 @@ j1Player::~j1Player()
 bool j1Player::Start() 
 {
 	LOG("Loading Player");
+
+	//player = App->collisions->AddCollider({pos.x, pos.y, 30*3, 46*3}, COLLIDER_PLAYER);
 
 	graphics = App->tex->Load("assets/Pumpkin sprites.png");
 	if (graphics != NULL)
@@ -150,7 +152,7 @@ bool j1Player::Update(float dt)
 	{
 		pos.x -= speed;
 	}
-	if (jumping == true && counter < 563)
+	if (jumping == true && counter < 300)
 	{
 		animation = &jump;
 		gravity = 1.0f;
@@ -158,7 +160,7 @@ bool j1Player::Update(float dt)
 		++counter;
 	}
 
-	if (jumping == true && counter >= 563)
+	if (jumping == true && counter >= 300)
 	{
 		++counter;
 		animation = &jump;

@@ -5,6 +5,7 @@
 #include "j1Module.h"
 #include "Animation.h"
 #include "p2Point.h"
+#include "j1Collisions.h"
 
 struct SDL_Texture;
 
@@ -27,6 +28,8 @@ public:
 	{
 		return pos.y;
 	}
+
+	Collider* player;
 
 private:
 	SDL_Texture* graphics = nullptr;
