@@ -28,7 +28,10 @@ public:
 	{
 		return pos.y;
 	}
-
+	void SetPos(float x, float y) {
+		pos.x = x;
+		pos.y = y;
+	}
 	Collider* player;
 
 private:
