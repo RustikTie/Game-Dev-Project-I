@@ -41,7 +41,8 @@ private:
 
 	bool jumping = false;
 	int counter = 0;
-	bool diag_jump = false;
+	bool right = false;
+	bool left = false;
 
 	fPoint pos;
 	float gravity;
