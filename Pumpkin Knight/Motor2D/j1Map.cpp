@@ -122,6 +122,19 @@ bool j1Map::CleanUp()
 	}
 	data.maplayers.clear();
 
+
+	//Clean Up image layers
+
+	p2List_item<ImageLayer*>* item3;
+	item3 = data.imagelayers.start;
+
+	while (item3 != NULL)
+	{
+		RELEASE(item3->data);
+		item3 = item3->next;
+	}
+	data.imagelayers.clear();
+
 	// Clean up the pugui tree
 	map_file.reset();
 
