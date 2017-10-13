@@ -71,8 +71,8 @@ bool j1Collisions::Update(float dt)
 
 void j1Collisions::DebugDraw()
 {
-	/*if (App->input->GetKey[SDL_SCANCODE_F5] == KEY_DOWN)
-		debug = !debug;*/
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		debug = !debug;
 
 	if (debug == false)
 		return;
