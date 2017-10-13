@@ -152,7 +152,7 @@ bool j1Player::Update(float dt)
 	{
 		pos.x -= speed;
 	}
-	if (jumping == true && counter < 240.9f)
+	if (jumping == true && counter < 241.9f)
 	{
 		animation = &jump;
 		gravity = 1.0f;
@@ -160,7 +160,7 @@ bool j1Player::Update(float dt)
 		++counter;
 	}
 
-	if (jumping == true && counter >= 240.9f)
+	if (jumping == true && counter >= 241.9f)
 	{
 		++counter;
 		animation = &jump;
@@ -176,7 +176,7 @@ bool j1Player::Update(float dt)
 	}
 	
 	//DRAW PLAYER -----------------------------------------
-	App->render->Blit(graphics, pos.x, pos.y, &(animation->GetCurrentFrame()), 1.0f);
+	App->render->Blit(graphics, pos.x, pos.y, 3, 3, &(animation->GetCurrentFrame()), 1.0f);
 
 	App->render->camera.x = -pos.x + 400;
 	App->render->camera.y = -pos.y + 200;
