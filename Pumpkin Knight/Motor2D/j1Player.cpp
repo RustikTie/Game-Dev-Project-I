@@ -43,19 +43,19 @@ j1Player::j1Player() : j1Module()
 	foward.loop = true;
 	foward.speed = 0.04f;
 	
-	backward.PushBack({ 1, 1, 30, 46 });
-	backward.PushBack({ 373, 1, 30, 46 });
-	backward.PushBack({ 342, 1, 30, 46 });
-	backward.PushBack({ 311, 1, 30, 46 });
-	backward.PushBack({ 280, 1, 30, 46 });
-	backward.PushBack({ 249, 1, 30, 46 });
-	backward.PushBack({ 218, 1, 30, 46 });
-	backward.PushBack({ 187, 1, 30, 46 });
-	backward.PushBack({ 156, 1, 30, 46 });
-	backward.PushBack({ 125, 1, 30, 46 });
-	backward.PushBack({ 94, 1, 30, 46 });
-	backward.PushBack({ 63, 1, 30, 46 });
-	backward.PushBack({ 32, 1, 30, 46 });
+	backward.PushBack({ 1, 189, 30, 46 });
+	backward.PushBack({ 32, 189, 30, 46 });
+	backward.PushBack({ 63, 189, 30, 46 });
+	backward.PushBack({ 94, 189, 30, 46 });
+	backward.PushBack({ 125, 189, 30, 46 });
+	backward.PushBack({ 156, 189, 30, 46 });
+	backward.PushBack({ 187, 189, 30, 46 });
+	backward.PushBack({ 218, 189, 30, 46 });
+	backward.PushBack({ 249, 189, 30, 46 });
+	backward.PushBack({ 280, 189, 30, 46 });
+	backward.PushBack({ 311, 189, 30, 46 });
+	backward.PushBack({ 342, 189, 30, 46 });
+	backward.PushBack({ 373, 189, 30, 46 });
 	backward.loop = true;
 	backward.speed = 0.02f;
 
