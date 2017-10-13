@@ -20,11 +20,11 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
-	int getX()
+	float getX()
 	{
 		return pos.x;
 	}
-	int getY()
+	float getY()
 	{
 		return pos.y;
 	}

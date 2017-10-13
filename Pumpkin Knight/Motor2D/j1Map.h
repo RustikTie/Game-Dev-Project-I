@@ -35,11 +35,12 @@ struct ImageLayer
 
 struct ObjectLayer
 {
-	uint				width;
-	uint				height;
-	int					x;
-	int					y;
-	uint				id;
+	p2SString			name;
+	uint*				width = nullptr;
+	uint*				height = nullptr;
+	int*				x = nullptr;
+	int*				y = nullptr;
+	uint*				id = nullptr;
 };
 
 // ----------------------------------------------------

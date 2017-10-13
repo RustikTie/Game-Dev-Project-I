@@ -58,13 +58,16 @@ void j1Map::Draw()
 		}
 	}
 
+	//Add Colliders
+	int i = 0;
 	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
 	{
-		int x = data.objectlayers[object_num]->x;
-		int y = data.objectlayers[object_num]->y;
-		int w = data.objectlayers[object_num]->width;
-		int h = data.objectlayers[object_num]->height;
+		int x = data.objectlayers[object_num]->x[i];
+		int y = data.objectlayers[object_num]->y[i];
+		int w = data.objectlayers[object_num]->width[i];
+		int h = data.objectlayers[object_num]->height[i];
 		App->collisions->AddCollider({ x, y, w, h }, COLLIDER_WALL);
+		++i;
 	}
 
 
@@ -134,6 +137,17 @@ bool j1Map::CleanUp()
 		item3 = item3->next;
 	}
 	data.imagelayers.clear();
+
+	//Clean Up Object layers
+
+	p2List_item<ObjectLayer*>* item4;
+	item4 = data.objectlayers.start;
+
+	while (item4 != NULL) {
+		RELEASE(item4->data);
+		item4->next;
+	}
+	data.objectlayers.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -212,17 +226,18 @@ bool j1Map::Load(const char* file_name)
 	//Load Object Layer info ----------------------------------------
 
 	xml_node objects;
-	for (objects = map_file.child("map").child("objectgroup"); objects && ret; objects = objects.next_sibling("objectgroup"))
+	/*for (objects = map_file.child("map").child("objectgroup"); objects && ret; objects = objects.next_sibling("objectgroup"))
 	{
 		ObjectLayer* setObject = new ObjectLayer();
 
-		if (ret == true)
-		{
-			ret = LoadObjectLayer(objects, setObject);
-		}
+			if (ret == true)
+			{
+				ret = LoadObjectLayer(objects, setObject);
+			}
 
 		data.objectlayers.add(setObject);
-	}
+	}*/	
+	
 
 	if(ret == true)
 	{
@@ -265,6 +280,17 @@ bool j1Map::Load(const char* file_name)
 			LOG("offset_x: %d, offset_y: %d", l->offset_x, l->offset_y);
 			image_layer = image_layer->next;
 			
+		}
+
+		p2List_item<ObjectLayer*>* object_layer = data.objectlayers.start;
+		while (object_layer != NULL)
+		{
+			ObjectLayer* l = object_layer->data;
+			LOG("Object ----");
+			LOG("ID: %d", l->id);
+			LOG("height: %d, width: %d", l->height, l->width);
+			LOG("x: %d, y: %d", l->x, l->y);
+		
 		}
 	}
 
@@ -433,6 +459,7 @@ inline uint MapLayer::Get(int x, int y) const
 bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 {
 	bool ret = true;
+	layer->name = node.attribute("name").as_string();
 
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.child("image").attribute("width").as_uint();
@@ -448,11 +475,20 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 
 bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 {
-	layer->width = node.child("object").attribute("widht").as_uint();
-	layer->height = node.child("object").attribute("height").as_uint();
-	layer->x = node.child("object").attribute("x").as_int();
-	layer->y = node.child("object").attribute("y").as_int();
-	layer->id = node.child("object").attribute("id").as_uint();
+	pugi::xml_node aux;
+	int i = 0;
+
+	for (aux = node.first_child(); aux != node.last_child(); aux.next_sibling("object"))
+	{
+		layer->width[i] = aux.attribute("width").as_uint();
+		layer->height[i] = aux.attribute("height").as_uint();
+		layer->x[i] = aux.attribute("x").as_int();
+		layer->y[i] = aux.attribute("y").as_int();
+		layer->id[i] = aux.attribute("id").as_uint();
+
+		++i;
+	}
+
 
 	return true;
 }
