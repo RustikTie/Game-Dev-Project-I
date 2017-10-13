@@ -11,11 +11,11 @@
 struct MapLayer
 {
 	inline uint Get(int x, int y) const;
-	p2SString			name;
-	uint				width;
-	uint				height;
-	uint*				data = nullptr;
-	uint				size = 0;
+	p2SString name;
+	uint width;
+	uint height;
+	uint* data = nullptr;
+	uint size = 0;
 
 	
 	~MapLayer() { delete[] data; }
@@ -24,13 +24,11 @@ struct MapLayer
 
 struct ImageLayer 
 {
-	p2SString			name;
-	uint				width;
-	uint				height;
-	int					offset_x;
-	int					offset_y;
-	float				speed;
-	SDL_Texture*		texture;
+	p2SString name;
+	uint width;
+	uint height;
+	float speed;
+	SDL_Texture* texture;
 };
 
 // ----------------------------------------------------
