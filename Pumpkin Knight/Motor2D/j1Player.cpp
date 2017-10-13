@@ -87,7 +87,7 @@ bool j1Player::Start()
 {
 	LOG("Loading Player");
 
-	player = App->collisions->AddCollider({0, 550, 25*3, 40*3}, COLLIDER_PLAYER);
+	player = App->collisions->AddCollider({0, 500, 18*3, 27*3}, COLLIDER_PLAYER);
 
 	graphics = App->tex->Load("assets/Pumpkin sprites.png");
 	if (graphics != NULL)
@@ -183,7 +183,7 @@ bool j1Player::Update(float dt)
 
 	if (player != nullptr)
 	{
-		player->SetPos(pos.x + 10, pos.y + 10);
+		player->SetPos(pos.x + 10, pos.y + 50);
 	}
 
 	return true;
