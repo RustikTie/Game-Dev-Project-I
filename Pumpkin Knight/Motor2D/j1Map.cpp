@@ -52,13 +52,20 @@ void j1Map::Draw()
 					SDL_Rect tile_rect = data.tilesets[layer_num]->GetTileRect(id);
 					int x = MapToWorld(i, j).x;
 					int y = MapToWorld(i, j).y;
-					App->render->Blit(data.tilesets[layer_num]->texture, x, y, 3, 3, &tile_rect);
+					App->render->Blit(data.tilesets[layer_num]->texture, x, y, 1, 1, &tile_rect);
 				}
 			}
 		}
 	}
 
-
+	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
+	{
+		int x = data.objectlayers[object_num]->x;
+		int y = data.objectlayers[object_num]->y;
+		int w = data.objectlayers[object_num]->width;
+		int h = data.objectlayers[object_num]->height;
+		App->collisions->AddCollider({ x, y, w, h }, COLLIDER_WALL);
+	}
 
 
 		// TODO 9: Complete the draw function
@@ -187,6 +194,21 @@ bool j1Map::Load(const char* file_name)
 		}
 
 		data.imagelayers.add(setImage);
+	}
+
+	//Load Object Layer info ----------------------------------------
+
+	xml_node objects;
+	for (objects = map_file.child("map").child("objectgroup"); objects && ret; objects = objects.next_sibling("objectgroup"))
+	{
+		ObjectLayer* setObject = new ObjectLayer();
+
+		if (ret == true)
+		{
+			ret = LoadObjectLayer(objects, setObject);
+		}
+
+		data.objectlayers.add(setObject);
 	}
 
 	if(ret == true)
@@ -409,6 +431,17 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 	layer->texture = App->tex->Load(PATH(folder.GetString(), node.child("image").attribute("source").as_string()));
 
 	return ret;
+}
+
+bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
+{
+	layer->width = node.child("object").attribute("widht").as_uint();
+	layer->height = node.child("object").attribute("height").as_uint();
+	layer->x = node.child("object").attribute("x").as_int();
+	layer->y = node.child("object").attribute("y").as_int();
+	layer->id = node.child("object").attribute("id").as_uint();
+
+	return true;
 }
 
 

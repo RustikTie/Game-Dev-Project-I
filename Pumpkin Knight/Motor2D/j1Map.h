@@ -33,6 +33,15 @@ struct ImageLayer
 	SDL_Texture* texture;
 };
 
+struct ObjectLayer
+{
+	uint				width;
+	uint				height;
+	int					x;
+	int					y;
+	uint				id;
+};
+
 // ----------------------------------------------------
 struct TileSet
 {
@@ -74,6 +83,7 @@ struct MapData
 	// TODO 2: Add a list/array of layers to the map!
 	p2List<MapLayer*>	maplayers;
 	p2List<ImageLayer*>	imagelayers;
+	p2List<ObjectLayer*> objectlayers;
 };
 
 // ----------------------------------------------------
@@ -109,6 +119,7 @@ private:
 	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* layer);
+	bool LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer);
 
 public:
 

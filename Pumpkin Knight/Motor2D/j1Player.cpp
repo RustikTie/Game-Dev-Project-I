@@ -119,7 +119,7 @@ bool j1Player::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		animation = &foward;
-		speed = 1.0f;
+		speed = 0.7f;
 		right = true;
 	}
 
@@ -128,7 +128,7 @@ bool j1Player::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ) 
 	{
 		animation = &backward;
-		speed = 1.0f;
+		speed = 0.7f;
 		right = false;
 	}
 
@@ -138,11 +138,11 @@ bool j1Player::Update(float dt)
 	}
 	if (jumping == true && right == true)
 	{
-		pos.x += speed/2;
+		pos.x += speed - 0.2f;
 	}
 	else if (jumping == true && right == false)
 	{
-		pos.x -= speed / 2;
+		pos.x -= (speed - 0.2f);
 	}
 	else if (jumping == false && right == true)
 	{
