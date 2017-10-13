@@ -75,7 +75,7 @@ j1Player::j1Player() : j1Module()
 	jump.speed = 0.03f;
 
 	pos.x = 0;
-	pos.y = 550;
+	pos.y = 250;
 }
 
 
@@ -152,7 +152,7 @@ bool j1Player::Update(float dt)
 	{
 		pos.x -= speed;
 	}
-	if (jumping == true && counter < 240)
+	if (jumping == true && counter < 240.9f)
 	{
 		animation = &jump;
 		gravity = 1.0f;
@@ -160,7 +160,7 @@ bool j1Player::Update(float dt)
 		++counter;
 	}
 
-	if (jumping == true && counter >= 240)
+	if (jumping == true && counter >= 240.9f)
 	{
 		++counter;
 		animation = &jump;

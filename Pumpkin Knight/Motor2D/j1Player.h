@@ -43,7 +43,7 @@ private:
 	Animation death;
 
 	bool jumping = false;
-	int counter = 0;
+	float counter = 0.0f;
 	bool right = false;
 	bool left = false;
 
