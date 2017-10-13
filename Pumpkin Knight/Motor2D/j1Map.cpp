@@ -34,12 +34,14 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
-	// TODO 5: Prepare the loop to draw all tilesets + Blit
+	//Blit Parallax
 	for (uint image_num = 0; image_num < data.imagelayers.count(); ++image_num)
 	{
-		App->render->Blit(data.imagelayers[image_num]->texture, 0, 0, NULL, data.imagelayers[image_num]->speed);
+		App->render->Blit(data.imagelayers[image_num]->texture, data.imagelayers[image_num]->offset_x, data.imagelayers[image_num]->offset_y, NULL, data.imagelayers[image_num]->speed);
 
 	}
+
+	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
 		for (int i = 0; i < data.width; ++i)
@@ -402,6 +404,8 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 	layer->width = node.child("image").attribute("width").as_uint();
 	layer->height = node.child("image").attribute("height").as_uint();
 	layer->speed = node.child("properties").child("property").attribute("value").as_float();
+	layer->offset_x = node.attribute("offsetx").as_int();
+	layer->offset_y = node.attribute("offsety").as_int();
 	//layer->texture = App->tex->Load(node.child("image").attribute("source").as_string());
 	layer->texture = App->tex->Load(PATH(folder.GetString(), node.child("image").attribute("source").as_string()));
 
