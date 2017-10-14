@@ -59,15 +59,16 @@ void j1Map::Draw()
 	}
 
 	//Add Colliders
-	int i = 0;
 	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
 	{
+
 		int x = data.objectlayers[object_num]->x[object_num];
 		int y = data.objectlayers[object_num]->y[object_num];
 		int w = data.objectlayers[object_num]->width[object_num];
 		int h = data.objectlayers[object_num]->height[object_num];
-		App->collisions->AddCollider({ x, y, w, h }, COLLIDER_WALL);
-		++i;
+		SDL_Rect collider = { x, y, w, h };
+		App->collisions->AddCollider(collider, COLLIDER_WALL);
+	
 	}
 
 
@@ -290,7 +291,7 @@ bool j1Map::Load(const char* file_name)
 			LOG("ID: %d", l->id);
 			LOG("height: %d, width: %d", l->height, l->width);
 			LOG("x: %d, y: %d", l->x, l->y);
-		
+			object_layer = object_layer->next;
 		}
 	}
 
@@ -476,20 +477,21 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 {
 	pugi::xml_node aux;
+	aux = node.child("object");
 	int i = 0;
 	layer->width = new uint[20];
 	layer->height = new uint[20];
 	layer->x = new int[20];
 	layer->y = new int[20];
 	layer->id = new uint[20];
-	for (aux = node.first_child(); aux != node.last_child(); aux.next_sibling("object"))
+	while (aux != aux.last_child())
 	{
 		layer->width[i] = aux.attribute("width").as_uint();
 		layer->height[i] = aux.attribute("height").as_uint();
 		layer->x[i] = aux.attribute("x").as_int();
 		layer->y[i] = aux.attribute("y").as_int();
 		layer->id[i] = aux.attribute("id").as_uint();
-
+		aux = aux.next_sibling("object");
 		++i;
 	}
 
