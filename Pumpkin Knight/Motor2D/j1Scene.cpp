@@ -81,13 +81,13 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6))
 		App->LoadGame();
 	
-	if (App->player->getX() >= 50.f) 
+	if (App->player->getX() >= 50.f && level1 == true) 
 	{
 		App->map->CleanUp();
-		App->collisions->CleanUp();
-		App->player->player = App->collisions->AddCollider({ 0, 500, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, this);
+		App->collisions->Erase_Non_Player_Colliders();
 		App->map->Load("level2_v1.tmx");
 		App->player->SetPos(10, 250);
+		level1 = false;
 	}
 
 	//App->render->Blit(img, 0, 0);
