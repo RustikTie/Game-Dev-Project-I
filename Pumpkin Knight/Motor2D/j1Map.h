@@ -125,6 +125,7 @@ private:
 public:
 
 	MapData data;
+	SDL_Rect collider;
 
 private:
 

@@ -15,7 +15,7 @@ public:
 	j1Player();
 	~j1Player();
 
-
+	void OnCollision(Collider* c1, Collider* c2);
 	bool Awake(pugi::xml_node& config);
 	bool Start();
 	bool Update(float dt);

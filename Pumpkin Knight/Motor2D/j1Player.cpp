@@ -6,6 +6,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Collisions.h"
+#include "j1Map.h"
 
 j1Player::j1Player() : j1Module()
 {
@@ -249,6 +250,12 @@ bool j1Player::Update(float dt)
 	App->render->camera.x = -pos.x + 400;
 	App->render->camera.y = -pos.y + 200;
 
+	/*if (player->CheckCollision(App->map->collider) == false)
+	{
+		pos.y += gravity;
+	}*/
+
+
 	if (player != nullptr)
 	{
 		player->SetPos(pos.x + 10, pos.y + 50);
@@ -256,6 +263,14 @@ bool j1Player::Update(float dt)
 
 	return true;
 
+}
+
+void j1Player::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c2->type == COLLIDER_WALL)
+	{
+		pos.y -= gravity;
+	}
 }
 
 

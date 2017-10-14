@@ -299,7 +299,7 @@ bool j1Map::Load(const char* file_name)
 			int y = data.objectlayers[object_num]->y[i];
 			int w = data.objectlayers[object_num]->width[i];
 			int h = data.objectlayers[object_num]->height[i];
-			SDL_Rect collider = { x, y, w, h };
+			collider = { x, y, w, h };
 			App->collisions->AddCollider(collider, COLLIDER_WALL);
 		}
 	

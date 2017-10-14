@@ -11,6 +11,8 @@
 
 class j1App;
 
+struct Collider;
+
 class j1Module
 {
 public:
@@ -69,7 +71,7 @@ public:
 		return true;
 	}
 
-	
+	virtual void OnCollision(Collider*, Collider*) {}
 
 public:
 
