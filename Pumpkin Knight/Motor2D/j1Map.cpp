@@ -62,10 +62,10 @@ void j1Map::Draw()
 	int i = 0;
 	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
 	{
-		int x = data.objectlayers[object_num]->x[i];
-		int y = data.objectlayers[object_num]->y[i];
-		int w = data.objectlayers[object_num]->width[i];
-		int h = data.objectlayers[object_num]->height[i];
+		int x = data.objectlayers[object_num]->x[object_num];
+		int y = data.objectlayers[object_num]->y[object_num];
+		int w = data.objectlayers[object_num]->width[object_num];
+		int h = data.objectlayers[object_num]->height[object_num];
 		App->collisions->AddCollider({ x, y, w, h }, COLLIDER_WALL);
 		++i;
 	}
@@ -226,7 +226,7 @@ bool j1Map::Load(const char* file_name)
 	//Load Object Layer info ----------------------------------------
 
 	xml_node objects;
-	/*for (objects = map_file.child("map").child("objectgroup"); objects && ret; objects = objects.next_sibling("objectgroup"))
+	for (objects = map_file.child("map").child("objectgroup"); objects && ret; objects = objects.next_sibling("objectgroup"))
 	{
 		ObjectLayer* setObject = new ObjectLayer();
 
@@ -236,7 +236,7 @@ bool j1Map::Load(const char* file_name)
 			}
 
 		data.objectlayers.add(setObject);
-	}*/	
+	}
 	
 
 	if(ret == true)
@@ -477,7 +477,11 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 {
 	pugi::xml_node aux;
 	int i = 0;
-
+	layer->width = new uint[20];
+	layer->height = new uint[20];
+	layer->x = new int[20];
+	layer->y = new int[20];
+	layer->id = new uint[20];
 	for (aux = node.first_child(); aux != node.last_child(); aux.next_sibling("object"))
 	{
 		layer->width[i] = aux.attribute("width").as_uint();
