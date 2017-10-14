@@ -186,6 +186,17 @@ bool j1Collisions::EraseCollider(Collider* collider)
 	return false;
 }
 
+void j1Collisions::Erase_Non_Player_Colliders()
+{
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] != nullptr && colliders[i]->type != COLLIDER_PLAYER)
+		{
+			delete colliders[i];
+			colliders[i] = nullptr;
+		}
+	}
+}
 // -----------------------------------------------------
 
 bool Collider::CheckCollision(const SDL_Rect& r) const

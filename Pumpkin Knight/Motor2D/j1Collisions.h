@@ -62,6 +62,7 @@ public:
 	bool checkColisionList(Collider* enemCollider);
 	bool CollisionOnX(Collider* col, SDL_Rect wall);
 	bool CollisionOnY(Collider* player, Collider* ground);
+	void Erase_Non_Player_Colliders();
 
 private:
 	Collider* colliders[MAX_COLLIDERS];
