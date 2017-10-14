@@ -142,7 +142,7 @@ bool j1Player::Update(float dt)
 	{
 		jumping = true;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && jumping == false)
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		pos.x += speed;
 		animation = &forward;
@@ -151,7 +151,7 @@ bool j1Player::Update(float dt)
 		right = true;
 	}
 	//BACKWARD
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT && jumping == false)
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		if (pos.x > 2)
 		{
@@ -161,6 +161,18 @@ bool j1Player::Update(float dt)
 		last_direction = &backward;
 		left = true;
 		right = false;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		jumping = true;
+		last_direction = &forward;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		jumping = true;
+		last_direction = &backward;
 	}
 	//IDLE RIGHT
 	else if (last_direction == nullptr || last_direction == &forward && jumping == false)
@@ -293,7 +305,4 @@ bool j1Player::CleanUp()
 	return true;
 }
 
-void j1Player::Jump() 
-{
-			
-}
+
