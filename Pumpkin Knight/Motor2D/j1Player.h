@@ -38,11 +38,13 @@ private:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* textures = nullptr;
 	Animation* animation = nullptr;
-	Animation* animation2 = nullptr;
+	Animation* last_direction = nullptr;
 	Animation idle;
 	Animation foward;
 	Animation backward;
 	Animation jump;
+	Animation jumpBackward;
+	Animation idleLeft;
 	Animation death;
 
 	bool jumping = false;

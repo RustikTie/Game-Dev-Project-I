@@ -41,7 +41,7 @@ j1Player::j1Player() : j1Module()
 	foward.PushBack({ 342, 1, 30, 46 });
 	foward.PushBack({ 373, 1, 30, 46 });
 	foward.loop = true;
-	foward.speed = 0.04f;
+	foward.speed = 0.02f;
 	
 	backward.PushBack({ 1, 189, 30, 46 });
 	backward.PushBack({ 32, 189, 30, 46 });
@@ -73,6 +73,35 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 280, 95, 30, 46 });
 	jump.loop = false;
 	jump.speed = 0.03f;
+
+	jumpBackward.PushBack({280, 283, 30, 46});
+	jumpBackward.PushBack({ 249, 283, 30, 46 });
+	jumpBackward.PushBack({ 218, 283, 30, 46 });
+	jumpBackward.PushBack({ 218, 283, 30, 46 });
+	jumpBackward.PushBack({ 187, 283, 30, 46 });
+	jumpBackward.PushBack({ 156, 283, 30, 46 });
+	jumpBackward.PushBack({ 125, 283, 30, 46 });
+	jumpBackward.PushBack({ 94, 283, 30, 46 });
+	jumpBackward.PushBack({ 63, 283, 30, 46 });
+	jumpBackward.PushBack({ 63, 283, 30, 46 });
+	jumpBackward.PushBack({ 32, 283, 30, 46 });
+	jumpBackward.PushBack({ 1, 283, 30, 46 });
+	jumpBackward.loop = false;
+	jumpBackward.speed = 0.03f;
+
+	idleLeft.PushBack({311, 236, 30, 46});
+	idleLeft.PushBack({ 280, 236, 30, 46 });
+	idleLeft.PushBack({ 249, 236, 30, 46 });
+	idleLeft.PushBack({ 218, 236, 30, 46 });
+	idleLeft.PushBack({ 187, 236, 30, 46 });
+	idleLeft.PushBack({ 156, 236, 30, 46 });
+	idleLeft.PushBack({ 125, 236, 30, 46 });
+	idleLeft.PushBack({ 94, 236, 30, 46 });
+	idleLeft.PushBack({ 63, 236, 30, 46 });
+	idleLeft.PushBack({ 32, 236, 30, 46 });
+	idleLeft.PushBack({ 1, 236, 30, 46 });
+	idleLeft.loop = true;
+	idleLeft.speed = 0.01f;
 
 	pos.x = 0;
 	pos.y = 250;
@@ -114,28 +143,38 @@ bool j1Player::Update(float dt)
 	{
 		jumping = true;
 	}
+
 	// MOVEMENT -------------------------------------------
 	//FOWARDS
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		animation = &foward;
 		speed = 0.7f;
 		right = true;
+		last_direction = &foward;
 	}
 
 	
 	//BACKWARDS
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ) 
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		animation = &backward;
 		speed = 0.7f;
 		right = false;
+		last_direction = &backward;
 	}
 
-	else
+	//IDLE
+	else if (last_direction == &foward || last_direction == nullptr)
 	{
 		animation = &idle;
 	}
+	else if (last_direction == &backward)
+	{
+		animation = &idleLeft;
+	}
+
+	//JUMP
 	if (jumping == true && right == true)
 	{
 		pos.x += speed - 0.2f;
@@ -152,15 +191,22 @@ bool j1Player::Update(float dt)
 	{
 		pos.x -= speed;
 	}
-	if (jumping == true && counter < 241.9f)
+	if (jumping == true && counter < 241.9f && right == true)
 	{
 		animation = &jump;
 		gravity = 1.0f;
 		pos.y -= gravity;
 		++counter;
 	}
+	if (jumping == true && counter < 241.9f && right == false)
+	{
+		animation = &jumpBackward;
+		gravity = 1.0f;
+		pos.y -= gravity;
+		++counter;
+	}
 
-	if (jumping == true && counter >= 241.9f)
+	if (jumping == true && counter >= 241.9f && right == true)
 	{
 		++counter;
 		animation = &jump;
@@ -171,6 +217,21 @@ bool j1Player::Update(float dt)
 		{
 			jumping = false;
 			jump.Reset();
+			counter = 0;
+		}
+	}
+
+	if (jumping == true && counter >= 241.9f && right == false)
+	{
+		++counter;
+		animation = &jumpBackward;
+		gravity = 1.5f;
+		pos.y += gravity;
+
+		if (jumpBackward.Finished())
+		{
+			jumping = false;
+			jumpBackward.Reset();
 			counter = 0;
 		}
 	}
