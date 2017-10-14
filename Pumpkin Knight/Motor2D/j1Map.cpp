@@ -40,6 +40,9 @@ void j1Map::Draw()
 		App->render->Blit(data.imagelayers[image_num]->texture, data.imagelayers[image_num]->offset_x, data.imagelayers[image_num]->offset_y, 1, 1, NULL, data.imagelayers[image_num]->speed);	
 		
 	}
+
+	LOG("OFFSETX: %d", data.imagelayers[0]->offset_x);
+
 	for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
 		for (int i = 0; i < data.width; ++i)
@@ -128,15 +131,15 @@ bool j1Map::CleanUp()
 	data.imagelayers.clear();
 
 	//Clean Up Object layers
-
-	/*p2List_item<ObjectLayer*>* item4;
+	p2List_item<ObjectLayer*>* item4;
 	item4 = data.objectlayers.start;
 
-	while (item4 != NULL) {
+	while (item4 != NULL)
+	{
 		RELEASE(item4->data);
-		item4->next;
+		item4 = item4->next;
 	}
-	data.objectlayers.clear();*/
+	data.objectlayers.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -288,7 +291,6 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
-
 	//SET COLLIDERS 
 
 	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
@@ -302,12 +304,7 @@ bool j1Map::Load(const char* file_name)
 			collider = { x, y, w, h };
 			App->collisions->AddCollider(collider, COLLIDER_WALL);
 		}
-	
-
 	}
-
-	
-
 
 	map_loaded = ret;
 

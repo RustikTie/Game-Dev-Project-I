@@ -10,6 +10,6 @@
     		<player_pos x ="10" y="200" />
 	<colliders />
 	<renderer>
-		<camera x="362" y="-1461" />
+		<camera x="-151" y="-1428" />
 	</renderer>
 </game_state>

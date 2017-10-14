@@ -34,7 +34,7 @@ public:
 
 private:
 
-
+	bool level1 = true;
 };
 
 #endif // __j1SCENE_H__
