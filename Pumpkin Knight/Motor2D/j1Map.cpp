@@ -38,10 +38,8 @@ void j1Map::Draw()
 	for (uint image_num = 0; image_num < data.imagelayers.count(); ++image_num)
 	{
 		App->render->Blit(data.imagelayers[image_num]->texture, data.imagelayers[image_num]->offset_x, data.imagelayers[image_num]->offset_y, 1, 1, NULL, data.imagelayers[image_num]->speed);	
-		
 	}
 
-	LOG("OFFSETX: %d", data.imagelayers[0]->offset_x);
 
 	for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
