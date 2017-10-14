@@ -1,7 +1,7 @@
 #ifndef __ModuleCollision_H__
 #define __ModuleCollision_H__
 
-#define MAX_COLLIDERS 10000
+#define MAX_COLLIDERS 1000
 
 #include "j1Module.h"
 #include "p2Log.h"
@@ -40,7 +40,6 @@ struct Collider
 
 	bool CheckCollision(const SDL_Rect& r) const;
 	
-	bool CheckFutureColision(const SDL_Rect& r);
 };
 
 class j1Collisions : public j1Module

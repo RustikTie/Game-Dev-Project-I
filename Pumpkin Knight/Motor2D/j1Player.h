@@ -55,6 +55,7 @@ private:
 	fPoint pos;
 	float gravity;
 	float speed;
+	float yspeed;
 	float ground;
 };
 
