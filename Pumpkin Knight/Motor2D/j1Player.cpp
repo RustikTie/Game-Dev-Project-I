@@ -138,7 +138,7 @@ bool j1Player::Update(float dt)
 
 	//MOVEMEMT
 	//FORWARD
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
 		jumping = true;
 	}
@@ -181,16 +181,16 @@ bool j1Player::Update(float dt)
 		if (jumping == true && counter < 241.9f && last_direction == &forward)
 		{
 			animation = &jump;
-			gravity = 1.0f;
-			pos.y -= gravity;
+			yspeed = 1.0f;
+			pos.y -= yspeed;
 			++counter;
 		}
 		if (jumping == true && counter >= 241.9f && last_direction == &forward)
 		{
 			++counter;
 			animation = &jump;
-			gravity = 1.5f;
-			pos.y += gravity;
+			yspeed = 1.5f;
+			pos.y += yspeed;
 
 			if (jump.Finished())
 			{
@@ -232,7 +232,7 @@ bool j1Player::Update(float dt)
 				jumpBackward.Reset();
 				counter = 0;
 			}
-		}*/	
+		}*/
 	
 
 	//DRAW PLAYER -----------------------------------------
@@ -266,6 +266,23 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
+bool j1Player::Load(pugi::xml_node& data)
+{
+	pos.x = data.child("player_pos").attribute("x").as_float();
+	pos.y = data.child("player_pos").attribute("y").as_float();
+
+	return true;
+}
+
+bool j1Player::Save(pugi::xml_node& data)const
+{
+	pugi::xml_node& node = data.append_child("player_pos");
+
+	node.append_attribute("x") = pos.x;
+	node.append_attribute("y") = pos.y;
+
+	return true;
+}
 
 bool j1Player::CleanUp() 
 {

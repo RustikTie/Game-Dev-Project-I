@@ -21,6 +21,8 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&)const;
 	float getX()
 	{
 		return pos.x;
