@@ -28,21 +28,21 @@ j1Player::j1Player() : j1Module()
 	idle.loop = true;
 	idle.speed = 0.01f;
 
-	foward.PushBack({ 1, 1, 30, 46 });
-	foward.PushBack({ 32, 1, 30, 46 });
-	foward.PushBack({ 63, 1, 30, 46 });
-	foward.PushBack({ 94, 1, 30, 46 });
-	foward.PushBack({ 125, 1, 30, 46 });
-	foward.PushBack({ 156, 1, 30, 46 });
-	foward.PushBack({ 187, 1, 30, 46 });
-	foward.PushBack({ 218, 1, 30, 46 });
-	foward.PushBack({ 249, 1, 30, 46 });
-	foward.PushBack({ 280, 1, 30, 46 });
-	foward.PushBack({ 311, 1, 30, 46 });
-	foward.PushBack({ 342, 1, 30, 46 });
-	foward.PushBack({ 373, 1, 30, 46 });
-	foward.loop = true;
-	foward.speed = 0.02f;
+	forward.PushBack({ 1, 1, 30, 46 });
+	forward.PushBack({ 32, 1, 30, 46 });
+	forward.PushBack({ 63, 1, 30, 46 });
+	forward.PushBack({ 94, 1, 30, 46 });
+	forward.PushBack({ 125, 1, 30, 46 });
+	forward.PushBack({ 156, 1, 30, 46 });
+	forward.PushBack({ 187, 1, 30, 46 });
+	forward.PushBack({ 218, 1, 30, 46 });
+	forward.PushBack({ 249, 1, 30, 46 });
+	forward.PushBack({ 280, 1, 30, 46 });
+	forward.PushBack({ 311, 1, 30, 46 });
+	forward.PushBack({ 342, 1, 30, 46 });
+	forward.PushBack({ 373, 1, 30, 46 });
+	forward.loop = true;
+	forward.speed = 0.02f;
 	
 	backward.PushBack({ 1, 189, 30, 46 });
 	backward.PushBack({ 32, 189, 30, 46 });
@@ -136,114 +136,106 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 bool j1Player::Update(float dt) 
 {
-	speed = 0.0f;
+	speed = 0.6f;
 	gravity = 0.6f;
-	
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	float y = pos.y;
+
+	//MOVEMEMT
+	//FORWARD
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		jumping = true;
 	}
-
-	// MOVEMENT -------------------------------------------
-	//FOWARDS
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && jumping == false)
 	{
-		animation = &foward;
-		speed = 0.7f;
-		right = true;
+		pos.x += speed;
+		animation = &forward;
+		last_direction = &forward;
 		left = false;
-		last_direction = &foward;
+		right = true;
 	}
-
-	
-	//BACKWARDS
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	//BACKWARD
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT && jumping == false)
 	{
-		animation = &backward;
-		speed = 0.7f;
+		if (pos.x > 2)
+		{
+			pos.x -= speed;		
+			animation = &backward;
+		}
+		last_direction = &backward;
 		left = true;
 		right = false;
-		last_direction = &backward;
 	}
-
-
-	//IDLE
-	else if (last_direction == &foward || last_direction == nullptr)
+	//IDLE RIGHT
+	else if (last_direction == nullptr || last_direction == &forward && jumping == false)
 	{
 		animation = &idle;
+		last_direction = &idle;
 	}
-	else if (last_direction == &backward)
+	//IDLE LEFT
+	else if (last_direction == &backward && jumping == false)
 	{
 		animation = &idleLeft;
-	}
-	else
-	{
-		last_direction = &foward;
+		last_direction = &idleLeft;
 	}
 	//JUMP
 	if (jumping == true && right == true)
 	{
-		pos.x += speed - 0.2f;
+		pos.x += speed;
+		if (jumping == true && counter < 241.9f && last_direction == &forward)
+		{
+			animation = &jump;
+			gravity = 1.0f;
+			pos.y -= gravity;
+			++counter;
+		}
+		if (jumping == true && counter >= 241.9f && last_direction == &forward)
+		{
+			++counter;
+			animation = &jump;
+			gravity = 1.5f;
+			pos.y += gravity;
+
+			if (jump.Finished())
+			{
+				jumping = false;
+				jump.Reset();
+				counter = 0;
+			}
+		}
 	}
 	else if (jumping == true && left == true)
 	{
-		pos.x -= (speed - 0.2f);
-	}
-	else if (jumping == false && right == true)
-	{
-		pos.x += speed;
-		right = false;
-	}
-	else if (jumping == false && left == true)
-	{
 		pos.x -= speed;
-		left = false;
-	}
-	if (jumping == true && counter < 241.9f && last_direction == &foward)
-	{
-		animation = &jump;
-		gravity = 1.0f;
-		pos.y -= gravity;
-		++counter;
-	}
-	if (jumping == true && counter < 241.9f && last_direction == &backward)
-	{
-		animation = &jumpBackward;
-		gravity = 1.0f;
-		pos.y -= gravity;
-		++counter;
-	}
-
-	if (jumping == true && counter >= 241.9f && last_direction == &foward)
-	{
-		++counter;
-		animation = &jump;
-		gravity = 1.5f;
-		pos.y += gravity;
-		
-		if (jump.Finished())
+		if (jumping == true && counter < 241.9f && last_direction == &backward)
 		{
-			jumping = false;
-			jump.Reset();
-			counter = 0;
+			animation = &jumpBackward;
+			gravity = 1.0f;
+			pos.y -= gravity;
+			++counter;
 		}
-	}
-
-	if (jumping == true && counter >= 241.9f && last_direction == &backward)
-	{
-		++counter;
-		animation = &jumpBackward;
-		gravity = 1.5f;
-		pos.y += gravity;
-
-		if (jumpBackward.Finished())
+		if (jumping == true && counter >= 241.9f && last_direction == &backward)
 		{
-			jumping = false;
-			jumpBackward.Reset();
-			counter = 0;
+			++counter;
+			animation = &jumpBackward;
+			gravity = 1.5f;
+			pos.y += gravity;
+
+			if (jumpBackward.Finished())
+			{
+				jumping = false;
+				jumpBackward.Reset();
+				counter = 0;
+			}
 		}
 	}
 	
+	
+
+	
+
+	
+
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, &(animation->GetCurrentFrame()), 1.0f);
 
@@ -260,7 +252,7 @@ bool j1Player::Update(float dt)
 	{
 		player->SetPos(pos.x + 10, pos.y + 50);
 	}
-
+	
 	return true;
 
 }
@@ -283,3 +275,7 @@ bool j1Player::CleanUp()
 	return true;
 }
 
+void j1Player::Jump() 
+{
+			
+}

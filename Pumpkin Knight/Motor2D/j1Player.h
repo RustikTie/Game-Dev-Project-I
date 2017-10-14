@@ -32,6 +32,7 @@ public:
 		pos.x = x;
 		pos.y = y;
 	}
+	void Jump();
 	Collider* player;
 
 private:
@@ -40,7 +41,7 @@ private:
 	Animation* animation = nullptr;
 	Animation* last_direction = nullptr;
 	Animation idle;
-	Animation foward;
+	Animation forward;
 	Animation backward;
 	Animation jump;
 	Animation jumpBackward;
