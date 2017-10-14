@@ -16,7 +16,7 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	
 
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	
 }
@@ -73,17 +73,16 @@ bool j1Collisions::Update(float dt)
 
 			c2 = colliders[k];
 
-			if (c1->CheckFutureColision(c2->rect) == true)
+			if (c1->CheckCollision(c2->rect) == true)
 			{
-				if (c1->to_delete == false && c2->to_delete != true) {
-					if (matrix[c1->type][c2->type] && c1->callback)
-						c1->callback->OnCollision(c1, c2);
 
-					if (c1->to_delete == false) {
-						if (matrix[c2->type][c1->type] && c2->callback)
-							c2->callback->OnCollision(c2, c1);
-					}
-				}
+				if (matrix[c1->type][c2->type] && c1->callback)
+					c1->callback->OnCollision(c1, c2);
+
+
+				if (matrix[c2->type][c1->type] && c2->callback)
+					c2->callback->OnCollision(c2, c1);
+
 			}
 		}
 	}
@@ -202,14 +201,3 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	}
 }
 
-bool Collider::CheckFutureColision(const SDL_Rect& r)
-{
-	if (rect.x < r.x + r.w && rect.x + rect.w > r.x)
-	{
-		if (rect.y - 10 < r.y + r.h - 10 && rect.y + rect.h > r.y)
-		{
-			return true;
-		}
-	}
-	return false;
-}

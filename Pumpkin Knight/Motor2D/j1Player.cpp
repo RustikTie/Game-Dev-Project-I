@@ -117,13 +117,10 @@ bool j1Player::Start()
 {
 	LOG("Loading Player");
 
-	player = App->collisions->AddCollider({0, 500, 18*3, 27*3}, COLLIDER_PLAYER);
+	player = App->collisions->AddCollider({0, 500, 18*3, 27*3}, COLLIDER_PLAYER, this);
 
 	graphics = App->tex->Load("assets/Pumpkin sprites.png");
-	if (graphics != NULL)
-	{
-		LOG("pene");
-	}
+	
 	return true;
 }
 
@@ -204,22 +201,31 @@ bool j1Player::Update(float dt)
 			}
 		}
 	}
-	else if (jumping == true && left == true)
+
+
+	if (jumping == true && counter >= 241.9f && last_direction == &forward)
 	{
-		pos.x -= speed;
-		if (jumping == true && counter < 241.9f && last_direction == &backward)
+		++counter;
+		animation = &jump;		
+		pos.x += speed;
+		if (jump.Finished())
+
 		{
 			animation = &jumpBackward;
-			gravity = 1.0f;
-			pos.y -= gravity;
+			yspeed = 0.9f;
+			pos.y += yspeed;
 			++counter;
 		}
-		if (jumping == true && counter >= 241.9f && last_direction == &backward)
+	}
+
+	if (jumping == true && counter >= 241.9f && last_direction == &backward)
+
 		{
+			pos.x -= speed;
 			++counter;
 			animation = &jumpBackward;
-			gravity = 1.5f;
-			pos.y += gravity;
+			yspeed = 0.9f;
+			pos.y += yspeed;
 
 			if (jumpBackward.Finished())
 			{
@@ -228,7 +234,7 @@ bool j1Player::Update(float dt)
 				counter = 0;
 			}
 		}
-	}
+	
 	
 	
 
@@ -242,10 +248,11 @@ bool j1Player::Update(float dt)
 	App->render->camera.x = -pos.x + 400;
 	App->render->camera.y = -pos.y + 200;
 
-	/*if (player->CheckCollision(App->map->collider) == false)
+	if (player->CheckCollision(App->map->collider) == false)
 	{
 		pos.y += gravity;
-	}*/
+	}
+
 
 
 	if (player != nullptr)
@@ -253,6 +260,7 @@ bool j1Player::Update(float dt)
 		player->SetPos(pos.x + 10, pos.y + 50);
 	}
 	
+
 	return true;
 
 }
