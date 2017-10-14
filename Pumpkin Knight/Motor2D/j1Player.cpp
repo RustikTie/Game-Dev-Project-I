@@ -138,7 +138,6 @@ bool j1Player::Update(float dt)
 	speed = 0.0f;
 	gravity = 0.6f;
 	
-	
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
 		jumping = true;
@@ -151,6 +150,7 @@ bool j1Player::Update(float dt)
 		animation = &foward;
 		speed = 0.7f;
 		right = true;
+		left = false;
 		last_direction = &foward;
 	}
 
@@ -160,9 +160,11 @@ bool j1Player::Update(float dt)
 	{
 		animation = &backward;
 		speed = 0.7f;
+		left = true;
 		right = false;
 		last_direction = &backward;
 	}
+
 
 	//IDLE
 	else if (last_direction == &foward || last_direction == nullptr)
@@ -173,32 +175,37 @@ bool j1Player::Update(float dt)
 	{
 		animation = &idleLeft;
 	}
-
+	else
+	{
+		last_direction = &foward;
+	}
 	//JUMP
 	if (jumping == true && right == true)
 	{
 		pos.x += speed - 0.2f;
 	}
-	else if (jumping == true && right == false)
+	else if (jumping == true && left == true)
 	{
 		pos.x -= (speed - 0.2f);
 	}
 	else if (jumping == false && right == true)
 	{
 		pos.x += speed;
+		right = false;
 	}
-	else if (jumping == false && right == false)
+	else if (jumping == false && left == true)
 	{
 		pos.x -= speed;
+		left = false;
 	}
-	if (jumping == true && counter < 241.9f && right == true)
+	if (jumping == true && counter < 241.9f && last_direction == &foward)
 	{
 		animation = &jump;
 		gravity = 1.0f;
 		pos.y -= gravity;
 		++counter;
 	}
-	if (jumping == true && counter < 241.9f && right == false)
+	if (jumping == true && counter < 241.9f && last_direction == &backward)
 	{
 		animation = &jumpBackward;
 		gravity = 1.0f;
@@ -206,7 +213,7 @@ bool j1Player::Update(float dt)
 		++counter;
 	}
 
-	if (jumping == true && counter >= 241.9f && right == true)
+	if (jumping == true && counter >= 241.9f && last_direction == &foward)
 	{
 		++counter;
 		animation = &jump;
@@ -221,7 +228,7 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	if (jumping == true && counter >= 241.9f && right == false)
+	if (jumping == true && counter >= 241.9f && last_direction == &backward)
 	{
 		++counter;
 		animation = &jumpBackward;

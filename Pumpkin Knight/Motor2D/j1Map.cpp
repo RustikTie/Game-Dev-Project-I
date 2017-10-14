@@ -62,12 +62,12 @@ void j1Map::Draw()
 	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
 	{
 
-		int x = data.objectlayers[object_num]->x[object_num];
+		/*int x = data.objectlayers[object_num]->x[object_num];
 		int y = data.objectlayers[object_num]->y[object_num];
 		int w = data.objectlayers[object_num]->width[object_num];
 		int h = data.objectlayers[object_num]->height[object_num];
 		SDL_Rect collider = { x, y, w, h };
-		App->collisions->AddCollider(collider, COLLIDER_WALL);
+		App->collisions->AddCollider(collider, COLLIDER_WALL);*/
 	
 	}
 
