@@ -35,6 +35,7 @@ public:
 		pos.x = x;
 		pos.y = y;
 	}
+	void Jump();
 	Collider* player;
 
 private:
