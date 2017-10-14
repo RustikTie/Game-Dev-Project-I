@@ -37,8 +37,8 @@ void j1Map::Draw()
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	for (uint image_num = 0; image_num < data.imagelayers.count(); ++image_num)
 	{
-		App->render->Blit(data.imagelayers[image_num]->texture, data.imagelayers[image_num]->offset_x, data.imagelayers[image_num]->offset_y, 1, 1, NULL, data.imagelayers[image_num]->speed);
-
+		App->render->Blit(data.imagelayers[image_num]->texture, data.imagelayers[image_num]->offset_x, data.imagelayers[image_num]->offset_y, 1, 1, NULL, data.imagelayers[image_num]->speed);	
+		
 	}
 	for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
@@ -129,14 +129,14 @@ bool j1Map::CleanUp()
 
 	//Clean Up Object layers
 
-	p2List_item<ObjectLayer*>* item4;
+	/*p2List_item<ObjectLayer*>* item4;
 	item4 = data.objectlayers.start;
 
 	while (item4 != NULL) {
 		RELEASE(item4->data);
 		item4->next;
 	}
-	data.objectlayers.clear();
+	data.objectlayers.clear();*/
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -495,6 +495,7 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 	layer->x = new int[20];
 	layer->y = new int[20];
 	layer->id = new uint[20];
+	layer->rect = new SDL_Rect[20];
 
 	layer->name = node.attribute("name").as_string();
 
@@ -505,6 +506,11 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 		layer->y[i] = aux.attribute("y").as_int();
 		layer->width[i] = aux.attribute("width").as_uint();
 		layer->height[i] = aux.attribute("height").as_uint();
+		layer->rect[i].h = layer->height[i];
+		layer->rect[i].w = layer->width[i];
+		layer->rect[i].x = layer->x[i];
+		layer->rect[i].y = layer->y[i];
+
 		aux = aux.next_sibling("object");
 		++i;
 	}

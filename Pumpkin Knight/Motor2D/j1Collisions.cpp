@@ -94,7 +94,7 @@ bool j1Collisions::Update(float dt)
 
 void j1Collisions::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
 		LOG("YOu can see the colliders");
 		debug = !debug;
 	}
@@ -201,3 +201,17 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	}
 }
 
+bool j1Collisions::CollisionOnX(Collider* player, SDL_Rect wall)
+{
+	bool ret = false;
+	if ((player->rect.x + player->rect.w) == (wall.x - 1) && (player->rect.y + player->rect.h) >= wall.y && (player->rect.y + player->rect.h) <= (wall.y + wall.h))
+	{
+		ret = true;
+	}
+
+	return ret;
+}
+bool j1Collisions::CollisionOnY(Collider* player, Collider* ground)
+{
+	return false;
+}

@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "p2Point.h"
 #include "j1Collisions.h"
+#include "j1Map.h"
 
 struct SDL_Texture;
 

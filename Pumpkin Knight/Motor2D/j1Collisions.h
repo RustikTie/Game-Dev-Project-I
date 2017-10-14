@@ -60,7 +60,8 @@ public:
 	void DebugDraw();
 
 	bool checkColisionList(Collider* enemCollider);
-	
+	bool CollisionOnX(Collider* col, SDL_Rect wall);
+	bool CollisionOnY(Collider* player, Collider* ground);
 
 private:
 	Collider* colliders[MAX_COLLIDERS];

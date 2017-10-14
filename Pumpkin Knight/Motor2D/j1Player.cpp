@@ -104,8 +104,8 @@ j1Player::j1Player() : j1Module()
 	idleLeft.loop = true;
 	idleLeft.speed = 0.01f;
 
-	pos.x = 0;
-	pos.y = 250;
+	pos.x = 10;
+	pos.y = 200;
 }
 
 
@@ -117,8 +117,7 @@ bool j1Player::Start()
 {
 	LOG("Loading Player");
 
-	player = App->collisions->AddCollider({0, 500, 18*3, 27*3}, COLLIDER_PLAYER, this);
-
+	player = App->collisions->AddCollider({ 0, 500, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, this);
 	graphics = App->tex->Load("assets/Pumpkin sprites.png");
 	
 	return true;
@@ -176,7 +175,7 @@ bool j1Player::Update(float dt)
 		last_direction = &idleLeft;
 	}
 	//JUMP
-	if (jumping == true && right == true)
+	/*if (jumping == true && right == true)
 	{
 		pos.x += speed;
 		if (jumping == true && counter < 241.9f && last_direction == &forward)
@@ -233,13 +232,7 @@ bool j1Player::Update(float dt)
 				jumpBackward.Reset();
 				counter = 0;
 			}
-		}
-	
-	
-	
-
-	
-
+		}*/	
 	
 
 	//DRAW PLAYER -----------------------------------------

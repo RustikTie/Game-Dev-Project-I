@@ -41,6 +41,7 @@ struct ObjectLayer
 	int*				x = nullptr;
 	int*				y = nullptr;
 	uint*				id = nullptr;
+	SDL_Rect*			rect;
 };
 
 // ----------------------------------------------------

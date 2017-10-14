@@ -32,7 +32,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("level2_v1.tmx");
+	App->map->Load("level1_v2.tmx");
 
 	
 	return true;
@@ -47,12 +47,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame();
+	//if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		//App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame();
-
+	//if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		//App->SaveGame();
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 1;
 
@@ -65,17 +64,35 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
 
-	if (App->input->GetKey(SDL_SCANCODE_F1)) {
+	if (App->input->GetKey(SDL_SCANCODE_F1)) 
+	{
 		App->map->CleanUp();
 		App->collisions->CleanUp();
-		App->map->Load("level1_v2.tmx");
-		App->player->SetPos(10, 400);
+		App->map->Load("level1_v2.tmx");		
+		App->player->SetPos(10, 200);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F2))
+	{
+		App->player->SetPos(0, 250);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F5))
+		App->SaveGame();
+	
+	if (App->input->GetKey(SDL_SCANCODE_F6))
+		App->LoadGame();
+	
+	if (App->player->getX() >= 50.f) 
+	{
+		App->map->CleanUp();
+		App->collisions->CleanUp();
+		App->player->player = App->collisions->AddCollider({ 0, 500, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, this);
+		App->map->Load("level2_v1.tmx");
+		App->player->SetPos(10, 250);
 	}
 
-	
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-
+	
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
