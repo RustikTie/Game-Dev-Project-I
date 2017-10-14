@@ -58,20 +58,7 @@ void j1Map::Draw()
 		}
 	}
 
-	//Add Colliders
-	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
-	{
-
-		int x = data.objectlayers[object_num]->x[object_num];
-		int y = data.objectlayers[object_num]->y[object_num];
-		int w = data.objectlayers[object_num]->width[object_num];
-		int h = data.objectlayers[object_num]->height[object_num];
-		SDL_Rect collider = { x, y, w, h };
-		App->collisions->AddCollider(collider, COLLIDER_WALL);
 	
-	}
-
-
 		// TODO 9: Complete the draw function
 
 }
@@ -282,17 +269,40 @@ bool j1Map::Load(const char* file_name)
 			image_layer = image_layer->next;
 			
 		}
-
+		int i = 0;
 		p2List_item<ObjectLayer*>* object_layer = data.objectlayers.start;
 		while (object_layer != NULL)
 		{
 			ObjectLayer* l = object_layer->data;
-			LOG("Object ----");
-			LOG("ID: %d", l->id);
-			LOG("height: %d, width: %d", l->height, l->width);
-			LOG("x: %d, y: %d", l->x, l->y);
+			for (l->id[i]; l->id[i] != NULL; ++i) {
+				LOG("Object ----");
+				LOG("ID: %d", l->id[i]);
+				LOG("height: %d, width: %d", l->height[i], l->width[i]);
+				LOG("x: %d, y: %d", l->x[i], l->y[i]);
+			}
+			
 			object_layer = object_layer->next;
+
+			
 		}
+	}
+
+
+	//SET COLLIDERS 
+
+	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
+	{
+		
+		for (int i = 0; data.objectlayers[object_num]->id[i] != NULL; ++i) {
+			int x = data.objectlayers[object_num]->x[i];
+			int y = data.objectlayers[object_num]->y[i];
+			int w = data.objectlayers[object_num]->width[i];
+			int h = data.objectlayers[object_num]->height[i];
+			SDL_Rect collider = { x, y, w, h };
+			App->collisions->AddCollider(collider, COLLIDER_WALL);
+		}
+	
+
 	}
 
 	
@@ -477,20 +487,23 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 {
 	pugi::xml_node aux;
-	aux = node.child("object");
+	aux = node.first_child();
 	int i = 0;
 	layer->width = new uint[20];
 	layer->height = new uint[20];
 	layer->x = new int[20];
 	layer->y = new int[20];
 	layer->id = new uint[20];
+
+	layer->name = node.attribute("name").as_string();
+
 	while (aux != aux.last_child())
 	{
-		layer->width[i] = aux.attribute("width").as_uint();
-		layer->height[i] = aux.attribute("height").as_uint();
+		layer->id[i] = aux.attribute("id").as_uint();
 		layer->x[i] = aux.attribute("x").as_int();
 		layer->y[i] = aux.attribute("y").as_int();
-		layer->id[i] = aux.attribute("id").as_uint();
+		layer->width[i] = aux.attribute("width").as_uint();
+		layer->height[i] = aux.attribute("height").as_uint();
 		aux = aux.next_sibling("object");
 		++i;
 	}

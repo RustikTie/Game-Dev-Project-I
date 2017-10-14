@@ -78,6 +78,7 @@ void j1Collisions::DebugDraw()
 		return;
 
 	Uint8 alpha = 80;
+	uint i = 0;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (colliders[i] == nullptr)

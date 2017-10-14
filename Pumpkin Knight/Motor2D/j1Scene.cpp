@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+using namespace pugi;
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -32,6 +33,8 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("level2_v1.tmx");
+
+	
 	return true;
 }
 
@@ -102,3 +105,5 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+
+
