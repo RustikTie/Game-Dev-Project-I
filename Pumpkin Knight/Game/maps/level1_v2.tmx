@@ -26,19 +26,19 @@
   </properties>
  </imagelayer>
  <imagelayer name="Parallax_2" offsetx="-60" offsety="400">
-  <image source="../assets/Background_3.png" width="1024" height="249"/>
+  <image source="../assets/Background_3.png" width="4091" height="249"/>
   <properties>
    <property name="speed" type="float" value="0.15"/>
   </properties>
  </imagelayer>
  <imagelayer name="Parallax_3" offsetx="-200" offsety="480">
-  <image source="../assets/Background_2.png" width="1024" height="500"/>
+  <image source="../assets/Background_2.png" width="4093" height="321"/>
   <properties>
    <property name="speed" type="float" value="0.5"/>
   </properties>
  </imagelayer>
- <imagelayer name="Parallax_4" offsetx="-390" offsety="600">
-  <image source="../assets/Background_1.png" width="2051" height="395"/>
+ <imagelayer name="Parallax_4" offsetx="-384" offsety="512">
+  <image source="../assets/Background_1.png" width="4101" height="395"/>
   <properties>
    <property name="speed" type="float" value="1"/>
   </properties>
