@@ -7,10 +7,10 @@
 	<map />
 	<scene />
 	<player>
-		<player_pos x="112.994919" y="174.5" />
+		<player_pos x="10" y="-1449.96606" />
 	</player>
 	<colliders />
 	<renderer>
-		<camera x="287" y="200" />
+		<camera x="390" y="200" />
 	</renderer>
 </game_state>
