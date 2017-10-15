@@ -138,14 +138,17 @@ bool j1Player::Update(float dt)
 
 	//MOVEMEMT
 	//FORWARD
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	if (falling == false)
 	{
-		jumping = true;
-		if (counter >= 90)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			jumping = true;
+			if (counter >= 90)
 			{
-				double_jumping = true;
+				if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+				{
+					double_jumping = true;
+				}
 			}
 		}
 	}
