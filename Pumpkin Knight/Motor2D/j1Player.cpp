@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Collisions.h"
 #include "j1Map.h"
+#include "j1Audio.h"
 
 j1Player::j1Player() : j1Module()
 {
@@ -210,10 +211,15 @@ bool j1Player::Update(float dt)
 		player->SetPos(pos.x + 10, pos.y + 50);
 	}
 	
-	if (pos.y > 600)
+	if (pos.y > 500)
 	{
-		pos.x = 10;
-		pos.y = 200;
+		App->audio->PlayFx(1, 0);
+		if (pos.y > 600)
+		{
+			pos.x = 10;
+			pos.y = 200;
+		}
+	
 	}
 
 	return true;
