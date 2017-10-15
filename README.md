@@ -37,7 +37,7 @@ Separated the background in different layers and modified the image tone to fit 
 ### Tileset by: KIIRA / https://opengameart.org/content/metroidvania-tileset-v2
 Used purple tiles as is. 
 
-### Music by: 
+### Music by: http://www.purple-planet.com / Title: Darkness
 
 
 ### Developed by :
