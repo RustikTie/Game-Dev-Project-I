@@ -155,7 +155,10 @@ bool j1Player::Update(float dt)
 		flip = false;
 		right = true;
 		pos.x += speed;
-		animation = &forward;
+		if (falling == false)
+		{
+			animation = &forward;
+		}
 	}
 	//BACKWARD
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -163,7 +166,10 @@ bool j1Player::Update(float dt)
 		flip = true;
 		left = true;
 		pos.x -= speed;		
-		animation = &forward;
+		if (falling == false)
+		{
+			animation = &forward;
+		}
 	}
 	//IDLE RIGHT
 	else 
