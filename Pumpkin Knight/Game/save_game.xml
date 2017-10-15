@@ -11,6 +11,6 @@
 	</player>
 	<colliders />
 	<renderer>
-		<camera x="300" y="200" />
+		<camera x="500" y="50" />
 	</renderer>
 </game_state>

@@ -89,14 +89,14 @@ bool j1Player::Awake(pugi::xml_node& config) {
 bool j1Player::Update(float dt) 
 {
 	speed = 0.8f;
-	gravity = 0.8f;
+	gravity = 1.0f;
 	float y = pos.y;
 
 	//MOVEMEMT
 	//FORWARD
 	if (falling == false)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
 		{
 			jumping = true;
 			if (counter >= 90)
@@ -118,8 +118,10 @@ bool j1Player::Update(float dt)
 		{
 			animation = &forward;
 		}
-		if (jumping == false)
+		if (jumping == false && falling == false)
+		{
 			App->audio->PlayFx(1, 0);
+		}
 	}
 	//BACKWARD
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
