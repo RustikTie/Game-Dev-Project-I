@@ -94,7 +94,7 @@ bool j1Player::Update(float dt)
 	float y = pos.y;
 
 	//MOVEMEMT
-	//FORWARD
+	//JUMP
 	if (falling == false)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
@@ -109,7 +109,7 @@ bool j1Player::Update(float dt)
 			}
 		}
 	}
-	
+	//FORWARD
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		flip = false;
@@ -137,18 +137,16 @@ bool j1Player::Update(float dt)
 		if (jumping == false)
 			App->audio->PlayFx(1, 0);
 	}
-	//IDLE RIGHT
+	//IDLE 
 	else 
 	{
 		animation = &idle;
 		right = false;
 		left = false;
 	}
-	
-	//JUMP
 
 	Jump();
-
+	//JUMP LEFT OR RIGHT
 	if (jumping == true && flip == false && right == true && player->CheckCollision(App->map->collider) == false)
 	{
 		speed = 0.1f;
@@ -161,7 +159,7 @@ bool j1Player::Update(float dt)
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
 	App->render->camera.x = -pos.x + 400;
-	//App->render->camera.y = -pos.y + 200;
+
 
 	if (player->CheckCollision(App->map->collider) == false)
 	{
