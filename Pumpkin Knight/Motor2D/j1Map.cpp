@@ -37,7 +37,7 @@ void j1Map::Draw()
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	for (uint image_num = 0; image_num < data.imagelayers.count(); ++image_num)
 	{
-		App->render->Blit(data.imagelayers[image_num]->texture, data.imagelayers[image_num]->offset_x, data.imagelayers[image_num]->offset_y, 1, 1, NULL, data.imagelayers[image_num]->speed);	
+		App->render->Blit(data.imagelayers[image_num]->texture, data.imagelayers[image_num]->offset_x, data.imagelayers[image_num]->offset_y, 1, 1, false, NULL, data.imagelayers[image_num]->speed);	
 	}
 
 
@@ -53,7 +53,7 @@ void j1Map::Draw()
 					SDL_Rect tile_rect = data.tilesets[layer_num]->GetTileRect(id);
 					int x = MapToWorld(i, j).x;
 					int y = MapToWorld(i, j).y;
-					App->render->Blit(data.tilesets[layer_num]->texture, x, y, 1, 1, &tile_rect);
+					App->render->Blit(data.tilesets[layer_num]->texture, x, y, 1, 1, false, &tile_rect);
 				}
 			}
 		}

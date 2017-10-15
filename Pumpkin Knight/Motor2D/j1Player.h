@@ -53,8 +53,7 @@ private:
 
 	bool jumping = false;
 	float counter = 0.0f;
-	bool right = false;
-	bool left = false;
+	bool flip = false;
 
 	fPoint pos;
 	float gravity;

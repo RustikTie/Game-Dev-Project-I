@@ -82,7 +82,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6))
 		App->LoadGame();
 	
-	if (App->player->getX() >= 50.f && level1 == true) 
+	if (App->player->getX() >= 5000.f && level1 == true) 
 	{
 		App->map->CleanUp();
 		App->collisions->Erase_Non_Player_Colliders();

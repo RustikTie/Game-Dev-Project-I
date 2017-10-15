@@ -6,10 +6,11 @@
 	<audio />
 	<map />
 	<scene />
-	<player />
-    		<player_pos x ="10" y="200" />
+	<player>
+		<player_pos x="439.602936" y="413.002167" />
+	</player>
 	<colliders />
 	<renderer>
-		<camera x="390" y="-85" />
+		<camera x="-39" y="-213" />
 	</renderer>
 </game_state>

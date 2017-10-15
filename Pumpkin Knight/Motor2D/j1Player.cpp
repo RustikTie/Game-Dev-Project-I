@@ -142,39 +142,32 @@ bool j1Player::Update(float dt)
 	{
 		jumping = true;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && jumping == false)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT  && jumping == false)
 	{
+		flip = false;
 		pos.x += speed;
 		animation = &forward;
-		last_direction = &forward;
-		left = false;
-		right = true;
+		//last_direction = &forward;
+		
 	}
 	//BACKWARD
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT && jumping == false)
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && jumping == false)
 	{
-		if (pos.x > 2)
-		{
-			pos.x -= speed;		
-			animation = &backward;
-		}
-		last_direction = &backward;
-		left = true;
-		right = false;
+		flip = true;
+		pos.x -= speed;		
+		animation = &forward;
+		//last_direction = &backward;
+		
 	}
 	//IDLE RIGHT
-	else if (last_direction == nullptr || last_direction == &forward && jumping == false)
+	else 
 	{
 		animation = &idle;
-		last_direction = &idle;
-	}
-	//IDLE LEFT
-	else if (last_direction == &backward && jumping == false)
-	{
-		animation = &idleLeft;
-		last_direction = &idleLeft;
 	}
 	//JUMP
+
+
+
 	/*if (jumping == true && right == true)
 	{
 		pos.x += speed;
@@ -236,10 +229,10 @@ bool j1Player::Update(float dt)
 	
 
 	//DRAW PLAYER -----------------------------------------
-	App->render->Blit(graphics, pos.x, pos.y, 3, 3, &(animation->GetCurrentFrame()), 1.0f);
+	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
 	App->render->camera.x = -pos.x + 400;
-	App->render->camera.y = -pos.y + 200;
+	//App->render->camera.y = -pos.y + 200;
 
 	if (player->CheckCollision(App->map->collider) == false)
 	{
@@ -295,5 +288,8 @@ bool j1Player::CleanUp()
 
 void j1Player::Jump() 
 {
-			
+	if (jumping == true)
+	{
+
+	}
 }
