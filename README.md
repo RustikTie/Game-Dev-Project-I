@@ -1,4 +1,4 @@
-## Video Game Development | Project 1 | Pumpkin Knight
+## Video Game Development | Assignment 1 | Pumpkin Knight
 
 Simple platformer game for the first assignment of Game Development class at UPC. Using the SDL and XML libraries. Loading game config, player position and all map data(tiles, background, parallax, colliders) from XML documents. Map created with Tiled.  
 
