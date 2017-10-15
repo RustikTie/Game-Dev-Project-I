@@ -32,7 +32,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("level1_v2.tmx");
+	App->map->Load("level1_v4.tmx");
 
 	
 	return true;
@@ -70,7 +70,7 @@ bool j1Scene::Update(float dt)
 		{
 			App->map->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
-			App->map->Load("level1_v2.tmx");
+			App->map->Load("level1_v3.tmx");
 			App->player->SetPos(10, 200);
 			level1 = true;
 		}
