@@ -228,7 +228,7 @@ bool j1Player::Update(float dt)
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == COLLIDER_WALL)
+	if (c2->type == COLLIDER_WALL && (player->rect.y + player->rect.h) <= (c2->rect.y +1) && (player->rect.y + player->rect.h) < (c2->rect.y + c2->rect.h))
 	{
 		pos.y -= gravity;
 		falling = false;
@@ -279,6 +279,7 @@ bool j1Player::CleanUp()
 
 void j1Player::Jump() 
 {
+	
 	if (jumping == true)
 	{
 		gravity = 0;
@@ -292,7 +293,7 @@ void j1Player::Jump()
 				pos.y -= 2.0f;
 			}
 		}
-		if (counter >= 300.0f)
+		if (counter >= 300.0f && player->CheckCollision(App->map->collider) == false)
 		{
 			double_jumping = false;
 			pos.y += 1.5f;
