@@ -39,7 +39,10 @@ struct Collider
 	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
-	
+	bool CollisionGround(Collider* player);
+	bool CollisionLeft(Collider* player);
+	bool CollisionRight(Collider* player);
+
 };
 
 class j1Collisions : public j1Module
@@ -60,8 +63,6 @@ public:
 	void DebugDraw();
 
 	bool checkColisionList(Collider* enemCollider);
-	bool CollisionOnX(Collider* player, SDL_Rect wall);
-	bool CollisionOnY(Collider* player, Collider* ground);
 	void Erase_Non_Player_Colliders();
 
 private:

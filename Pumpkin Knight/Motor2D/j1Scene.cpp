@@ -66,11 +66,17 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1)) 
 	{
-		App->map->CleanUp();
-		App->collisions->Erase_Non_Player_Colliders();
-		App->map->Load("level1_v2.tmx");
-		App->player->SetPos(10, 200);
-		level1 = true;
+		if (level1 == false) 
+		{
+			App->map->CleanUp();
+			App->collisions->Erase_Non_Player_Colliders();
+			App->map->Load("level1_v2.tmx");
+			App->player->SetPos(10, 200);
+			level1 = true;
+		}
+		else
+			App->player->SetPos(10, 250);
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2))
 	{
