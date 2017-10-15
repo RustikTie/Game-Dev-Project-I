@@ -224,7 +224,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		pos.y -= gravity;
 		falling = false;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c2->type == COLLIDER_WALL && (c1->rect.x + c1->rect.w) >= c2->rect.x) //COLL FOWARD
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x + player->rect.w) >= c2->rect.x && (player->rect.x + player->rect.w) < (c2->rect.x + c2->rect.w) && 
+		(player->rect.y + player->rect.h - 1) > c2->rect.y && (player->rect.y + player->rect.h - 1) < (c2->rect.y + c2->rect.h)) //COLL FOWARD
 	{
 		pos.x -= speed;
 	}
