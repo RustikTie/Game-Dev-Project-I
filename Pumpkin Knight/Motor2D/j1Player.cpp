@@ -308,5 +308,13 @@ void j1Player::Jump()
 				falling = true;
 			}
 		}
+		if (player->CheckCollision(App->map->collider) == true)
+		{
+			gravity = 0.6f;
+			counter = 0;
+			jump.Reset();
+			jumping = false;
+			falling = true;
+		}
 	}
 }
