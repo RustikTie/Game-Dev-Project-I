@@ -207,6 +207,11 @@ bool j1Player::Update(float dt)
 		player->SetPos(pos.x + 10, pos.y + 50);
 	}
 	
+	if (pos.y > 600)
+	{
+		pos.x = 10;
+		pos.y = 200;
+	}
 
 	return true;
 
