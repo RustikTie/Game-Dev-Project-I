@@ -75,8 +75,9 @@ bool j1Scene::Update(float dt)
 			level1 = true;
 		}
 		else
+		{
 			App->player->SetPos(100, 250);
-
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2))
 	{
