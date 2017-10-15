@@ -78,7 +78,7 @@ bool j1Collisions::Update(float dt)
 
 				if (matrix[c1->type][c2->type] && c1->callback)
 					c1->callback->OnCollision(c1, c2);
-
+				
 
 				if (matrix[c2->type][c1->type] && c2->callback)
 					c2->callback->OnCollision(c2, c1);
@@ -212,17 +212,20 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	}
 }
 
-bool j1Collisions::CollisionOnX(Collider* player, SDL_Rect wall)
+bool Collider::CollisionGround(Collider* player)
 {
-	bool ret = false;
-	if ((player->rect.x + player->rect.w) == (wall.x - 1) && (player->rect.y + player->rect.h) >= wall.y && (player->rect.y + player->rect.h) <= (wall.y + wall.h))
-	{
-		ret = true;
-	}
-
-	return ret;
+	return false;
 }
-bool j1Collisions::CollisionOnY(Collider* player, Collider* ground)
+bool Collider::CollisionLeft(Collider* player)
+{
+	if (player->rect.x + player->rect.w <= rect.x)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+bool Collider::CollisionRight(Collider* player)
 {
 	return false;
 }

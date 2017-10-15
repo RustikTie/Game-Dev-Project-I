@@ -236,9 +236,9 @@ bool j1Player::Update(float dt)
 
 	if (player->CheckCollision(App->map->collider) == false)
 	{
-		pos.y += gravity;
+		pos.y += gravity;	
+			
 	}
-
 
 
 	if (player != nullptr)
@@ -256,7 +256,15 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_WALL)
 	{
 		pos.y -= gravity;
+
 	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c2->type == COLLIDER_WALL && (c1->rect.x + c1->rect.w) >= c2->rect.x) //COLL FOWARD
+	{
+		pos.x -= speed;
+	}
+	
+
+	
 }
 
 bool j1Player::Load(pugi::xml_node& data)
@@ -282,6 +290,8 @@ bool j1Player::CleanUp()
 	LOG("Unloading Player");
 
 	App->tex->UnLoad(graphics);
+	if (player != NULL)
+		player->to_delete = true;
 
 	return true;
 }
