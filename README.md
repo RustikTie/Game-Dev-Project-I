@@ -43,7 +43,10 @@ KIIRA / https://opengameart.org/content/metroidvania-tileset-v2
 Used purple tiles as is. 
 
 ### Music by: 
-http://www.purple-planet.com / Title: Darkness
+Title: Darkness / http://www.purple-planet.com 
+
+### Walk FX by:
+Finnolia Productions Inc / https://www.soundeffectsplus.com/product/footsteps-walking-on-road-01/
 
 ### Developed by :
 Ivan Drofiak: https://github.com/FurryGhoul
