@@ -105,7 +105,7 @@ j1Player::j1Player() : j1Module()
 	idleLeft.loop = true;
 	idleLeft.speed = 0.01f;
 
-	pos.x = 10;
+	pos.x = 100;
 	pos.y = 200;
 }
 
@@ -216,7 +216,7 @@ bool j1Player::Update(float dt)
 		App->audio->PlayFx(1, 0);
 		if (pos.y > 600)
 		{
-			pos.x = 10;
+			pos.x = 100;
 			pos.y = 200;
 		}
 	
@@ -290,7 +290,7 @@ void j1Player::Jump()
 			++counter;
 			if (double_jumping == true)
 			{
-				pos.y -= 2.0f;
+				pos.y -= 1.5f;
 			}
 		}
 		if (counter >= 300.0f && player->CheckCollision(App->map->collider) == false)
