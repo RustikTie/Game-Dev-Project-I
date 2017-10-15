@@ -44,22 +44,6 @@ j1Player::j1Player() : j1Module()
 	forward.PushBack({ 373, 1, 30, 46 });
 	forward.loop = true;
 	forward.speed = 0.02f;
-	
-	backward.PushBack({ 1, 189, 30, 46 });
-	backward.PushBack({ 32, 189, 30, 46 });
-	backward.PushBack({ 63, 189, 30, 46 });
-	backward.PushBack({ 94, 189, 30, 46 });
-	backward.PushBack({ 125, 189, 30, 46 });
-	backward.PushBack({ 156, 189, 30, 46 });
-	backward.PushBack({ 187, 189, 30, 46 });
-	backward.PushBack({ 218, 189, 30, 46 });
-	backward.PushBack({ 249, 189, 30, 46 });
-	backward.PushBack({ 280, 189, 30, 46 });
-	backward.PushBack({ 311, 189, 30, 46 });
-	backward.PushBack({ 342, 189, 30, 46 });
-	backward.PushBack({ 373, 189, 30, 46 });
-	backward.loop = true;
-	backward.speed = 0.02f;
 
 	jump.PushBack({ 1, 95, 30, 46 });
 	jump.PushBack({ 32, 95, 30, 46 });
@@ -74,36 +58,7 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 249, 95, 30, 46 });
 	jump.PushBack({ 280, 95, 30, 46 });
 	jump.loop = false;
-	jump.speed = 0.025f;
-
-	jumpBackward.PushBack({280, 283, 30, 46});
-	jumpBackward.PushBack({ 249, 283, 30, 46 });
-	jumpBackward.PushBack({ 218, 283, 30, 46 });
-	jumpBackward.PushBack({ 218, 283, 30, 46 });
-	jumpBackward.PushBack({ 187, 283, 30, 46 });
-	jumpBackward.PushBack({ 156, 283, 30, 46 });
-	jumpBackward.PushBack({ 125, 283, 30, 46 });
-	jumpBackward.PushBack({ 94, 283, 30, 46 });
-	jumpBackward.PushBack({ 63, 283, 30, 46 });
-	jumpBackward.PushBack({ 63, 283, 30, 46 });
-	jumpBackward.PushBack({ 32, 283, 30, 46 });
-	jumpBackward.PushBack({ 1, 283, 30, 46 });
-	jumpBackward.loop = false;
-	jumpBackward.speed = 0.03f;
-
-	idleLeft.PushBack({311, 236, 30, 46});
-	idleLeft.PushBack({ 280, 236, 30, 46 });
-	idleLeft.PushBack({ 249, 236, 30, 46 });
-	idleLeft.PushBack({ 218, 236, 30, 46 });
-	idleLeft.PushBack({ 187, 236, 30, 46 });
-	idleLeft.PushBack({ 156, 236, 30, 46 });
-	idleLeft.PushBack({ 125, 236, 30, 46 });
-	idleLeft.PushBack({ 94, 236, 30, 46 });
-	idleLeft.PushBack({ 63, 236, 30, 46 });
-	idleLeft.PushBack({ 32, 236, 30, 46 });
-	idleLeft.PushBack({ 1, 236, 30, 46 });
-	idleLeft.loop = true;
-	idleLeft.speed = 0.01f;
+	jump.speed = 0.04f;
 
 	pos.x = 100;
 	pos.y = 200;
@@ -133,8 +88,8 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 bool j1Player::Update(float dt) 
 {
-	speed = 0.6f;
-	gravity = 0.6f;
+	speed = 0.8f;
+	gravity = 0.8f;
 	float y = pos.y;
 
 	//MOVEMEMT
@@ -193,11 +148,11 @@ bool j1Player::Update(float dt)
 
 	if (jumping == true && flip == false && right == true && player->CheckCollision(App->map->collider) == false)
 	{
-		speed = 0.4f;
+		speed = 0.1f;
 	}
 	else if (jumping == true && flip == true && left == true && player->CheckCollision(App->map->collider) == false)
 	{
-		speed = 0.4f;
+		speed = 0.1f;
 	}
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
@@ -286,7 +241,7 @@ void j1Player::Jump()
 	
 	if (jumping == true)
 	{
-		if (counter < 300.0f  && player->CheckCollision(App->map->collider) == false)
+		if (counter < 250.0f  && player->CheckCollision(App->map->collider) == false)
 		{
 			gravity = 0;
 
@@ -295,20 +250,20 @@ void j1Player::Jump()
 			++counter;
 			if (double_jumping == true)
 			{
-				pos.y -= 1.5f;
+				pos.y -= 1.0f;
 			}
 		}
-		else if (counter >= 300.0f && player->CheckCollision(App->map->collider) == false)
+		else if (counter >= 250.0f && player->CheckCollision(App->map->collider) == false)
 		{
 			gravity = 0;
 
 			double_jumping = false;
 			pos.y += 1.5f;
-			animation = &jump;
+			jump.GetCurrentFrame();
 			++counter;
 			if (jump.Finished())
 			{
-				gravity = 0.6f;
+				gravity = 0.8f;
 				counter = 0;
 				jump.Reset();
 				jumping = false;
@@ -317,7 +272,7 @@ void j1Player::Jump()
 		}
 		else if (player->CheckCollision(App->map->collider) == true)
 		{
-			gravity = 0.6f;
+			gravity = 0.8f;
 			counter = 0;
 			jump.Reset();
 			jumping = false;
