@@ -186,11 +186,11 @@ bool j1Player::Update(float dt)
 
 	Jump();
 
-	if (jumping == true && flip == false && right == true)
+	if (jumping == true && flip == false && right == true && player->CheckCollision(App->map->collider) == false)
 	{
 		speed = 0.4f;
 	}
-	else if (jumping == true && flip == true && left == true)
+	else if (jumping == true && flip == true && left == true && player->CheckCollision(App->map->collider) == false)
 	{
 		speed = 0.4f;
 	}
@@ -282,9 +282,10 @@ void j1Player::Jump()
 	
 	if (jumping == true)
 	{
-		gravity = 0;
-		if (counter < 300.0f)
+		if (counter < 300.0f  && player->CheckCollision(App->map->collider) == false)
 		{
+			gravity = 0;
+
 			pos.y -= 1.0f;
 			animation = &jump;
 			++counter;
@@ -293,8 +294,10 @@ void j1Player::Jump()
 				pos.y -= 1.5f;
 			}
 		}
-		if (counter >= 300.0f && player->CheckCollision(App->map->collider) == false)
+		else if (counter >= 300.0f && player->CheckCollision(App->map->collider) == false)
 		{
+			gravity = 0;
+
 			double_jumping = false;
 			pos.y += 1.5f;
 			animation = &jump;
@@ -308,13 +311,14 @@ void j1Player::Jump()
 				falling = true;
 			}
 		}
-		if (player->CheckCollision(App->map->collider) == true)
+		else if (player->CheckCollision(App->map->collider) == true)
 		{
 			gravity = 0.6f;
 			counter = 0;
 			jump.Reset();
 			jumping = false;
 			falling = true;
+			
 		}
 	}
 }
