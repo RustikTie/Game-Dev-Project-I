@@ -26,19 +26,24 @@ Simply download a release, unzip the file and execute the Pumpkin_Knight.exe.
 - Submit a pull request :D
 
 ## History
+//
 
 ## Credits
-### Skeleton Sprite by: Jesse M / Twitter- @Jsf23Art / https://jesse-m.itch.io/skeleton-pack
+
+### Skeleton Sprite by: 
+Jesse M / Twitter- @Jsf23Art / https://jesse-m.itch.io/skeleton-pack
 Modified to sport a pumpkin head and created a quick jump animation. 
 
-### Background images and parallax from: http://www.gameart2d.com/free-graveyard-platformer-tileset.html
+### Background images and parallax from: 
+http://www.gameart2d.com/free-graveyard-platformer-tileset.html
 Separated the background in different layers and modified the image tone to fit the mood. 
 
-### Tileset by: KIIRA / https://opengameart.org/content/metroidvania-tileset-v2
+### Tileset by: 
+KIIRA / https://opengameart.org/content/metroidvania-tileset-v2
 Used purple tiles as is. 
 
-### Music by: http://www.purple-planet.com / Title: Darkness
-
+### Music by: 
+http://www.purple-planet.com / Title: Darkness
 
 ### Developed by :
 Ivan Drofiak: https://github.com/FurryGhoul
