@@ -79,7 +79,8 @@ bool j1Player::Start()
 	return true;
 }
 
-bool j1Player::Awake(pugi::xml_node& config) {
+bool j1Player::Awake(pugi::xml_node& config) 
+{
 
 	//Load Player info from the config file
 
