@@ -163,6 +163,8 @@ bool j1Player::Update(float dt)
 		{
 			animation = &forward;
 		}
+		if (jumping == false)
+			App->audio->PlayFx(1, 0);
 	}
 	//BACKWARD
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -174,6 +176,8 @@ bool j1Player::Update(float dt)
 		{
 			animation = &forward;
 		}
+		if (jumping == false)
+			App->audio->PlayFx(1, 0);
 	}
 	//IDLE RIGHT
 	else 
@@ -182,6 +186,7 @@ bool j1Player::Update(float dt)
 		right = false;
 		left = false;
 	}
+	
 	//JUMP
 
 	Jump();
@@ -213,7 +218,6 @@ bool j1Player::Update(float dt)
 	
 	if (pos.y > 500)
 	{
-		App->audio->PlayFx(1, 0);
 		if (pos.y > 600)
 		{
 			pos.x = 100;
