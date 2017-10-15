@@ -45,11 +45,8 @@ private:
 	Animation* last_direction = nullptr;
 	Animation idle;
 	Animation forward;
-	Animation backward;
 	Animation jump;
-	Animation jumpBackward;
-	Animation idleLeft;
-	Animation death;
+	
 
 	float counter = 0.0f;
 	bool jumping = false;
