@@ -71,16 +71,16 @@ bool j1Scene::Update(float dt)
 			App->map->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
 			App->map->Load("level1_v3.tmx");
-			App->player->SetPos(10, 200);
+			App->player->SetPos(100, 200);
 			level1 = true;
 		}
 		else
-			App->player->SetPos(10, 250);
+			App->player->SetPos(100, 250);
 
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2))
 	{
-		App->player->SetPos(10, 250);
+		App->player->SetPos(100, 250);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F5))
 		App->SaveGame();
@@ -93,7 +93,7 @@ bool j1Scene::Update(float dt)
 		App->map->CleanUp();
 		App->collisions->Erase_Non_Player_Colliders();
 		App->map->Load("level2_v1.tmx");
-		App->player->SetPos(10, 250);
+		App->player->SetPos(100, 250);
 		level1 = false;
 	}
 
