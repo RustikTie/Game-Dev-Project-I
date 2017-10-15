@@ -229,7 +229,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		pos.x -= speed;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x + player->rect.w) > c2->rect.x && (player->rect.x + player->rect.w) <= (c2->rect.x + c2->rect.w) &&
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x) > c2->rect.x && (player->rect.x) <= (c2->rect.x + c2->rect.w) &&
 		(player->rect.y + player->rect.h - 1) > c2->rect.y && (player->rect.y + player->rect.h - 1) < (c2->rect.y + c2->rect.h))
 	{
 		pos.x += speed;
