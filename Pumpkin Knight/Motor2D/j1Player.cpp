@@ -73,7 +73,7 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 249, 95, 30, 46 });
 	jump.PushBack({ 280, 95, 30, 46 });
 	jump.loop = false;
-	jump.speed = 0.03f;
+	jump.speed = 0.025f;
 
 	jumpBackward.PushBack({280, 283, 30, 46});
 	jumpBackward.PushBack({ 249, 283, 30, 46 });
@@ -141,93 +141,52 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
 		jumping = true;
+		if (counter >= 90)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			{
+				double_jumping = true;
+			}
+		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT  && jumping == false)
+	/*else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		jumping = true;
+	}*/
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		flip = false;
+		right = true;
 		pos.x += speed;
 		animation = &forward;
-		//last_direction = &forward;
-		
 	}
 	//BACKWARD
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && jumping == false)
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		flip = true;
+		left = true;
 		pos.x -= speed;		
 		animation = &forward;
-		//last_direction = &backward;
-		
 	}
 	//IDLE RIGHT
 	else 
 	{
 		animation = &idle;
+		right = false;
+		left = false;
 	}
 	//JUMP
 
+	Jump();
 
-
-	/*if (jumping == true && right == true)
+	if (jumping == true && flip == false && right == true)
 	{
-		pos.x += speed;
-		if (jumping == true && counter < 241.9f && last_direction == &forward)
-		{
-			animation = &jump;
-			yspeed = 1.0f;
-			pos.y -= yspeed;
-			++counter;
-		}
-		if (jumping == true && counter >= 241.9f && last_direction == &forward)
-		{
-			++counter;
-			animation = &jump;
-			yspeed = 1.5f;
-			pos.y += yspeed;
-
-			if (jump.Finished())
-			{
-				jumping = false;
-				jump.Reset();
-				counter = 0;
-			}
-		}
+		speed -= 0.2f;
 	}
-
-
-	if (jumping == true && counter >= 241.9f && last_direction == &forward)
+	else if (jumping == true && flip == true && left == true)
 	{
-		++counter;
-		animation = &jump;		
-		pos.x += speed;
-		if (jump.Finished())
-
-		{
-			animation = &jumpBackward;
-			yspeed = 0.9f;
-			pos.y += yspeed;
-			++counter;
-		}
+		speed -= 0.2f;
 	}
-
-	if (jumping == true && counter >= 241.9f && last_direction == &backward)
-
-		{
-			pos.x -= speed;
-			++counter;
-			animation = &jumpBackward;
-			yspeed = 0.9f;
-			pos.y += yspeed;
-
-			if (jumpBackward.Finished())
-			{
-				jumping = false;
-				jumpBackward.Reset();
-				counter = 0;
-			}
-		}*/
-	
-
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
@@ -237,6 +196,7 @@ bool j1Player::Update(float dt)
 	if (player->CheckCollision(App->map->collider) == false)
 	{
 		pos.y += gravity;
+			
 	}
 
 
@@ -256,6 +216,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_WALL)
 	{
 		pos.y -= gravity;
+		falling = false;
 	}
 }
 
@@ -290,6 +251,31 @@ void j1Player::Jump()
 {
 	if (jumping == true)
 	{
-
+		gravity = 0;
+		if (counter < 300.0f)
+		{
+			pos.y -= 1.0f;
+			animation = &jump;
+			++counter;
+			if (double_jumping == true)
+			{
+				pos.y -= 2.0f;
+			}
+		}
+		if (counter >= 300.0f)
+		{
+			double_jumping = false;
+			pos.y += 1.5f;
+			animation = &jump;
+			++counter;
+			if (jump.Finished())
+			{
+				gravity = 0.6f;
+				counter = 0;
+				jump.Reset();
+				jumping = false;
+				falling = true;
+			}
+		}
 	}
 }

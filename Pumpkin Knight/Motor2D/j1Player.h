@@ -51,9 +51,13 @@ private:
 	Animation idleLeft;
 	Animation death;
 
-	bool jumping = false;
 	float counter = 0.0f;
+	bool jumping = false;
+	bool double_jumping = false;
 	bool flip = false;
+	bool right = false;
+	bool left = false;
+	bool falling = false; 
 
 	fPoint pos;
 	float gravity;
