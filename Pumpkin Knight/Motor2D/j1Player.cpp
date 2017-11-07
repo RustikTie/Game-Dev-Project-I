@@ -60,8 +60,6 @@ j1Player::j1Player() : j1Module()
 	jump.loop = false;
 	jump.speed = 0.04f;
 
-	pos.x = 100;
-	pos.y = 200;
 }
 
 
@@ -83,14 +81,20 @@ bool j1Player::Awake(pugi::xml_node& config)
 {
 
 	//Load Player info from the config file
+	pugi::xml_node player = config.child("player_data");
+
+	speed = player.child("speed").attribute("value").as_float();
+	pos.x = player.child("pos").attribute("x").as_float();
+	pos.y = player.child("pos").attribute("y").as_float();
+	gravity = player.child("gravity").attribute("value").as_float();
+	jump_speed = player.child("jump").attribute("speed").as_float();
+	jump_height = player.child("jump").attribute("height").as_float();
 
 	return true;
 }
 
 bool j1Player::Update(float dt) 
 {
-	speed = 0.8f;
-	gravity = 1.0f;
 	float y = pos.y;
 
 	//MOVEMEMT

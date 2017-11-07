@@ -26,5 +26,13 @@
     <folder>maps/</folder>
 		<map name = "level1_v1.png"/>		
   </map>
+  
+  <player_data>
+	<speed value = "0.8"/>
+	<pos x = "100" y = "200"/>
+	<gravity value = "3"/>
+	<jump speed = "3" height = "100"/>
+  </player_data>
+	
 
 </config>

@@ -61,6 +61,8 @@ private:
 	float speed;
 	float yspeed;
 	float ground;
+	float jump_speed;
+	float jump_height;
 };
 
 #endif
