@@ -11,7 +11,7 @@
 
 j1Player::j1Player() : j1Module()
 {
-	name.create("player");
+	name.create("player_data");
 	animation = NULL;
 	graphics = NULL;
 
@@ -81,14 +81,14 @@ bool j1Player::Awake(pugi::xml_node& config)
 {
 
 	//Load Player info from the config file
-	pugi::xml_node player = config.child("player_data");
+	speed = config.child("speed").attribute("value").as_float();
+	pos.x = config.child("pos").attribute("x").as_float();
+	pos.y = config.child("pos").attribute("y").as_float();
+	gravity = config.child("gravity").attribute("value").as_float();
+	jump_speed = config.child("jump").attribute("speed").as_float();
+	jump_height = config.child("jump").attribute("height").as_float();
 
-	speed = player.child("speed").attribute("value").as_float();
-	pos.x = player.child("pos").attribute("x").as_float();
-	pos.y = player.child("pos").attribute("y").as_float();
-	gravity = player.child("gravity").attribute("value").as_float();
-	jump_speed = player.child("jump").attribute("speed").as_float();
-	jump_height = player.child("jump").attribute("height").as_float();
+	LOG("speed %f pos x %f pos y %f gravity %f jump speed %f jump height %f", speed, pos.x, pos.y, gravity, jump_speed, jump_height);
 
 	return true;
 }

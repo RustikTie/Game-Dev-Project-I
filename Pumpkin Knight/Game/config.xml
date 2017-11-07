@@ -28,10 +28,10 @@
   </map>
   
   <player_data>
-	<speed value = "0.8"/>
+	<speed value = "1"/>
 	<pos x = "100" y = "200"/>
-	<gravity value = "3"/>
-	<jump speed = "3" height = "100"/>
+	<gravity value = "1"/>
+	<jump speed = "1" height = "100"/>
   </player_data>
 	
 
