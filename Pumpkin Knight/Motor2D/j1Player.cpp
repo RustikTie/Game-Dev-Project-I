@@ -88,8 +88,6 @@ bool j1Player::Awake(pugi::xml_node& config)
 	jump_speed = config.child("jump").attribute("speed").as_float();
 	jump_height = config.child("jump").attribute("height").as_float();
 
-	LOG("speed %f pos x %f pos y %f gravity %f jump speed %f jump height %f", speed, pos.x, pos.y, gravity, jump_speed, jump_height);
-
 	return true;
 }
 
