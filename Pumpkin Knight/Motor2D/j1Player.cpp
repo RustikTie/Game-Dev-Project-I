@@ -11,7 +11,7 @@
 
 j1Player::j1Player() : j1Module()
 {
-	name.create("player");
+	name.create("player_data");
 	animation = NULL;
 	graphics = NULL;
 
@@ -60,8 +60,6 @@ j1Player::j1Player() : j1Module()
 	jump.loop = false;
 	jump.speed = 0.04f;
 
-	pos.x = 100;
-	pos.y = 200;
 }
 
 
@@ -83,14 +81,18 @@ bool j1Player::Awake(pugi::xml_node& config)
 {
 
 	//Load Player info from the config file
+	speed = config.child("speed").attribute("value").as_float();
+	pos.x = config.child("pos").attribute("x").as_float();
+	pos.y = config.child("pos").attribute("y").as_float();
+	gravity = config.child("gravity").attribute("value").as_float();
+	jump_speed = config.child("jump").attribute("speed").as_float();
+	jump_height = config.child("jump").attribute("height").as_float();
 
 	return true;
 }
 
 bool j1Player::Update(float dt) 
 {
-	speed = 0.8f;
-	gravity = 1.0f;
 	float y = pos.y;
 
 	//MOVEMEMT
