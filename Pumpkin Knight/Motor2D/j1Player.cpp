@@ -60,7 +60,6 @@ j1Player::j1Player() : j1Module()
 	jump.loop = false;
 	jump.speed = 0.04f;
 
-	max_height = pos.y - jump_height;
 }
 
 
@@ -74,7 +73,6 @@ bool j1Player::Start()
 
 	player = App->collisions->AddCollider({ 0, 500, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, this);
 	graphics = App->tex->Load("assets/Pumpkin sprites.png");
-	
 	return true;
 }
 
@@ -88,13 +86,14 @@ bool j1Player::Awake(pugi::xml_node& config)
 	gravity = config.child("gravity").attribute("value").as_float();
 	jump_speed = config.child("jump").attribute("speed").as_float();
 	jump_height = config.child("jump").attribute("height").as_float();
+	x_modifier = config.child("modifiers").attribute("x").as_float();
 
 	return true;
 }
 
 bool j1Player::Update(float dt) 
 {
-	float y = pos.y;
+	
 
 	//MOVEMEMT
 	//JUMP
@@ -102,6 +101,7 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
 	{
 		jumping = true;
+		max_height = pos.y - jump_height;
 	}
 	
 	//FORWARD
@@ -109,14 +109,14 @@ bool j1Player::Update(float dt)
 	{
 		flip = false;
 		animation = &forward;
-		speed = 1.5f;
+		speed = 1.0f;
 	}
 	//BACKWARD
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		flip = true;
 		animation = &forward;
-		speed = -1.5f;
+		speed = -1.0f;
 	}
 	//IDLE 
 	else 
@@ -127,16 +127,16 @@ bool j1Player::Update(float dt)
 
 	Jump();
 	//JUMP LEFT OR RIGHT
+	
 	if(jumping == true)
 	{
 		pos.y += jump_speed;
-		speed = speed*modifier;
+		speed = speed*x_modifier;
 	}
-	else
+	if (!dead)
 	{
 		pos.x += speed;
 	}
-	
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
@@ -225,7 +225,7 @@ void j1Player::Jump()
 	{
 		if (pos.y >= max_height)
 		{
-			jump_speed = -1.5f;
+			jump_speed = -2.5f;
 			animation = &jump;
 		}
 		if (pos.y < max_height)

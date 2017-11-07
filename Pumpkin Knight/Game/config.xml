@@ -31,7 +31,8 @@
 	<speed value = "1"/>
 	<pos x = "100" y = "200"/>
 	<gravity value = "1"/>
-	<jump speed = "1" height = "100"/>
+	<jump speed = "1" height = "300"/>
+	<modifiers x = "0.8"/>
   </player_data>
 	
 

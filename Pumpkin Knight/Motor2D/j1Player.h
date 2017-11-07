@@ -51,6 +51,7 @@ private:
 	bool double_jumping = false;
 	bool flip = false;
 	bool falling = false; 
+	bool dead = false;
 
 	fPoint pos;
 	float gravity;
@@ -58,7 +59,7 @@ private:
 	float jump_speed;
 	float jump_height = 200;
 	float max_height;
-	float modifier = 0.75f;
+	float x_modifier;
 
 };
 
