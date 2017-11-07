@@ -60,6 +60,7 @@ j1Player::j1Player() : j1Module()
 	jump.loop = false;
 	jump.speed = 0.04f;
 
+	max_height = pos.y - jump_height;
 }
 
 
@@ -222,14 +223,14 @@ void j1Player::Jump()
 {
 	if (jumping == true)
 	{
-		max_height = pos.y - 200;
-		if (pos.y > max_height)
+		if (pos.y >= max_height)
 		{
 			jump_speed = -1.5f;
 			animation = &jump;
 		}
-		else
+		if (pos.y < max_height)
 		{
+			jump_speed = 0;
 			jumping = false;
 			jump.Reset();
 			falling = true;

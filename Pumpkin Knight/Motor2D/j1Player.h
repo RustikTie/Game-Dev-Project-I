@@ -56,6 +56,7 @@ private:
 	float gravity;
 	float speed;
 	float jump_speed;
+	float jump_height = 200;
 	float max_height;
 	float modifier = 0.75f;
 
