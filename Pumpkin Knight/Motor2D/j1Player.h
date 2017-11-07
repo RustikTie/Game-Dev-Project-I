@@ -47,20 +47,17 @@ private:
 	Animation forward;
 	Animation jump;
 	
-
-	float counter = 0.0f;
 	bool jumping = false;
 	bool double_jumping = false;
 	bool flip = false;
-	bool right = false;
-	bool left = false;
 	bool falling = false; 
 
 	fPoint pos;
 	float gravity;
 	float speed;
-	float yspeed;
-	float ground;
+	float jump_speed;
+	float max_height;
+	float modifier = 0.75f;
 };
 
 #endif

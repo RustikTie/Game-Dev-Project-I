@@ -45,18 +45,18 @@ j1Player::j1Player() : j1Module()
 	forward.loop = true;
 	forward.speed = 0.02f;
 
-	jump.PushBack({ 1, 95, 30, 46 });
+	/*jump.PushBack({ 1, 95, 30, 46 });
 	jump.PushBack({ 32, 95, 30, 46 });
 	jump.PushBack({ 63, 95, 30, 46 });
 	jump.PushBack({ 63, 95, 30, 46 });
 	jump.PushBack({ 94, 95, 30, 46 });
-	jump.PushBack({ 125, 95, 30, 46 });
+	jump.PushBack({ 125, 95, 30, 46 });*/
 	jump.PushBack({ 156, 95, 30, 46 });
-	jump.PushBack({ 187, 95, 30, 46 });
+	/*jump.PushBack({ 187, 95, 30, 46 });
 	jump.PushBack({ 218, 95, 30, 46 });
 	jump.PushBack({ 218, 95, 30, 46 });
 	jump.PushBack({ 249, 95, 30, 46 });
-	jump.PushBack({ 280, 95, 30, 46 });
+	jump.PushBack({ 280, 95, 30, 46 });*/
 	jump.loop = false;
 	jump.speed = 0.04f;
 
@@ -95,66 +95,45 @@ bool j1Player::Update(float dt)
 
 	//MOVEMEMT
 	//JUMP
-	if (falling == false)
+	
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
-		{
-			jumping = true;
-			if (counter >= 90)
-			{
-				if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-				{
-					double_jumping = true;
-				}
-			}
-		}
+		jumping = true;
 	}
+	
 	//FORWARD
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		flip = false;
-		right = true;
-		pos.x += speed;
-		if (falling == false)
-		{
-			animation = &forward;
-		}
-		if (jumping == false && falling == false)
-		{
-			App->audio->PlayFx(1, 0);
-		}
+		animation = &forward;
+		speed = 1.5f;
 	}
 	//BACKWARD
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		flip = true;
-		left = true;
-		pos.x -= speed;		
-		if (falling == false)
-		{
-			animation = &forward;
-		}
-		if (jumping == false)
-			App->audio->PlayFx(1, 0);
+		animation = &forward;
+		speed = -1.5f;
 	}
 	//IDLE 
 	else 
 	{
+		speed = 0;
 		animation = &idle;
-		right = false;
-		left = false;
 	}
 
 	Jump();
 	//JUMP LEFT OR RIGHT
-	if (jumping == true && flip == false && right == true && player->CheckCollision(App->map->collider) == false)
+	if(jumping == true)
 	{
-		speed = 0.1f;
+		pos.y += jump_speed;
+		speed = speed*modifier;
 	}
-	else if (jumping == true && flip == true && left == true && player->CheckCollision(App->map->collider) == false)
+	else
 	{
-		speed = 0.1f;
+		pos.x += speed;
 	}
+	
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
@@ -239,46 +218,19 @@ bool j1Player::CleanUp()
 
 void j1Player::Jump() 
 {
-	
 	if (jumping == true)
 	{
-		if (counter < 250.0f  && player->CheckCollision(App->map->collider) == false)
+		max_height = pos.y - 200;
+		if (pos.y > max_height)
 		{
-			gravity = 0;
-
-			pos.y -= 1.0f;
+			jump_speed = -1.5f;
 			animation = &jump;
-			++counter;
-			if (double_jumping == true)
-			{
-				pos.y -= 1.0f;
-			}
 		}
-		else if (counter >= 250.0f && player->CheckCollision(App->map->collider) == false)
+		else
 		{
-			gravity = 0;
-
-			double_jumping = false;
-			pos.y += 1.5f;
-			jump.GetCurrentFrame();
-			++counter;
-			if (jump.Finished())
-			{
-				gravity = 0.8f;
-				counter = 0;
-				jump.Reset();
-				jumping = false;
-				falling = true;
-			}
-		}
-		else if (player->CheckCollision(App->map->collider) == true)
-		{
-			gravity = 0.8f;
-			counter = 0;
-			jump.Reset();
 			jumping = false;
+			jump.Reset();
 			falling = true;
-			
 		}
 	}
 }
