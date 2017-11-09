@@ -13,6 +13,7 @@
 #include "j1Player.h"
 #include "j1App.h"
 #include "j1Collisions.h"
+#include "Brofiler/Brofiler.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -123,6 +124,8 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
+	BROFILER_CATEGORY("Update", Profiler::Color::Green)
+
 	bool ret = true;
 	PrepareUpdate();
 

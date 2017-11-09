@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "j1Input.h"
+#include "Brofiler\Brofiler.h"
 
 #define VSYNC true
 
@@ -65,12 +66,16 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate Render", Profiler::Color::Yellow)
+
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+	BROFILER_CATEGORY("Update Render", Profiler::Color::Yellow)
+
 	return true;
 }
 

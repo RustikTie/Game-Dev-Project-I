@@ -8,6 +8,7 @@
 #include "j1Collisions.h"
 #include "j1Map.h"
 #include "j1Audio.h"
+#include "Brofiler/Brofiler.h"
 
 j1Player::j1Player() : j1Module()
 {
@@ -97,6 +98,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Update(float dt) 
 {
 	
+	BROFILER_CATEGORY("Update Player", Profiler::Color::Yellow)
 
 	//MOVEMEMT
 	//JUMP
