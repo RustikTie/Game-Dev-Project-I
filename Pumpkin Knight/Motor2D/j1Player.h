@@ -56,10 +56,11 @@ private:
 	fPoint pos;
 	float gravity;
 	float speed;
-	float jump_speed;
+	fPoint velocity;
+	fPoint acceleration;
+	fPoint jump_speed;
 	float jump_height = 200;
 	float max_height;
-	float x_modifier;
 
 };
 
