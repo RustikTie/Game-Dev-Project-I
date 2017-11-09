@@ -51,7 +51,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	BROFILER_CATEGORY("Update Scene", Profiler::Color::Yellow)
+	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 1;
@@ -113,6 +113,8 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate Scene", Profiler::Color::Blue)
+
 	bool ret = true;
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

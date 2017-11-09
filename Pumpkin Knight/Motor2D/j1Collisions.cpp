@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Collisions.h"
 #include "j1Player.h"
+#include "Brofiler\Brofiler.h"
 
 j1Collisions::j1Collisions() : j1Module()
 {
@@ -37,6 +38,8 @@ bool j1Collisions::Awake()
 
 bool j1Collisions::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate Collisions", Profiler::Color::Yellow)
+
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -53,6 +56,8 @@ bool j1Collisions::PreUpdate()
 // Called before render is available
 bool j1Collisions::Update(float dt)
 {
+	BROFILER_CATEGORY("Update Collisions", Profiler::Color::Green)
+
 	Collider* c1;
 	Collider* c2;
 

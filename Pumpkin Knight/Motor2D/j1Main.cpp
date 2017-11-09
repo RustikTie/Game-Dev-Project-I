@@ -29,7 +29,6 @@ j1App* App = NULL;
 int main(int argc, char* args[])
 {
 	LOG("Engine starting ... %d");
-	BROFILER_FRAME("Main Thread")
 	MainState state = MainState::CREATE;
 	int result = EXIT_FAILURE;
 
@@ -81,9 +80,12 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
+			{
+				BROFILER_FRAME("Main Thread")
+				if (App->Update() == false)
+					state = CLEAN;
+			}
 
-			if(App->Update() == false)
-				state = CLEAN;
 			break;
 
 			// Cleanup allocated memory -----------------------------------------

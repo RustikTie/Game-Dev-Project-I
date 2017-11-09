@@ -98,7 +98,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Update(float dt) 
 {
 	
-	BROFILER_CATEGORY("Update Player", Profiler::Color::Yellow)
+	BROFILER_CATEGORY("Update Player", Profiler::Color::Green)
 
 	//MOVEMEMT
 	//JUMP
