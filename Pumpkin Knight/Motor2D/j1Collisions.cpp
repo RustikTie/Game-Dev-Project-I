@@ -82,11 +82,11 @@ bool j1Collisions::Update(float dt)
 			{
 
 				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2);
+					c1->callback->OnCollision(c1, c2, dt);
 				
 
 				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1);
+					c2->callback->OnCollision(c2, c1, dt);
 
 			}
 		}
@@ -206,7 +206,7 @@ void j1Collisions::Erase_Non_Player_Colliders()
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	if (r.y + r.h > rect.y && r.y < rect.y + rect.h && r.x + r.w > rect.x && r.x < rect.x + rect.w)
+	if (r.y + r.h >= rect.y && r.y <= rect.y + rect.h && r.x + r.w >= rect.x && r.x <= rect.x + rect.w)
 	{
 		return true;
 	}
@@ -217,20 +217,3 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	}
 }
 
-bool Collider::CollisionGround(Collider* player)
-{
-	return false;
-}
-bool Collider::CollisionLeft(Collider* player)
-{
-	if (player->rect.x + player->rect.w <= rect.x)
-	{
-		return true;
-	}
-	else
-		return false;
-}
-bool Collider::CollisionRight(Collider* player)
-{
-	return false;
-}

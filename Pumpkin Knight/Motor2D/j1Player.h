@@ -59,6 +59,7 @@ private:
 	fPoint velocity;
 	fPoint acceleration;
 	fPoint jump_speed;
+	fPoint jumping_speed;
 	float jump_height = 200;
 	float max_height;
 

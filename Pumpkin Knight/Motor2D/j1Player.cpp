@@ -116,7 +116,7 @@ bool j1Player::Update(float dt)
 	{
 		flip = false;
 		animation = &forward;
-		speed = velocity.x;
+		speed = velocity.x*dt;
 	}
 
 	//BACKWARD
@@ -124,7 +124,7 @@ bool j1Player::Update(float dt)
 	{
 		flip = true;
 		animation = &forward;
-		speed = -velocity.x;
+		speed = -velocity.x*dt;
 	}
 	//IDLE 
 	else 
@@ -138,10 +138,9 @@ bool j1Player::Update(float dt)
 	
 	if(jumping == true)
 	{
-		pos.x += jump_speed.x;
-		speed = velocity.x*jump_speed.x;
+		pos.x += jump_speed.x*dt;
 	}
-	if (!dead)
+	if (!dead && !jumping)
 	{
 		pos.x += speed;
 	}
@@ -153,7 +152,7 @@ bool j1Player::Update(float dt)
 
 	if (player->CheckCollision(App->map->collider) == false)
 	{
-		pos.y += gravity;
+		pos.y += gravity*dt;
 	}
 
 
@@ -180,7 +179,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2, float dt)
 {
 	if (c2->type == COLLIDER_WALL && (player->rect.y + player->rect.h) <= (c2->rect.y +1) && (player->rect.y + player->rect.h) < (c2->rect.y + c2->rect.h))
 	{
-		pos.y -= speed;
+		pos.y -= gravity*dt;
 		falling = false;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x + player->rect.w) >= c2->rect.x && (player->rect.x + player->rect.w) < (c2->rect.x + c2->rect.w) && 
@@ -191,10 +190,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2, float dt)
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x) > c2->rect.x && (player->rect.x) <= (c2->rect.x + c2->rect.w) &&
 		(player->rect.y + player->rect.h - 1) > c2->rect.y && (player->rect.y + player->rect.h - 1) < (c2->rect.y + c2->rect.h))
 	{
-		pos.x += velocity.x;
+		pos.x += speed;
 	}
-	
-
 	
 }
 
@@ -233,12 +230,12 @@ void j1Player::Jump(float dt)
 	{
 		if (pos.y >= max_height)
 		{
-			jump_speed.y = -2.5f;
+			jumping_speed.y = jump_speed.y*dt;
 			animation = &jump;
 		}
 		if (pos.y < max_height)
 		{
-			jump_speed.y = 0;
+			jumping_speed.y = 0;
 			jumping = false;
 			jump.Reset();
 			falling = true;

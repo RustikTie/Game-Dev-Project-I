@@ -39,9 +39,6 @@ struct Collider
 	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
-	bool CollisionGround(Collider* player);
-	bool CollisionLeft(Collider* player);
-	bool CollisionRight(Collider* player);
 
 };
 
