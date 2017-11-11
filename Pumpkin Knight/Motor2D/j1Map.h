@@ -8,6 +8,8 @@
 #include "p2Queue.h"
 #include "p2DynArray.h"
 #include "j1Module.h"
+#include "j1Textures.h"
+#include "j1Render.h"
 
 #define COST_MAP 100
 
@@ -119,6 +121,8 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
+	int MovementCost(int x, int y) const;
+
 private:
 
 	bool LoadMap();
@@ -133,6 +137,7 @@ public:
 
 	MapData data;
 	SDL_Rect collider;
+	uint				cost_so_far[COST_MAP][COST_MAP];
 
 private:
 
@@ -144,7 +149,6 @@ private:
 	p2PQueue<iPoint>	frontier;
 	p2List<iPoint>		visited;
 	p2List<iPoint>		breadcrumbs;
-	uint				cost_so_far[COST_MAP][COST_MAP];
 	p2DynArray<iPoint>	path;
 	SDL_Texture*		tile_x = nullptr;
 };

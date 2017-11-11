@@ -97,6 +97,23 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	return rect;
 }
 
+int j1Map::MovementCost(int x, int y) const
+{
+	int ret = -1;
+
+	if (x >= 0 && x < data.width && y >= 0 && y < data.height)
+	{
+		int id = data.maplayers.start->next->data->Get(x, y);
+
+		if (id == 0)
+			ret = 3;
+		else
+			ret = 0;
+	}
+
+	return ret;
+}
+
 // Called before quitting
 bool j1Map::CleanUp()
 {
