@@ -4,7 +4,12 @@
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "p2Point.h"
+#include "p2PQueue.h"
+#include "p2Queue.h"
+#include "p2DynArray.h"
 #include "j1Module.h"
+
+#define COST_MAP 100
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
@@ -112,6 +117,7 @@ public:
 
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
+	iPoint WorldToMap(int x, int y) const;
 
 private:
 
@@ -133,6 +139,14 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+
+	/// BFS
+	p2PQueue<iPoint>	frontier;
+	p2List<iPoint>		visited;
+	p2List<iPoint>		breadcrumbs;
+	uint				cost_so_far[COST_MAP][COST_MAP];
+	p2DynArray<iPoint>	path;
+	SDL_Texture*		tile_x = nullptr;
 };
 
 #endif // __j1MAP_H__
