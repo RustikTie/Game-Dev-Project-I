@@ -16,7 +16,7 @@ public:
 	j1Player();
 	~j1Player();
 
-	void OnCollision(Collider* c1, Collider* c2);
+	void OnCollision(Collider* c1, Collider* c2, float dt);
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool Update(float dt);
@@ -35,7 +35,7 @@ public:
 		pos.x = x;
 		pos.y = y;
 	}
-	void Jump();
+	void Jump(float dt);
 	Collider* player;
 
 private:

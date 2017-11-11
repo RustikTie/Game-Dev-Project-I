@@ -106,7 +106,7 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
 	{
 		jumping = true;
-		max_height = pos.y - jump_height;
+		max_height = (pos.y - jump_height);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 		jumping = false;
@@ -133,12 +133,12 @@ bool j1Player::Update(float dt)
 		animation = &idle;
 	}
 
-	Jump();
+	Jump(App->GetDT());
 	//JUMP LEFT OR RIGHT
 	
 	if(jumping == true)
 	{
-		pos.y += jump_speed.y;
+		pos.x += jump_speed.x;
 		speed = velocity.x*jump_speed.x;
 	}
 	if (!dead)
@@ -148,7 +148,7 @@ bool j1Player::Update(float dt)
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
-	App->render->camera.x = -pos.x + 400;
+	App->render->camera.x = (-pos.x + 400);
 
 
 	if (player->CheckCollision(App->map->collider) == false)
@@ -176,17 +176,17 @@ bool j1Player::Update(float dt)
 
 }
 
-void j1Player::OnCollision(Collider* c1, Collider* c2)
+void j1Player::OnCollision(Collider* c1, Collider* c2, float dt)
 {
 	if (c2->type == COLLIDER_WALL && (player->rect.y + player->rect.h) <= (c2->rect.y +1) && (player->rect.y + player->rect.h) < (c2->rect.y + c2->rect.h))
 	{
-		pos.y -= gravity;
+		pos.y -= speed;
 		falling = false;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x + player->rect.w) >= c2->rect.x && (player->rect.x + player->rect.w) < (c2->rect.x + c2->rect.w) && 
 		(player->rect.y + player->rect.h - 1) > c2->rect.y && (player->rect.y + player->rect.h - 1) < (c2->rect.y + c2->rect.h)) //COLL FOWARD
 	{
-		pos.x -= velocity.x;
+		pos.x -= speed;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x) > c2->rect.x && (player->rect.x) <= (c2->rect.x + c2->rect.w) &&
 		(player->rect.y + player->rect.h - 1) > c2->rect.y && (player->rect.y + player->rect.h - 1) < (c2->rect.y + c2->rect.h))
@@ -227,7 +227,7 @@ bool j1Player::CleanUp()
 	return true;
 }
 
-void j1Player::Jump() 
+void j1Player::Jump(float dt) 
 {
 	if (jumping == true)
 	{

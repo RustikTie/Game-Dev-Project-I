@@ -29,7 +29,7 @@
   
   <player_data>
 	<velocity value = "1"/>
-	<acceleration x = "1" y ="1" />
+	<acceleration x = "200" y ="200" />
 	<pos x = "100" y = "200"/>
 	<gravity value = "1"/>
 	<jump velocity_y = "1" velocity_x = "0.8" height = "300"/>
