@@ -106,7 +106,7 @@ bool j1Player::Update(float dt)
 	
 	//MOVEMEMT
 	//JUMP
-	
+
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
 	{
 		jumping = true;
@@ -154,13 +154,6 @@ bool j1Player::Update(float dt)
 
 	App->render->camera.x = (-pos.x + 400);
 
-
-	if (player->CheckCollision(App->map->collider) == false)
-	{
-		pos.y += gravity*dt;
-	}
-
-
 	if (player != nullptr)
 	{
 		player->SetPos(pos.x + 10, pos.y + 50);
@@ -176,11 +169,12 @@ bool j1Player::Update(float dt)
 	
 	}
 
+
 	return true;
 
 }
 
-void j1Player::OnCollision(Collider* c1, Collider* c2, float dt)
+/*void j1Player::OnCollision(Collider* c1, Collider* c2, float dt)
 {
 	if (c2->type == COLLIDER_WALL && (player->rect.y + player->rect.h) <= (c2->rect.y +1) && (player->rect.y + player->rect.h) < (c2->rect.y + c2->rect.h))
 	{
@@ -198,7 +192,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2, float dt)
 		pos.x += speed*dt;
 	}
 	
-}
+}*/
 
 bool j1Player::Load(pugi::xml_node& data)
 {

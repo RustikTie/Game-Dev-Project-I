@@ -33,9 +33,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
-	player = new j1Player();
 	map = new j1Map();
 	collisions = new j1Collisions();
+	player = new j1Player();
 	pathfinding = new j1Pathfinding();
 
 	// Ordered for awake / Start / Update
@@ -44,10 +44,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(map);
 	AddModule(scene);
-	AddModule(player);
+	AddModule(map);
 	AddModule(collisions);
+	AddModule(player);
 	AddModule(pathfinding);
 
 	// render last to swap buffer

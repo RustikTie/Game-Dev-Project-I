@@ -78,19 +78,24 @@ bool j1Collisions::Update(float dt)
 
 			c2 = colliders[k];
 
-			if (c1->CheckCollision(c2->rect) == true)
+			
+			if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && c1->CheckCollision(c2->rect) == true)
 			{
 
-				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2, dt);
-				
+				App->player->pos.y -= App->player->gravity*dt;
+				App->player->falling = false;
 
-				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1, dt);
+			}
+			else
+				App->player->falling = true;
+			
+
+				/*if (matrix[c2->type][c1->type] && c2->callback)
+					c2->callback->OnCollision(c2, c1, dt);*/
 
 			}
 		}
-	}
+	
 
 	DebugDraw();
 

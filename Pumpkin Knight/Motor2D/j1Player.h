@@ -15,7 +15,7 @@ public:
 	j1Player();
 	~j1Player();
 
-	void OnCollision(Collider* c1, Collider* c2, float dt);
+//	void OnCollision(Collider* c1, Collider* c2, float dt);
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool Update(float dt);
@@ -37,6 +37,19 @@ public:
 	void Jump(float dt);
 	Collider* player;
 
+
+	fPoint pos;
+	float gravity;
+	float speed;
+	fPoint velocity;
+	fPoint acceleration;
+	fPoint jump_speed;
+	fPoint jumping_speed;
+	float jump_height = 200;
+	float max_height;
+	bool falling = false;
+
+
 private:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* textures = nullptr;
@@ -49,18 +62,7 @@ private:
 	bool jumping = false;
 	bool double_jumping = false;
 	bool flip = false;
-	bool falling = false; 
 	bool dead = false;
-
-	fPoint pos;
-	float gravity;
-	float speed;
-	fPoint velocity;
-	fPoint acceleration;
-	fPoint jump_speed;
-	fPoint jumping_speed;
-	float jump_height = 200;
-	float max_height;
 
 };
 
