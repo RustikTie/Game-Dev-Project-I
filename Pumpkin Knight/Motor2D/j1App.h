@@ -18,6 +18,8 @@ class j1Map;
 class j1Player;
 class j1Collisions;
 class j1Pathfinding;
+class j1EntityManager;
+class Entity;
 
 class j1App
 {
@@ -92,6 +94,8 @@ public:
 	j1Player*			player = NULL;
 	j1Collisions*		collisions = NULL;
 	j1Pathfinding*		pathfinding = NULL;
+	j1EntityManager*	entity_manager = NULL;
+	Entity*				entity = NULL;
 
 private:
 

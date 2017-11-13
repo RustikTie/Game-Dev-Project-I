@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __j1PLAYER_H__
 #define __j1PLAYER_H__
 
