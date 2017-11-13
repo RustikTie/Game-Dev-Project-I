@@ -74,6 +74,7 @@ bool j1Player::Start()
 
 	player = App->collisions->AddCollider({ 0, 500, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, this);
 	graphics = App->tex->Load("assets/Pumpkin sprites.png");
+
 	return true;
 }
 

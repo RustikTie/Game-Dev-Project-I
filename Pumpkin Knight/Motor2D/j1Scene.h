@@ -2,6 +2,8 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "p2DynArray.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
 
@@ -31,9 +33,9 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
-
+	p2DynArray<iPoint> path;
 private:
-
+	
 	bool level1 = true;
 };
 

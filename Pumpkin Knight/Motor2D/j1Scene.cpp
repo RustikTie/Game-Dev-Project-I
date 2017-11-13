@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+#include "j1Pathfinding.h"
 #include "Brofiler\Brofiler.h"
 
 using namespace pugi;
@@ -52,6 +53,15 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
+
+		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+		{
+			path.Clear();
+			App->pathfinding->CreatePath({ 0,0 }, { 200, 200 });
+			App->pathfinding->BackTracking({ 200, 200 }, path);
+			//App->pathfinding->DrawPath(path);
+			LOG("PATH");
+		}
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 200.0f * dt;
@@ -103,7 +113,7 @@ bool j1Scene::Update(float dt)
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-	
+	App->pathfinding->DrawPath(path);
 	p2SString title("Pumpkin Knight");
 
 	App->win->SetTitle(title.GetString());

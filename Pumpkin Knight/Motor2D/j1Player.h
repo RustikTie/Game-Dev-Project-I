@@ -36,6 +36,7 @@ public:
 	}
 	void Jump(float dt);
 	Collider* player;
+	fPoint pos;
 
 private:
 	SDL_Texture* graphics = nullptr;
@@ -52,7 +53,7 @@ private:
 	bool falling = false; 
 	bool dead = false;
 
-	fPoint pos;
+	
 	float gravity;
 	float speed;
 	fPoint velocity;

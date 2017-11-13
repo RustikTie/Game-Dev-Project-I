@@ -17,11 +17,10 @@ public:
 	j1Pathfinding();
 	~j1Pathfinding();
 
+	bool Start();
+
 	// Called before quitting
 	bool CleanUp();
-
-	// Sets up the walkability map
-	void SetMap(uint width, uint height, uchar* data);
 
 	// Main function to request a path from A to B
 	int CreatePath(const iPoint& origin, const iPoint& destination);
@@ -30,10 +29,15 @@ public:
 	const p2DynArray<iPoint>* GetLastPath() const;
 
 	//Draws path on screen
-	void DrawPath();
+	void DrawPath(p2DynArray<iPoint>& path);
+
+	//Backtracking function
+	void BackTracking(const iPoint& start, p2DynArray<iPoint>& path);
 
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const iPoint& pos) const;
+
+	SDL_Texture*		pathfinder = nullptr;
 
 private:
 	uint width;
@@ -45,8 +49,6 @@ private:
 	p2List<iPoint>		visited;
 	p2List<iPoint>		breadcrumbs;
 	p2DynArray<iPoint>	last_path;
-
-
 
 };
 
