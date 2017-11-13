@@ -100,6 +100,10 @@ bool j1Player::Update(float dt)
 	
 	BROFILER_CATEGORY("Update Player", Profiler::Color::Green)
 
+	idle.speed = 10.f*dt;
+	forward.speed = 10.f*dt;
+	jump.speed = 10.f*dt;
+	
 	//MOVEMEMT
 	//JUMP
 	
@@ -116,7 +120,7 @@ bool j1Player::Update(float dt)
 	{
 		flip = false;
 		animation = &forward;
-		speed = velocity.x*dt;
+		speed = velocity.x;
 	}
 
 	//BACKWARD
@@ -124,7 +128,7 @@ bool j1Player::Update(float dt)
 	{
 		flip = true;
 		animation = &forward;
-		speed = -velocity.x*dt;
+		speed = -velocity.x;
 	}
 	//IDLE 
 	else 
@@ -133,16 +137,17 @@ bool j1Player::Update(float dt)
 		animation = &idle;
 	}
 
-	Jump(App->GetDT());
+	Jump(dt);
 	//JUMP LEFT OR RIGHT
 	
 	if(jumping == true)
 	{
 		pos.x += jump_speed.x*dt;
+		pos.y -= jump_speed.y*dt;
 	}
 	if (!dead && !jumping)
 	{
-		pos.x += speed;
+		pos.x += speed*dt;
 	}
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
@@ -185,12 +190,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2, float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x + player->rect.w) >= c2->rect.x && (player->rect.x + player->rect.w) < (c2->rect.x + c2->rect.w) && 
 		(player->rect.y + player->rect.h - 1) > c2->rect.y && (player->rect.y + player->rect.h - 1) < (c2->rect.y + c2->rect.h)) //COLL FOWARD
 	{
-		pos.x -= speed;
+		pos.x -= speed*dt;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c2->type == COLLIDER_WALL && (player->rect.x) > c2->rect.x && (player->rect.x) <= (c2->rect.x + c2->rect.w) &&
 		(player->rect.y + player->rect.h - 1) > c2->rect.y && (player->rect.y + player->rect.h - 1) < (c2->rect.y + c2->rect.h))
 	{
-		pos.x += speed;
+		pos.x += speed*dt;
 	}
 	
 }

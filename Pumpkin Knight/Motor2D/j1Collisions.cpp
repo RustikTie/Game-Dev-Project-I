@@ -100,7 +100,7 @@ bool j1Collisions::Update(float dt)
 void j1Collisions::DebugDraw()
 {
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
-		LOG("YOu can see the colliders");
+		LOG("You can see the colliders");
 		debug = !debug;
 	}
 
