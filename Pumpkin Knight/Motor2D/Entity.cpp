@@ -12,5 +12,10 @@ Entity::~Entity()
 }
 
 
-void Entity::Update(){}
-void Entity::Draw(){}
+void Entity::Update()
+{
+}
+
+void Entity::Draw()
+{
+}
