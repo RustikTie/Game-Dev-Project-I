@@ -1,5 +1,5 @@
 #include "j1EntityManager.h"
-
+#include "Wolf.h"
 
 
 j1EntityManager::j1EntityManager()
@@ -37,8 +37,23 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
-Entity* CreateEntity(EntityType etype, fPoint pos) 
+void j1EntityManager::CreateEntity(EntityType etype, fPoint pos) 
 {
+	Entity* entity = nullptr;
+	SDL_Rect wolfCol;
+	wolfCol.x = 150;
+	wolfCol.y = 200;
+	wolfCol.w = 66;
+	wolfCol.h = 34;
+
+	if (etype == WHITE_WOLF)
+	{
+		entity->texture = App->entity->white_wolf;
+		entity->collider = App->collisions->AddCollider(wolfCol, COLLIDER_ENEMY, NULL);
+				
+		entities.add(entity);
+	}
+
 
 }
 

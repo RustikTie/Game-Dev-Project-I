@@ -1,9 +1,11 @@
 #include "Entity.h"
+#include "j1Textures.h"
 
 
 
 Entity::Entity(int x, int y)
 {
+	white_wolf = App->tex->Load("assets/WolfMedium.png");
 }
 
 

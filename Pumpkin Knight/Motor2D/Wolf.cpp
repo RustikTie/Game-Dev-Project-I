@@ -3,7 +3,6 @@
 
 Wolf::Wolf(int x, int y) : Entity (x, y)
 {
-	wolfsprite = App->tex->Load("assets/WolfMedium.png");
 
 	idle.PushBack({ 0, 33, 64, 64 });
 	idle.PushBack({ 65, 33, 64, 64 });

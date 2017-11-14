@@ -21,7 +21,7 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 
-	Entity* CreateEntity(EntityType etype, fPoint pos);
+	void CreateEntity(EntityType etype, fPoint pos);
 	void DeleteEntity();
 
 private:

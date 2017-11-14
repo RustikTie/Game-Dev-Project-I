@@ -26,15 +26,14 @@ public:
 	void OnCollision(Collider* collider);
 	//bool LoadEnemyLayer(pugi::xml_node& node, EnemyLayer* layer);
 
-private:
+public:
 
 	Animation* animation;
 	fPoint pos;
 	SDL_Texture* texture;
-
-private:
-
 	Collider* collider = nullptr;
+	SDL_Texture* white_wolf;
+
 
 };
 
