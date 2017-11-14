@@ -141,6 +141,7 @@ void j1Collisions::DebugDraw()
 				break;
 			case COLLIDER_ENEMY: // yellow
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha, false);
+
 			}
 
 
