@@ -37,6 +37,11 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
+Entity* CreateEntity(EntityType etype, fPoint pos) 
+{
+
+}
+
 
 void j1EntityManager::DeleteEntity()
 {

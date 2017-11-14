@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "Entity.h"
+#include "j1Map.h"
 #include "p2List.h"
 #include "p2Point.h"
 
@@ -20,7 +21,7 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 
-	//Entity* CreateEntity(EntityType etype, ColType ctype, fPoint pos);
+	Entity* CreateEntity(EntityType etype, fPoint pos);
 	void DeleteEntity();
 
 private:
