@@ -117,15 +117,14 @@ int j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 				for (uint i = 0; i < 4; ++i)
 				{
-					//uint Distance = sqrt(pow((goal.x-neighbors[i].x),2)+pow((goal.y- neighbors[i].y),2));
-					uint Distance = neighbors[i].DistanceTo(goal);
+					uint point_dist = sqrt(pow((goal.x - neighbors[i].x), 2) + pow((goal.y - neighbors[i].y), 2));
 
 					if (App->map->MovementCost(neighbors[i].x, neighbors[i].y) >= 0)
 					{
-						if (breadcrumbs.find(neighbors[i]) == -1 && visited.find(neighbors[i]) == -1)
+						if (visited.find(neighbors[i]) == -1)
 						{
-							App->map->cost_so_far[neighbors[i].x][neighbors[i].y] = Distance;
-							frontier.Push(neighbors[i], Distance);							//El nou cost es la distancia
+							App->map->cost_so_far[neighbors[i].x][neighbors[i].y] = point_dist;
+							frontier.Push(neighbors[i], point_dist);
 							visited.add(neighbors[i]);
 							breadcrumbs.add(curr);
 						}

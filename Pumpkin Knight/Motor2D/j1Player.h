@@ -36,7 +36,7 @@ public:
 	}
 	void Jump(float dt);
 	Collider* player;
-	fPoint pos;
+	//fPoint pos;
 
 
 	fPoint pos;
@@ -66,14 +66,14 @@ private:
 	bool dead = false;
 
 	
-	float gravity;
+	/*float gravity;
 	float speed;
 	fPoint velocity;
 	fPoint acceleration;
 	fPoint jump_speed;
 	fPoint jumping_speed;
 	float jump_height = 200;
-	float max_height;
+	float max_height;*/
 
 
 };

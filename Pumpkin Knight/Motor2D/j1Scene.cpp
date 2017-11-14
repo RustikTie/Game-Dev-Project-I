@@ -59,7 +59,6 @@ bool j1Scene::Update(float dt)
 			path.Clear();
 			App->pathfinding->CreatePath({ 0,0 }, { 200, 200 });
 			App->pathfinding->BackTracking({ 200, 200 }, path);
-			//App->pathfinding->DrawPath(path);
 			LOG("PATH");
 		}
 
