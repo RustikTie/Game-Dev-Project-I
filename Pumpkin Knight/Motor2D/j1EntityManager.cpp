@@ -37,11 +37,6 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
-Entity* j1EntityManager::CreateEntity()
-{
-
-	return NULL;
-}
 
 void j1EntityManager::DeleteEntity()
 {

@@ -6,12 +6,7 @@
 
 struct SDL_Texture;
 
-enum EntityType
-{
-	BAT,
-	WOLF,
-	PLAYER
-};
+
 
 class Entity : public j1Module
 {
@@ -21,11 +16,11 @@ public:
 
 	void Update();
 	void Draw();
-	
+	//bool LoadEnemyLayer(pugi::xml_node& node, EnemyLayer* layer);
+
 private:
 
 	fPoint pos;
-	EntityType type;
 	SDL_Texture* texture;
 
 };

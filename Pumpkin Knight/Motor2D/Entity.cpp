@@ -19,3 +19,4 @@ void Entity::Update()
 void Entity::Draw()
 {
 }
+

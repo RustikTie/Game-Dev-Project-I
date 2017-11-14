@@ -78,14 +78,30 @@ bool j1Collisions::Update(float dt)
 
 			c2 = colliders[k];
 
-
-			if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && c1->CheckCollision(c2->rect) == true || c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
+			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
 			{
-				//GRAVITY PLAYER
+				//GRAVITY PLAYER						
 					App->player->pos.y -= (App->player->gravity)*dt;
-					App->player->falling = false;							
+					App->player->falling = false;
+					
 			}
-			
+			//FOWARD COLLISION
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionForward(c2->rect))
+			{
+				if (App->player->jumping == false)
+				{
+					App->player->pos.x -= (App->player->speed)*dt;
+				}
+				if (App->player->jumping == true)
+				{
+					App->player->pos.x -= (App->player->jump_speed.x)*dt;
+				}
+			}
+			//BACKWARD COLLISION
+			if (App->player->falling == false && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
+			{
+				App->player->pos.x += (App->player->speed)*dt;
+			}
 			
 		}
 	}
@@ -204,7 +220,7 @@ void j1Collisions::Erase_Non_Player_Colliders()
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	if (r.y + r.h > rect.y && r.y < rect.y + rect.h && r.x + r.w >= rect.x && r.x <= rect.x + rect.w)
+	if (r.y + r.h > rect.y-2 && r.y < rect.y + rect.h && r.x + r.w >= rect.x  && r.x <= rect.x + rect.w)
 	{
 		return true;
 	}
@@ -217,9 +233,10 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 
 bool Collider::CheckCollisionForward(const SDL_Rect& r) const
 {
-	if (r.y + r.h < rect.y + rect.h && r.y + r.h >= rect.y && r.x + r.w >= rect.x -1 && r.x +r.w <= rect.x)
+	if (r.y +r.h  > rect.y && r.y + r.h < rect.y + rect.h && r.x + r.w >= rect.x && r.x + r.w < rect.x + rect.w)
 	{
 		return true;
+		
 	}
 
 	else
@@ -230,7 +247,7 @@ bool Collider::CheckCollisionForward(const SDL_Rect& r) const
 
 bool Collider::CheckCollisionBackward(const SDL_Rect& r) const
 {
-	if (r.y + r.h <= rect.y + rect.h && r.y + r.h >= rect.y && r.x +r.w >= rect.x && r.x +r.w <= rect.x)
+	if (r.y + r.h <= rect.y + rect.h && r.y + r.h >= rect.y && r.x < rect.x +rect.w && r.x > rect.x)
 	{
 		return true;
 	}

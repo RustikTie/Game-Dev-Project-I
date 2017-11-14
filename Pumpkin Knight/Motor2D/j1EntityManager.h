@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "Entity.h"
 #include "p2List.h"
+#include "p2Point.h"
 
 
 class j1EntityManager : public j1Module
@@ -19,7 +20,7 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 
-	Entity* CreateEntity();
+	//Entity* CreateEntity(EntityType etype, ColType ctype, fPoint pos);
 	void DeleteEntity();
 
 private:
