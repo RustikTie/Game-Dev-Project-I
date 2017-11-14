@@ -78,14 +78,14 @@ bool j1Collisions::Update(float dt)
 
 			c2 = colliders[k];
 
+			//GRAVITY PLAYER
 			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
 			{
-				//GRAVITY PLAYER						
 					App->player->pos.y -= (App->player->gravity)*dt;
 					App->player->falling = false;
 					
 			}
-			//FOWARD COLLISION
+			//FOWARD and BACKWARD COLLISION PLAYER w/ WALL
 			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
 			{
 				if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
@@ -95,11 +95,7 @@ bool j1Collisions::Update(float dt)
 					App->player->pos.x -= (App->player->speed)*dt;
 
 			}
-			//BACKWARD COLLISION
-		/*	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
-			{
-				App->player->pos.x += (App->player->speed)*dt;
-			}*/
+	
 			
 		}
 	}
