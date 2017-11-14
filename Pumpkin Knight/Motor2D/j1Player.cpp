@@ -150,6 +150,11 @@ bool j1Player::Update(float dt)
 	{
 		pos.x += speed*dt;
 	}
+
+	if (player->CheckCollision(App->map->collider) == false)
+	{
+		pos.y += gravity*dt;
+	}
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
@@ -232,6 +237,7 @@ void j1Player::Jump(float dt)
 		{
 			jumping_speed.y = jump_speed.y*dt;
 			animation = &jump;
+			pos.y -= jumping_speed.y;
 		}
 		if (pos.y < max_height)
 		{

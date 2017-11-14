@@ -78,24 +78,17 @@ bool j1Collisions::Update(float dt)
 
 			c2 = colliders[k];
 
-			
-			if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && c1->CheckCollision(c2->rect) == true)
+
+			if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && c1->CheckCollision(c2->rect) == true || c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
 			{
-
-				App->player->pos.y -= App->player->gravity*dt;
-				App->player->falling = false;
-
+				//GRAVITY PLAYER
+					App->player->pos.y -= (App->player->gravity)*dt;
+					App->player->falling = false;							
 			}
-			else
-				App->player->falling = true;
 			
-
-				/*if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1, dt);*/
-
-			}
+			
 		}
-	
+	}
 
 	DebugDraw();
 
@@ -211,7 +204,7 @@ void j1Collisions::Erase_Non_Player_Colliders()
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	if (r.y + r.h >= rect.y && r.y <= rect.y + rect.h && r.x + r.w >= rect.x && r.x <= rect.x + rect.w)
+	if (r.y + r.h > rect.y && r.y < rect.y + rect.h && r.x + r.w >= rect.x && r.x <= rect.x + rect.w)
 	{
 		return true;
 	}
@@ -222,3 +215,28 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	}
 }
 
+bool Collider::CheckCollisionForward(const SDL_Rect& r) const
+{
+	if (r.y + r.h < rect.y + rect.h && r.y + r.h >= rect.y && r.x + r.w >= rect.x -1 && r.x +r.w <= rect.x)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}
+
+bool Collider::CheckCollisionBackward(const SDL_Rect& r) const
+{
+	if (r.y + r.h <= rect.y + rect.h && r.y + r.h >= rect.y && r.x +r.w >= rect.x && r.x +r.w <= rect.x)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}

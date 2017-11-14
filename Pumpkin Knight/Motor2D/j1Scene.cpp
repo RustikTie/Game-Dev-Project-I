@@ -112,9 +112,7 @@ bool j1Scene::Update(float dt)
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 	App->pathfinding->DrawPath(path);
-	p2SString title("Pumpkin Knight");
 
-	App->win->SetTitle(title.GetString());
 	return true;
 }
 

@@ -102,6 +102,7 @@ private:
 	p2List<j1Module*>	modules;
 	int					argc;
 	char**				args;
+	uint				frames;
 
 	p2SString			title;
 	p2SString			organization;
