@@ -82,8 +82,7 @@ bool j1Collisions::Update(float dt)
 			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
 			{
 					App->player->pos.y -= (App->player->gravity)*dt;
-					App->player->falling = false;
-					
+					App->player->falling = false;					
 			}
 			//FOWARD and BACKWARD COLLISION PLAYER w/ WALL
 			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
@@ -93,9 +92,12 @@ bool j1Collisions::Update(float dt)
 
 				if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 					App->player->pos.x -= (App->player->speed)*dt;
-
 			}
-	
+			//PLAYER ENEMY COLLISION
+			if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
+			{
+				App->player->SetPos(100,200);
+			}
 			
 		}
 	}
@@ -137,7 +139,10 @@ void j1Collisions::DebugDraw()
 			case COLLIDER_PLAYER: // green
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha, false);
 				break;
+			case COLLIDER_ENEMY: // yellow
+				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha, false);
 			}
+
 
 		}
 	}

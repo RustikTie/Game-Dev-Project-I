@@ -28,8 +28,8 @@ struct MapLayer
 	
 	~MapLayer() { delete[] data; }
 };
-	// TODO 6: Short function to get the value of x,y
 
+// TODO 6: Short function to get the value of x,y
 struct ImageLayer 
 {
 	p2SString			name;
@@ -41,43 +41,29 @@ struct ImageLayer
 	SDL_Texture* texture;
 };
 
-struct ObjectLayer
-{
-	/*inline uint Get(int x, int y) const;*/
-	p2SString			name;
-	uint*				width = nullptr;
-	uint*				height = nullptr;
-	int*				x = nullptr;
-	int*				y = nullptr;
-	uint*				id = nullptr;
-	SDL_Rect*			rect;
-};
-
 enum EntityType
 {
 	BLACK_BAT,
 	WHITE_WOLF,
-	PUMPKIN
+	PLAYER,
+	NO_ENTITY = -1
 };
 
-enum ColType
-{
-	BAT,
-	WOLF,
-	PLAYER
-};
+/*inline uint Get(int x, int y) const;*/
 
-struct EnemyLayer
+struct ObjectLayer
 {
-	EntityType			entity_type;
-	ColType				collider_type;
-	uint*				width = nullptr;
-	uint*				height = nullptr;
-	int*				x = nullptr;
-	int*				y = nullptr;
-	uint*				id = nullptr;
+	p2SString			name;
+	uint*				width;
+	uint*				height;
+	int*				x;
+	int*				y;
+	uint*				id;
 	SDL_Rect*			rect;
+	EntityType			entity_type = NO_ENTITY;
+
 };
+
 
 // ----------------------------------------------------
 struct TileSet

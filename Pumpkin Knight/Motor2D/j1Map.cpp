@@ -327,13 +327,18 @@ bool j1Map::Load(const char* file_name)
 			int w = data.objectlayers[object_num]->width[i];
 			int h = data.objectlayers[object_num]->height[i];
 			collider = { x, y, w, h };
-			if (object_num == 0 || 2)
+			if (object_num == 0)
 			{
 				App->collisions->AddCollider(collider, COLLIDER_GROUND);
 			}
 			if (object_num == 1)
 			{
 				App->collisions->AddCollider(collider, COLLIDER_WALL);
+			}
+			if (object_num == 2)
+			{
+				App->collisions->AddCollider(collider, COLLIDER_ENEMY);
+
 			}
 		}
 	}
