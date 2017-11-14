@@ -86,7 +86,7 @@ bool j1Collisions::Update(float dt)
 					
 			}
 			//FOWARD COLLISION
-			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollisionForward(c2->rect))
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionForward(c2->rect))
 			{
 				if (App->player->jumping == false)
 				{
@@ -98,7 +98,7 @@ bool j1Collisions::Update(float dt)
 				}
 			}
 			//BACKWARD COLLISION
-			if (App->player->falling == false && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
+			if (App->player->falling == false && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
 			{
 				App->player->pos.x += (App->player->speed)*dt;
 			}
