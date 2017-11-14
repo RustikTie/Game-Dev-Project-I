@@ -86,22 +86,20 @@ bool j1Collisions::Update(float dt)
 					
 			}
 			//FOWARD COLLISION
-			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionForward(c2->rect))
+			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
 			{
-				if (App->player->jumping == false)
-				{
+				if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+					App->player->pos.x -= (App->player->speed)*dt;	
+
+				if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 					App->player->pos.x -= (App->player->speed)*dt;
-				}
-				if (App->player->jumping == true)
-				{
-					App->player->pos.x -= (App->player->jump_speed.x)*dt;
-				}
+
 			}
 			//BACKWARD COLLISION
-			if (App->player->falling == false && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
+		/*	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
 			{
 				App->player->pos.x += (App->player->speed)*dt;
-			}
+			}*/
 			
 		}
 	}
@@ -250,7 +248,7 @@ bool Collider::CheckCollisionForward(const SDL_Rect& r) const
 
 bool Collider::CheckCollisionBackward(const SDL_Rect& r) const
 {
-	if (r.y + r.h <= rect.y + rect.h && r.y + r.h >= rect.y && r.x < rect.x +rect.w && r.x > rect.x)
+	if (r.y + r.h < rect.y + rect.h && r.y + r.h > rect.y && r.x >= rect.x +rect.w && r.x > rect.x)
 	{
 		return true;
 	}

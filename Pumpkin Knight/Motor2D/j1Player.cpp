@@ -143,7 +143,14 @@ bool j1Player::Update(float dt)
 	
 	if(jumping == true)
 	{
-		pos.x += jump_speed.x*dt;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			pos.x += speed*dt;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			pos.x += speed*dt;
+		}
 		pos.y -= jump_speed.y*dt;
 	}
 	if (!dead && !jumping)
