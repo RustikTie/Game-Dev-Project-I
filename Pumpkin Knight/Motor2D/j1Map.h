@@ -51,6 +51,32 @@ struct ObjectLayer
 	SDL_Rect*			rect;
 };
 
+enum EntityType
+{
+	BLACK_BAT,
+	WHITE_WOLF,
+	PUMPKIN
+};
+
+enum ColType
+{
+	BAT,
+	WOLF,
+	PLAYER
+};
+
+struct EnemyLayer
+{
+	EntityType			entity_type;
+	ColType				collider_type;
+	uint*				width = nullptr;
+	uint*				height = nullptr;
+	int*				x = nullptr;
+	int*				y = nullptr;
+	uint*				id = nullptr;
+	SDL_Rect*			rect;
+};
+
 // ----------------------------------------------------
 struct TileSet
 {
@@ -132,6 +158,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* layer);
 	bool LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer);
+	//bool LoadEnemyLayer(pugi::xml_node& node, EnemyLayer* layer);
 
 public:
 
