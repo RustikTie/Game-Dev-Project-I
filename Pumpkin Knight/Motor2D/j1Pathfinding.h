@@ -40,8 +40,6 @@ public:
 	SDL_Texture*		pathfinder = nullptr;
 
 private:
-	uint width;
-	uint height;
 
 	uchar* map;
 

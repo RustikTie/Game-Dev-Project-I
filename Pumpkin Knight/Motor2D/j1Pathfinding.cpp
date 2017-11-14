@@ -32,8 +32,9 @@ bool j1Pathfinding::CleanUp()
 
 bool j1Pathfinding::IsWalkable(const iPoint& pos) const
 {
-
-	if (pos.x >= 0 && pos.x <= (int)width && pos.y >= 0 && pos.y <= (int)height)
+	//iPoint auxpos = App->map->MapToWorld(App->map->data.width, App->map->data.height);
+	
+	if (pos.x >= 0 && pos.x <App->map->data.width && pos.y >= 0 && pos.y <App->map->data.height)
 	{
 		return true;
 	}
@@ -55,7 +56,7 @@ void j1Pathfinding::DrawPath(p2DynArray<iPoint>& trackingpath)
 	for (uint i = 0; i < trackingpath.Count(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld(trackingpath[i].x, trackingpath[i].y);
-		App->render->Blit(pathfinder, pos.x, pos.y, 0, 0, false);
+		App->render->Blit(pathfinder, pos.x, pos.y, 1, 1, false);
 	}
 }
 
@@ -67,9 +68,10 @@ void j1Pathfinding::BackTracking(const iPoint& start, p2DynArray<iPoint>& path)
 	p2List_item<iPoint>* item = breadcrumbs.end;
 
 	path.PushBack(curr);
-
-	while (item != breadcrumbs.start && visited.find(curr) != -1)
+	
+	while (item != breadcrumbs.start /*&& visited.find(curr) != -1*/)
 	{
+		
 		curr = breadcrumbs[visited.find(curr)];
 		path.PushBack(curr);
 		item = item->prev;
@@ -83,11 +85,10 @@ int j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	frontier.Clear();
 	breadcrumbs.clear();
 	visited.clear();
-	last_path.Clear();
 
 	int ret = 0;
 
-	if (!(IsWalkable(origin)) || !(IsWalkable(destination)))
+	if (App->map->MovementCost(destination.x, destination.y)>=0)
 	{
 		ret = -1;
 	}
@@ -117,11 +118,12 @@ int j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 				for (uint i = 0; i < 4; ++i)
 				{
-					uint point_dist = sqrt(pow((goal.x - neighbors[i].x), 2) + pow((goal.y - neighbors[i].y), 2));
+					//uint point_dist = sqrt(pow((goal.x - neighbors[i].x), 2) + pow((goal.y - neighbors[i].y), 2));
+					uint point_dist = neighbors[i].DistanceTo(goal);
 
 					if (App->map->MovementCost(neighbors[i].x, neighbors[i].y) >= 0)
 					{
-						if (visited.find(neighbors[i]) == -1)
+						if (visited.find(neighbors[i]) == -1 && breadcrumbs.find(neighbors[i]) == -1)
 						{
 							App->map->cost_so_far[neighbors[i].x][neighbors[i].y] = point_dist;
 							frontier.Push(neighbors[i], point_dist);

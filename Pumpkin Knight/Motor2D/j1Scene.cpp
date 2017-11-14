@@ -56,9 +56,8 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 		{
-			path.Clear();
 			App->pathfinding->CreatePath({ 0,0 }, { 200, 200 });
-			App->pathfinding->BackTracking({ 200, 200 }, path);
+			App->pathfinding->BackTracking({ 500, 500 }, path);
 			LOG("PATH");
 		}
 
