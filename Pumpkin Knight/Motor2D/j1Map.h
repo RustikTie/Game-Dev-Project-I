@@ -42,6 +42,7 @@ struct ImageLayer
 
 struct ObjectLayer
 {
+	/*inline uint Get(int x, int y) const;*/
 	p2SString			name;
 	uint*				width = nullptr;
 	uint*				height = nullptr;

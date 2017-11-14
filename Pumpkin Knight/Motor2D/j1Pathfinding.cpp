@@ -69,11 +69,11 @@ void j1Pathfinding::BackTracking(const iPoint& start, p2DynArray<iPoint>& path)
 
 	path.PushBack(curr);
 	
-	while (item != breadcrumbs.start /*&& visited.find(curr) != -1*/)
+	while (item != breadcrumbs.start && visited.find(item->data) != -1)
 	{
 		
-		curr = breadcrumbs[visited.find(curr)];
-		path.PushBack(curr);
+		curr = breadcrumbs[visited.find(item->data)];
+		path.PushBack(item->data);
 		item = item->prev;
 	}
 	
