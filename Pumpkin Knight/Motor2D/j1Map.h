@@ -18,6 +18,7 @@
 struct MapLayer
 {
 	inline uint Get(int x, int y) const;
+	inline uint PathLimit(int x, int y) const;
 	p2SString			name;
 	uint				width;
 	uint				height;

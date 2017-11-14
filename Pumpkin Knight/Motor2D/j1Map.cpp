@@ -104,7 +104,7 @@ int j1Map::MovementCost(int x, int y) const
 
 	if (x >= 0 && x < data.width && y >= 0 && y < data.height)
 	{
-		int id = data.maplayers.start->data->Get(x, y);
+		int id = data.maplayers.start->data->PathLimit(x, y);
 
 		if (id == 0)
 			ret = 3;
@@ -491,11 +491,10 @@ inline uint MapLayer::Get(int x, int y) const
 	return x + y*width;
 }
 
-//inline uint ObjectLayer::Get(int x, int y) const
-//{
-//	MapLayer* auxmap = nullptr;
-//	return x + y*auxmap->width;
-//}
+inline uint MapLayer::PathLimit(int x, int y) const
+{
+	return data[(y*width) + x];
+}
 
 bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 {

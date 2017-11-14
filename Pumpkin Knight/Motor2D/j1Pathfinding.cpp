@@ -121,7 +121,7 @@ int j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination)
 					//uint point_dist = sqrt(pow((goal.x - neighbors[i].x), 2) + pow((goal.y - neighbors[i].y), 2));
 					uint point_dist = neighbors[i].DistanceTo(goal);
 
-					if (App->map->MovementCost(neighbors[i].x, neighbors[i].y) >= 0)
+					if (App->map->MovementCost(neighbors[i].x, neighbors[i].y) > 0)
 					{
 						if (visited.find(neighbors[i]) == -1 && breadcrumbs.find(neighbors[i]) == -1)
 						{
