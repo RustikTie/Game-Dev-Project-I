@@ -49,7 +49,8 @@ public:
 	float jump_height = 200;
 	float max_height;
 	bool falling = false;
-
+	bool jumping = false;
+	bool double_jumping = false;
 
 private:
 	SDL_Texture* graphics = nullptr;
@@ -60,8 +61,7 @@ private:
 	Animation forward;
 	Animation jump;
 	
-	bool jumping = false;
-	bool double_jumping = false;
+
 	bool flip = false;
 	bool dead = false;
 
