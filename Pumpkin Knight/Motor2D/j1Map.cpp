@@ -321,17 +321,39 @@ bool j1Map::Load(const char* file_name)
 
 	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
 	{
-		
 		for (int i = 0; data.objectlayers[object_num]->id[i] != NULL; ++i) {
 			int x = data.objectlayers[object_num]->x[i];
 			int y = data.objectlayers[object_num]->y[i];
 			int w = data.objectlayers[object_num]->width[i];
 			int h = data.objectlayers[object_num]->height[i];
 			collider = { x, y, w, h };
-			App->collisions->AddCollider(collider, COLLIDER_WALL);
+			if (object_num == 0 || 2)
+			{
+				App->collisions->AddCollider(collider, COLLIDER_GROUND);
+			}
+			if (object_num == 1)
+			{
+				App->collisions->AddCollider(collider, COLLIDER_WALL);
+			}
 		}
 	}
-
+	/*for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
+	{
+		for (int i = 0; i < data.width; ++i)
+		{
+			for (int j = 0; j < data.height; ++j)
+			{
+				uint id = data.maplayers[layer_num]->data[data.maplayers[layer_num]->Get(i, j)];
+				if (id != 0)
+				{
+					SDL_Rect tile_rect = data.tilesets[layer_num]->GetTileRect(id);
+					int x = MapToWorld(i, j).x;
+					int y = MapToWorld(i, j).y;
+					App->render->Blit(data.tilesets[layer_num]->texture, x, y, 1, 1, false, &tile_rect);
+				}
+			}
+		}
+	}*/
 	map_loaded = ret;
 
 	return ret;

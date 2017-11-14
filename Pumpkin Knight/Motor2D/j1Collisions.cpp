@@ -13,11 +13,11 @@ j1Collisions::j1Collisions() : j1Module()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
-	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER] = true;
 	
 
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	
 }
@@ -78,7 +78,7 @@ bool j1Collisions::Update(float dt)
 
 			c2 = colliders[k];
 
-			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
+			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
 			{
 				//GRAVITY PLAYER						
 					App->player->pos.y -= (App->player->gravity)*dt;
@@ -86,7 +86,7 @@ bool j1Collisions::Update(float dt)
 					
 			}
 			//FOWARD COLLISION
-			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionForward(c2->rect))
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollisionForward(c2->rect))
 			{
 				if (App->player->jumping == false)
 				{
@@ -98,7 +98,7 @@ bool j1Collisions::Update(float dt)
 				}
 			}
 			//BACKWARD COLLISION
-			if (App->player->falling == false && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
+			if (App->player->falling == false && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollisionBackward(c2->rect))
 			{
 				App->player->pos.x += (App->player->speed)*dt;
 			}
@@ -134,8 +134,11 @@ void j1Collisions::DebugDraw()
 			case COLLIDER_NONE: // white
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha, false);
 				break;
-			case COLLIDER_WALL: // blue
+			case COLLIDER_GROUND: // blue
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha, false);
+				break;
+			case COLLIDER_WALL: // pink
+				App->render->DrawQuad(colliders[i]->rect, 255, 91, 165, alpha, false);
 				break;
 			case COLLIDER_PLAYER: // green
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha, false);
