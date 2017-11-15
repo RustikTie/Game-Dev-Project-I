@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="24" tilewidth="32" tileheight="32" nextobjectid="137">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="200" height="24" tilewidth="32" tileheight="32" nextobjectid="137">
  <tileset firstgid="1" name="Metroidvania Tileset" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="../assets/Metroidvania Tileset.png" width="256" height="256"/>
   <terraintypes>
@@ -4893,32 +4893,32 @@
   <object id="78" x="63" y="3" width="30" height="575"/>
   <object id="84" x="1121" y="300" width="31" height="276"/>
   <object id="85" x="1249" y="303" width="29" height="464"/>
-  <object id="96" x="3200" y="227" width="32" height="541"/>
-  <object id="97" x="3263" y="224" width="30" height="543"/>
-  <object id="98" x="3393" y="578" width="30" height="93"/>
-  <object id="99" x="3457" y="577" width="29" height="95"/>
-  <object id="100" x="3554" y="385" width="30" height="94"/>
-  <object id="101" x="3616" y="386" width="29" height="94"/>
-  <object id="102" x="3714" y="195" width="29" height="93"/>
-  <object id="103" x="3777" y="195" width="28" height="92"/>
-  <object id="104" x="3969" y="161" width="31" height="94"/>
-  <object id="105" x="4192" y="162" width="30" height="94"/>
-  <object id="106" x="4352" y="259" width="33" height="91"/>
-  <object id="107" x="4415" y="259" width="31" height="93"/>
-  <object id="108" x="4577" y="131" width="30" height="92"/>
-  <object id="109" x="4640" y="131" width="31" height="92"/>
-  <object id="110" x="4801" y="194" width="32" height="93"/>
-  <object id="111" x="5024" y="196" width="30" height="91"/>
-  <object id="112" x="5185" y="578" width="31" height="189"/>
-  <object id="113" x="5248" y="578" width="29" height="190"/>
-  <object id="114" x="5409" y="577" width="33" height="191"/>
-  <object id="115" x="5472" y="578" width="30" height="190"/>
-  <object id="116" x="5633" y="578" width="32" height="191"/>
-  <object id="117" x="5697" y="579" width="30" height="189"/>
-  <object id="118" x="5856" y="577" width="33" height="191"/>
-  <object id="119" x="5920" y="579" width="32" height="189"/>
-  <object id="120" x="6081" y="580" width="30" height="188"/>
-  <object id="121" x="6369" y="579" width="28" height="188"/>
+  <object id="96" x="3200" y="236" width="32" height="532"/>
+  <object id="97" x="3263" y="237" width="30" height="530"/>
+  <object id="98" x="3393" y="588" width="30" height="83"/>
+  <object id="99" x="3457" y="589" width="29" height="83"/>
+  <object id="100" x="3554" y="396" width="30" height="83"/>
+  <object id="101" x="3616" y="398" width="29" height="82"/>
+  <object id="102" x="3714" y="200" width="29" height="88"/>
+  <object id="103" x="3777" y="202" width="28" height="85"/>
+  <object id="104" x="3969" y="170" width="31" height="85"/>
+  <object id="105" x="4192" y="171" width="30" height="85"/>
+  <object id="106" x="4352" y="266" width="33" height="84"/>
+  <object id="107" x="4415" y="267" width="31" height="85"/>
+  <object id="108" x="4577" y="139" width="30" height="84"/>
+  <object id="109" x="4640" y="139" width="31" height="84"/>
+  <object id="110" x="4801" y="200" width="32" height="87"/>
+  <object id="111" x="5024" y="202" width="30" height="85"/>
+  <object id="112" x="5185" y="586" width="31" height="181"/>
+  <object id="113" x="5248" y="586" width="29" height="182"/>
+  <object id="114" x="5409" y="584" width="33" height="184"/>
+  <object id="115" x="5472" y="585" width="30" height="183"/>
+  <object id="116" x="5633" y="585" width="32" height="184"/>
+  <object id="117" x="5697" y="584" width="30" height="184"/>
+  <object id="118" x="5856" y="587" width="33" height="181"/>
+  <object id="119" x="5920" y="587" width="32" height="181"/>
+  <object id="120" x="6081" y="587" width="30" height="181"/>
+  <object id="121" x="6369" y="584" width="28" height="183"/>
   <object id="122" x="608" y="550" width="32" height="224"/>
   <object id="124" x="832" y="551" width="32" height="224"/>
   <object id="126" x="1536" y="104" width="32" height="672"/>

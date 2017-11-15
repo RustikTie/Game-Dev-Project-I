@@ -65,16 +65,15 @@ void j1Pathfinding::BackTracking(const iPoint& start, p2DynArray<iPoint>& path)
 	path.Clear();
 	iPoint goal = App->map->WorldToMap(start.x, start.y);
 	iPoint curr = goal;
-	p2List_item<iPoint>* item = breadcrumbs.end;
+	//p2List_item<iPoint>* item = breadcrumbs.end;
 
 	path.PushBack(curr);
 	
-	while (item != breadcrumbs.start && visited.find(item->data) != -1)
+	while (curr != breadcrumbs.start->data && visited.find(goal) != -1)
 	{
 		
-		curr = breadcrumbs[visited.find(item->data)];
-		path.PushBack(item->data);
-		item = item->prev;
+		curr = breadcrumbs[visited.find(curr)];
+		path.PushBack(curr);
 	}
 	
 	path.Flip();
