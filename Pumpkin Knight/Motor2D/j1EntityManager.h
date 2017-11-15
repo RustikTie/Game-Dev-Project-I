@@ -21,7 +21,7 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 
-	Entity* CreateEntity(ObjectLayer object);
+	Entity* CreateEntity(ObjectLayer* object, uint id, uint i);
 	void DeleteEntity();
 
 public:

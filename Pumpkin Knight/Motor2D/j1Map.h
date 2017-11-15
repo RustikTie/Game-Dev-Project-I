@@ -43,9 +43,9 @@ struct ImageLayer
 
 enum EntityType
 {
-	BLACK_BAT,
-	WHITE_WOLF,
-	PLAYER,
+	BLACK_BAT = 1,
+	WHITE_WOLF = 2,
+	PLAYER = 0,
 	NO_ENTITY = -1
 };
 
@@ -60,7 +60,7 @@ struct ObjectLayer
 	float*				y;
 	uint*				id;
 	SDL_Rect*			rect;
-	EntityType			entity_type = NO_ENTITY;
+	EntityType*			entity_type = nullptr;
 
 };
 

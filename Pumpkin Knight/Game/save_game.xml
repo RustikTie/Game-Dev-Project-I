@@ -4,12 +4,13 @@
 	<window />
 	<textures />
 	<audio />
-	<map />
 	<scene />
-	<player_data>
-		<player_pos x="100" y="483.999939" />
-	</player_data>
+	<map />
 	<colliders />
+	<player_data>
+		<player_pos x="100" y="418.399933" />
+	</player_data>
+	<:anonymous />
 	<renderer>
 		<camera x="300" y="50" />
 	</renderer>

@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Player.h"
+#include "j1EntityManager.h"
 #include <math.h>
 
 using namespace pugi;
@@ -309,7 +310,7 @@ bool j1Map::Load(const char* file_name)
 				LOG("ID: %d", l->id[i]);
 				LOG("height: %d, width: %d", l->height[i], l->width[i]);
 				LOG("x: %d, y: %d", l->x[i], l->y[i]);
-			}
+		}
 			
 			object_layer = object_layer->next;
 
@@ -330,18 +331,34 @@ bool j1Map::Load(const char* file_name)
 			if (object_num == 0)
 			{
 				App->collisions->AddCollider(collider, COLLIDER_GROUND);
+				LOG("Entity: ground");
+
 			}
 			if (object_num == 1)
 			{
 				App->collisions->AddCollider(collider, COLLIDER_WALL);
-			}
-			if (object_num == 2)
-			{
-				App->collisions->AddCollider(collider, COLLIDER_ENEMY);
+				LOG("Entity: wall");
 
 			}
+
+			if (object_num == 2)
+			{
+				App ->collisions->AddCollider(collider, COLLIDER_ENEMY);
+
+				if (data.objectlayers[object_num]->entity_type[i] == WHITE_WOLF)
+				{
+					App->entity_manager->CreateEntity(data.objectlayers[object_num], data.objectlayers[object_num]->id[i], object_num);
+					LOG("Entity: white wolf");
+
+				}
+			}
+		
 		}
+
+		
 	}
+
+
 	/*for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
 		for (int i = 0; i < data.width; ++i)
@@ -551,7 +568,7 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 	layer->y = new float[200];
 	layer->id = new uint[200];
 	layer->rect = new SDL_Rect[200];
-
+	layer->entity_type = new EntityType[200];
 	layer->name = node.attribute("name").as_string();
 
 	while (aux != aux.last_child())
@@ -566,6 +583,18 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 		layer->rect[i].x = layer->x[i];
 		layer->rect[i].y = layer->y[i];
 
+		if (aux.attribute("name").as_string() == "Enemies")
+		{
+			if (aux.attribute("enemy_type").as_int() == 2)
+			{
+				layer->entity_type[i] = WHITE_WOLF;
+			}
+
+		}
+		else
+		{
+			layer->entity_type[i] = NO_ENTITY;
+		}
 		aux = aux.next_sibling("object");
 		++i;
 	}

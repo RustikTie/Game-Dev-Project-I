@@ -4936,7 +4936,7 @@
   <object id="73" x="481" y="484" width="90" height="54">
    <properties>
     <property name="col_type" value="WOLF"/>
-    <property name="enemy_type" value="WHITE_WOLF"/>
+    <property name="enemy_type" value="2"/>
    </properties>
   </object>
   <object id="74" x="481" y="322" width="35" height="33">
