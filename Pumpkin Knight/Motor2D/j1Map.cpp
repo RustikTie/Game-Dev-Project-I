@@ -340,15 +340,22 @@ bool j1Map::Load(const char* file_name)
 				LOG("Entity: wall");
 
 			}
-
 			if (object_num == 2)
 			{
-				App ->collisions->AddCollider(collider, COLLIDER_ENEMY);
 
 				if (data.objectlayers[object_num]->entity_type[i] == WHITE_WOLF)
 				{
-					App->entity_manager->CreateEntity(data.objectlayers[object_num], data.objectlayers[object_num]->id[i], object_num);
+					//App->entity_manager->CreateEntity(data.objectlayers[object_num], object_num, i);
+					App->collisions->AddCollider(collider, COLLIDER_ENEMY);
 					LOG("Entity: white wolf");
+
+				}
+				if (data.objectlayers[object_num]->entity_type[i] == BLACK_BAT)
+				{
+					//App->entity_manager->CreateEntity(data.objectlayers[object_num], data.objectlayers[object_num]->id[i], object_num);
+					App->collisions->AddCollider(collider, COLLIDER_ENEMY);
+
+					LOG("Entity: black bat");
 
 				}
 			}
@@ -560,7 +567,7 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
 bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 {
 	pugi::xml_node aux;
-	aux = node.first_child();
+	aux = node.child("object");
 	int i = 0;
 	layer->width = new uint[200];
 	layer->height = new uint[200];
@@ -570,8 +577,8 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 	layer->rect = new SDL_Rect[200];
 	layer->entity_type = new EntityType[200];
 	layer->name = node.attribute("name").as_string();
-
-	while (aux != aux.last_child())
+	
+	while (aux != NULL)
 	{
 		layer->id[i] = aux.attribute("id").as_uint();
 		layer->x[i] = aux.attribute("x").as_int();
@@ -582,22 +589,25 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 		layer->rect[i].w = layer->width[i];
 		layer->rect[i].x = layer->x[i];
 		layer->rect[i].y = layer->y[i];
-
-		if (aux.attribute("name").as_string() == "Enemies")
+		
+		p2SString type(aux.child("properties").child("property").attribute("value").as_string());
+		if (type == "WHITE WOLF")
 		{
-			if (aux.attribute("enemy_type").as_int() == 2)
-			{
-				layer->entity_type[i] = WHITE_WOLF;
-			}
-
+			layer->entity_type[i] = WHITE_WOLF;
 		}
-		else
+		if (type == "BLACK BAT")
+		{
+			layer->entity_type[i] = BLACK_BAT;
+		}
+		if (type == NULL)
 		{
 			layer->entity_type[i] = NO_ENTITY;
 		}
 		aux = aux.next_sibling("object");
 		++i;
 	}
+
+	
 
 
 	return true;

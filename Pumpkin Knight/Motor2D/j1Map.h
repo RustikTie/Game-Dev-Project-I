@@ -45,7 +45,6 @@ enum EntityType
 {
 	BLACK_BAT = 1,
 	WHITE_WOLF = 2,
-	PLAYER = 0,
 	NO_ENTITY = -1
 };
 

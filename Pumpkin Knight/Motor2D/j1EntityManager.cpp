@@ -1,6 +1,7 @@
 #include "j1EntityManager.h"
 #include "Entity.h"
 #include "Wolf.h"
+#include "j1Map.h"
 
 #define SPAWN_MARGIN 100
 
@@ -48,6 +49,7 @@ bool j1EntityManager::Update(float dt)
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (entities[i] != nullptr)
 		{
+			
 		}
 	return true;
 }
@@ -87,18 +89,14 @@ bool j1EntityManager::CleanUp()
 Entity* j1EntityManager::CreateEntity(ObjectLayer* object, uint id, uint i) 
 {
 	Entity* entity = nullptr;
-	SDL_Rect wolfCol;
-	wolfCol.x = 150;
-	wolfCol.y = 200;
-	wolfCol.w = 66;
-	wolfCol.h = 34;
+
 	
-	if (object[i].entity_type[id] == WHITE_WOLF)
+	if (object[id].entity_type[i] == WHITE_WOLF)
 	{
 		entity->texture = App->entity->white_wolf;
-		entity->collider = App->collisions->AddCollider(wolfCol, COLLIDER_ENEMY, NULL);
-		entity->pos.x = object[i].x[id];
-		entity->pos.y = object[i].y[id];
+		//entity->collider = App->collisions->AddCollider(object->rect[i], COLLIDER_ENEMY, NULL);
+		entity->pos.x = object[id].x[i];
+		entity->pos.y = object[id].y[i];
 		entity->animation = NULL;
 		entities.add(entity);		
 	}
