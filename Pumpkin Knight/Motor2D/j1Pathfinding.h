@@ -1,3 +1,6 @@
+#ifndef __ModulePathfinding_H__
+#define __ModulePathfinding_H__
+
 #include "j1Module.h"
 #include "p2DynArray.h"
 #include "p2List.h"
@@ -49,4 +52,4 @@ private:
 	p2DynArray<iPoint>	last_path;
 
 };
-
+#endif

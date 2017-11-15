@@ -7,6 +7,22 @@
 #include "p2List.h"
 #include "p2Point.h"
 
+#define MAX_ENEMIES 1000
+
+enum ENTITY_TYPES
+{
+	NO_TYPE,
+	BAT,
+	WOLF,
+};
+
+class Entity;
+
+struct EntityInfo
+{
+	ENTITY_TYPES type = ENTITY_TYPES::NO_TYPE;
+	int x, y;
+};
 
 class j1EntityManager : public j1Module
 {
@@ -17,16 +33,20 @@ public:
 
 	bool Awake(pugi::xml_node&);
 	bool Start();
+	bool PreUpdate();
 	bool Update(float dt);
-	bool PostUpdate(float dt);
+	bool PostUpdate();
 	bool CleanUp();
 
 	Entity* CreateEntity(ObjectLayer object);
+	void SpawnEntity(const EntityInfo& info);
 	void DeleteEntity();
 
 public:
-
+	EntityInfo queue[MAX_ENEMIES];
 	p2List<Entity*> entities;
+
+	SDL_Texture* sprites;
 };
 
 #endif
