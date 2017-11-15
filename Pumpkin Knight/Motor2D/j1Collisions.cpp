@@ -87,11 +87,16 @@ bool j1Collisions::Update(float dt)
 			//FOWARD and BACKWARD COLLISION PLAYER w/ WALL
 			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
 			{
-				if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-					App->player->pos.x -= (App->player->speed)*dt;	
-
-				if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+				App->player->falling = true;
+				if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+				{
 					App->player->pos.x -= (App->player->speed)*dt;
+				}
+
+				if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+				{
+					App->player->pos.x -= (App->player->speed)*dt;
+				}
 			}
 			//PLAYER ENEMY COLLISION
 			if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
