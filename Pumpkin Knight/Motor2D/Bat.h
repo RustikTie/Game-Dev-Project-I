@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Animation.h"
+#include "Path.h"
 #include "j1App.h"
 #include "j1Textures.h"
 

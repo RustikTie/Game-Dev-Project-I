@@ -150,6 +150,9 @@
     <ClInclude Include="Bat.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Desenvolupament  ========</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">

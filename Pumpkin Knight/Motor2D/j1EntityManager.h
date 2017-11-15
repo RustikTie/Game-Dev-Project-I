@@ -6,6 +6,8 @@
 #include "j1Map.h"
 #include "p2List.h"
 #include "p2Point.h"
+#include "Bat.h"
+#include "Wolf.h"
 
 #define MAX_ENEMIES 1000
 
@@ -41,6 +43,7 @@ public:
 
 	Entity* CreateEntity(ObjectLayer* object, uint id, uint i);
 
+	bool AddEnemy(int path, ENTITY_TYPES type, int x, int y);
 
 	void SpawnEntity(const EntityInfo& info);
 
