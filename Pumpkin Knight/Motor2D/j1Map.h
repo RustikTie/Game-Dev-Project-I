@@ -56,8 +56,8 @@ struct ObjectLayer
 	p2SString			name;
 	uint*				width;
 	uint*				height;
-	int*				x;
-	int*				y;
+	float*				x;
+	float*				y;
 	uint*				id;
 	SDL_Rect*			rect;
 	EntityType			entity_type = NO_ENTITY;

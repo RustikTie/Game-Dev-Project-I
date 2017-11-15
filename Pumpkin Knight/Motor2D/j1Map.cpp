@@ -547,8 +547,8 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 	int i = 0;
 	layer->width = new uint[200];
 	layer->height = new uint[200];
-	layer->x = new int[200];
-	layer->y = new int[200];
+	layer->x = new float[200];
+	layer->y = new float[200];
 	layer->id = new uint[200];
 	layer->rect = new SDL_Rect[200];
 

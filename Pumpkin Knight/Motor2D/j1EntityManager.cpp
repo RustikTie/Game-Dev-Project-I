@@ -1,4 +1,5 @@
 #include "j1EntityManager.h"
+#include "Entity.h"
 #include "Wolf.h"
 
 
@@ -37,7 +38,7 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
-void j1EntityManager::CreateEntity(EntityType etype, fPoint pos) 
+Entity* j1EntityManager::CreateEntity(ObjectLayer object) 
 {
 	Entity* entity = nullptr;
 	SDL_Rect wolfCol;
@@ -46,15 +47,17 @@ void j1EntityManager::CreateEntity(EntityType etype, fPoint pos)
 	wolfCol.w = 66;
 	wolfCol.h = 34;
 
-	if (etype == WHITE_WOLF)
+	if (object.entity_type == WHITE_WOLF)
 	{
 		entity->texture = App->entity->white_wolf;
 		entity->collider = App->collisions->AddCollider(wolfCol, COLLIDER_ENEMY, NULL);
-				
+		entity->pos.x = object.x[0];
+		entity->pos.y = object.y[0];
+		entity->animation = App->entity->animation;
 		entities.add(entity);
 	}
 
-
+	return entity;
 }
 
 

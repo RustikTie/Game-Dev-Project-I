@@ -38,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collisions = new j1Collisions();
 	player = new j1Player();
 	pathfinding = new j1Pathfinding();
+	
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

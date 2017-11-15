@@ -21,10 +21,10 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 
-	void CreateEntity(EntityType etype, fPoint pos);
+	Entity* CreateEntity(ObjectLayer object);
 	void DeleteEntity();
 
-private:
+public:
 
 	p2List<Entity*> entities;
 };
