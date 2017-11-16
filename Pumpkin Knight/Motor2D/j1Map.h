@@ -6,13 +6,16 @@
 #include "p2Point.h"
 #include "p2PQueue.h"
 #include "p2Queue.h"
+#include "p2SString.h"
 #include "p2DynArray.h"
 #include "j1Module.h"
 #include "j1Textures.h"
 #include "j1Render.h"
+#include "j1EntityManager.h"
 
 #define COST_MAP 100
 
+enum ENTITY_TYPES;
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
 struct MapLayer
@@ -41,13 +44,6 @@ struct ImageLayer
 	SDL_Texture* texture;
 };
 
-enum EntityType
-{
-	BLACK_BAT = 1,
-	WHITE_WOLF = 2,
-	NO_ENTITY = -1
-};
-
 /*inline uint Get(int x, int y) const;*/
 
 struct ObjectLayer
@@ -59,7 +55,7 @@ struct ObjectLayer
 	float*				y;
 	uint*				id;
 	SDL_Rect*			rect;
-	EntityType*			entity_type = nullptr;
+	ENTITY_TYPES*		entity_type = nullptr;
 
 };
 
