@@ -322,6 +322,8 @@ bool j1Map::Load(const char* file_name)
 
 	for (uint object_num = 0; object_num < data.objectlayers.count(); ++object_num)
 	{
+		int j = 0;
+
 		for (int i = 0; data.objectlayers[object_num]->id[i] != NULL; ++i) {
 			int x = data.objectlayers[object_num]->x[i];
 			int y = data.objectlayers[object_num]->y[i];
@@ -340,24 +342,36 @@ bool j1Map::Load(const char* file_name)
 				LOG("Entity: wall");
 
 			}
+
 			if (object_num == 2)
 			{
 
-				if (data.objectlayers[object_num]->entity_type[i] == WHITE_WOLF)
+				if (data.objectlayers[object_num]->entity_type[i] == WOLF)
 				{
-					//App->entity_manager->CreateEntity(data.objectlayers[object_num], object_num, i);
-					App->collisions->AddCollider(collider, COLLIDER_ENEMY);
+										
 					LOG("Entity: white wolf");
 
 				}
-				if (data.objectlayers[object_num]->entity_type[i] == BLACK_BAT)
+				if (data.objectlayers[object_num]->entity_type[i] == BAT)
 				{
-					//App->entity_manager->CreateEntity(data.objectlayers[object_num], data.objectlayers[object_num]->id[i], object_num);
-					App->collisions->AddCollider(collider, COLLIDER_ENEMY);
-
+					
 					LOG("Entity: black bat");
 
 				}
+				EntityInfo aux;
+				aux.type = data.objectlayers[object_num]->entity_type[i];
+				aux.x = data.objectlayers[object_num]->x[i];
+				aux.y = data.objectlayers[object_num]->y[i];
+
+				if (j != MAX_ENEMIES)
+				{
+					App->entity_manager->queue[j].type = aux.type;
+					App->entity_manager->queue[j].x = aux.x;
+					App->entity_manager->queue[j].y = aux.y;
+
+				}
+				
+				++j;
 			}
 		
 		}
@@ -575,7 +589,7 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 	layer->y = new float[200];
 	layer->id = new uint[200];
 	layer->rect = new SDL_Rect[200];
-	layer->entity_type = new EntityType[200];
+	layer->entity_type = new ENTITY_TYPES[200];
 	layer->name = node.attribute("name").as_string();
 	
 	while (aux != NULL)
@@ -593,15 +607,15 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 		p2SString type(aux.child("properties").child("property").attribute("value").as_string());
 		if (type == "WHITE WOLF")
 		{
-			layer->entity_type[i] = WHITE_WOLF;
+			layer->entity_type[i] = WOLF;
 		}
 		if (type == "BLACK BAT")
 		{
-			layer->entity_type[i] = BLACK_BAT;
+			layer->entity_type[i] = BAT;
 		}
 		if (type == NULL)
 		{
-			layer->entity_type[i] = NO_ENTITY;
+			layer->entity_type[i] = NO_TYPE;
 		}
 		aux = aux.next_sibling("object");
 		++i;

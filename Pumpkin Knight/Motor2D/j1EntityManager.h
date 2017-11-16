@@ -48,9 +48,11 @@ public:
 	bool AddEnemy(ENTITY_TYPES type, int x, int y);
 	void SpawnEntity(const EntityInfo& info);
 
+	EntityInfo queue[MAX_ENEMIES];
+
 private:
 
-	EntityInfo queue[MAX_ENEMIES];
+	//EntityInfo queue[MAX_ENEMIES];
 	Entity* entities[MAX_ENEMIES];
 };
 
