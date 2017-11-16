@@ -1,7 +1,7 @@
 #include "Wolf.h"
 
 
-Wolf::Wolf(int x, int y) : Entity (x, y)
+Wolf::Wolf(int x, int y) : Entity(x, y)
 {
 	wolfsprite = App->tex->Load("assets/wolfMedium.png");
 	idle.PushBack({ 0, 33, 64, 64 });
@@ -17,7 +17,9 @@ Wolf::Wolf(int x, int y) : Entity (x, y)
 	walk.speed = 1.5f;
 	walk.loop = true;
 
-	//animation = idle;
+	animation = &walk;
+
+	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 64, 32 }, COLLIDER_ENEMY, (j1Module*)App->entity_manager);
 }
 
 
@@ -27,5 +29,5 @@ Wolf::~Wolf()
 
 void Wolf::MoveEnemy()
 {
-
+	iPoint enemyposition = { (int)original_pos.x,(int)original_pos.y };
 }

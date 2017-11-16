@@ -10,6 +10,9 @@
 #include "Wolf.h"
 
 #define MAX_ENEMIES 1000
+#define SCREEN_SIZE 1
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 enum ENTITY_TYPES
 {
@@ -33,27 +36,23 @@ public:
 	j1EntityManager();
 	~j1EntityManager();
 
-	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
+	void EraseEnemies();
 
+	void OnCollision(Collider* c1, Collider* c2);
+	bool AddEnemy(ENTITY_TYPES type, int x, int y);
+	void SpawnEnemy(const EntityInfo& info);
 
-	Entity* CreateEntity(ObjectLayer* object, uint id, uint i);
+private:
 
-	bool AddEnemy(int path, ENTITY_TYPES type, int x, int y);
-
-	void SpawnEntity(const EntityInfo& info);
-
-	void DeleteEntity();
-
-public:
 	EntityInfo queue[MAX_ENEMIES];
-	p2List<Entity*> entities;
-
+	Entity* entities[MAX_ENEMIES];
 	SDL_Texture* sprites;
+
 };
 
 #endif

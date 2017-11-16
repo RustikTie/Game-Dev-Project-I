@@ -13,7 +13,7 @@ struct SDL_Texture;
 
 
 
-class Entity : public j1Module
+class Entity
 {
 public:
 	Entity(int x, int y);
@@ -29,11 +29,15 @@ public:
 public:
 
 	Animation* animation;
+
 	fPoint pos;
+	fPoint collider_pos;
+	fPoint original_pos;
+
 	SDL_Texture* texture;
-	Collider* collider = nullptr;
 	SDL_Texture* white_wolf;
 
+	Collider* collider = nullptr;
 
 };
 

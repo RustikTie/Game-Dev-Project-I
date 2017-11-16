@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 #include "Brofiler\Brofiler.h"
 
 using namespace pugi;
@@ -36,7 +37,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("level1_v4.tmx");
-
+	App->entity_manager->AddEnemy(WOLF, 100, 100);
 	
 	return true;
 }

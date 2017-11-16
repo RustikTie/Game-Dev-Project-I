@@ -5,8 +5,11 @@
 
 
 
-Entity::Entity(int x, int y) : j1Module()
+Entity::Entity(int x, int y)
 {
+	/*pos = { x, y };
+	original_pos = { x, y };
+	collider_pos = { 0, 0 };*/
 	white_wolf = App->tex->Load("assets/WolfMedium.png");
 
 }
@@ -25,19 +28,25 @@ const Collider* Entity::GetCollider() const
 
 void Entity::Draw(SDL_Texture* sprites)
 {
-	/*if (collider != nullptr)
+	if (collider != nullptr)
+	{
 		collider->SetPos(pos.x, pos.y);
+	}
+
 
 	if (animation != nullptr)
 	{
-		App->render->Blit(sprites, pos.x, pos.y, 0, 0, false, &(animation->GetCurrentFrame()));
-	}*/
+		sprites = white_wolf;
 
-	for (int i = 0; App->entity_manager->entities[i]; ++i)
-	{
-		App->entity_manager->entities[i]->collider->SetPos(App->entity_manager->entities[i]->pos.x, App->entity_manager->entities[i]->pos.y);
-		App->render->Blit(App->entity_manager->entities[i]->texture, App->entity_manager->entities[i]->pos.x, App->entity_manager->entities[i]->pos.y, 1, 1, false, &App->entity_manager->entities[i]->animation->GetCurrentFrame());
+		App->render->Blit(sprites, pos.x, pos.y, 0, 0, false, &(animation->GetCurrentFrame()), 1.0f);
+
 	}
+
+	/*for (int i = 0; App->entity_manager->entities[i]; ++i)
+	{
+	App->entity_manager->entities[i]->collider->SetPos(App->entity_manager->entities[i]->pos.x, App->entity_manager->entities[i]->pos.y);
+	App->render->Blit(App->entity_manager->entities[i]->texture, App->entity_manager->entities[i]->pos.x, App->entity_manager->entities[i]->pos.y, 1, 1, false, &App->entity_manager->entities[i]->animation->GetCurrentFrame());
+	}*/
 }
 
 void Entity::OnCollision(Collider* collider)
@@ -45,4 +54,5 @@ void Entity::OnCollision(Collider* collider)
 
 
 }
+
 
