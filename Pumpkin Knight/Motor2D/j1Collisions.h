@@ -41,6 +41,7 @@ struct Collider
 	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
+	bool Collider::CheckCollisionDownwards(const SDL_Rect& r, float& gravity, float dt);
 	bool Collider::CheckCollisionBackward(const SDL_Rect& r) const;
 	bool Collider::CheckCollisionForward(const SDL_Rect& r) const;
 

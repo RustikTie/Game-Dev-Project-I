@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Collisions.h"
 #include "j1Player.h"
+#include "j1EntityManager.h"
 #include "Brofiler\Brofiler.h"
 
 j1Collisions::j1Collisions() : j1Module()
@@ -15,11 +16,16 @@ j1Collisions::j1Collisions() : j1Module()
 
 	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
 	matrix[COLLIDER_GROUND][COLLIDER_PLAYER] = true;
-	
+	matrix[COLLIDER_GROUND][COLLIDER_ENEMY] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-	
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
+
+
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 }
 
 // Destructor
@@ -60,6 +66,8 @@ bool j1Collisions::Update(float dt)
 
 	Collider* c1;
 	Collider* c2;
+
+	float enemygravity;
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -102,6 +110,11 @@ bool j1Collisions::Update(float dt)
 			if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
 			{
 				App->player->SetPos(100,200);
+			}
+			//GRAVITY ENEMY
+			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_ENEMY && c1->CheckCollisionDownwards(c2->rect, enemygravity, dt) == true)
+			{
+				App->entity_manager->OnCollision(c2, c1, enemygravity);
 			}
 			
 		}
@@ -230,6 +243,20 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	if (r.y + r.h > rect.y-2 && r.y < rect.y + rect.h && r.x + r.w >= rect.x  && r.x <= rect.x + rect.w)
 	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}
+
+bool Collider::CheckCollisionDownwards(const SDL_Rect& r, float& gravity, float dt)
+{
+	if (r.y + r.h > rect.y - 2 && r.y < rect.y + rect.h && r.x + r.w >= rect.x  && r.x <= rect.x + rect.w)
+	{
+		gravity = App->player->gravity*dt;
 		return true;
 	}
 

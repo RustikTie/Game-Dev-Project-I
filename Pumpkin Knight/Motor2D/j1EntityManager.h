@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "Entity.h"
 #include "j1Map.h"
+#include "j1PLayer.h"
 #include "p2List.h"
 #include "p2Point.h"
 #include "Bat.h"
@@ -43,16 +44,14 @@ public:
 	bool CleanUp();
 	void EraseEnemies();
 
-	void OnCollision(Collider* c1, Collider* c2);
+	void OnCollision(Collider* c1, Collider* c2, float counterforce);
 	bool AddEnemy(ENTITY_TYPES type, int x, int y);
-	void SpawnEnemy(const EntityInfo& info);
+	void SpawnEntity(const EntityInfo& info);
 
 private:
 
 	EntityInfo queue[MAX_ENEMIES];
 	Entity* entities[MAX_ENEMIES];
-	SDL_Texture* sprites;
-
 };
 
 #endif

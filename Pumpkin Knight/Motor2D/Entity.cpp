@@ -5,12 +5,8 @@
 
 
 
-Entity::Entity(int x, int y)
+Entity::Entity(int x, int y) : pos(x, y), original_pos(x, y), collider_pos(0, 0)
 {
-	/*pos = { x, y };
-	original_pos = { x, y };
-	collider_pos = { 0, 0 };*/
-	white_wolf = App->tex->Load("assets/WolfMedium.png");
 
 }
 
@@ -38,8 +34,7 @@ void Entity::Draw(SDL_Texture* sprites)
 	{
 		sprites = white_wolf;
 
-		App->render->Blit(sprites, pos.x, pos.y, 0, 0, false, &(animation->GetCurrentFrame()), 1.0f);
-
+		App->render->Blit(sprites, pos.x, pos.y, 2, 2, false, &(animation->GetCurrentFrame()));
 	}
 
 	/*for (int i = 0; App->entity_manager->entities[i]; ++i)
@@ -51,7 +46,10 @@ void Entity::Draw(SDL_Texture* sprites)
 
 void Entity::OnCollision(Collider* collider)
 {
+	if (collider->type == COLLIDER_ENEMY)
+	{
 
+	}
 
 }
 

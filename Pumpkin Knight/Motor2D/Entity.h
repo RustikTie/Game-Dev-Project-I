@@ -21,21 +21,22 @@ public:
 
 	const Collider* GetCollider() const;
 
-	void Draw(SDL_Texture* sprites);
+	virtual void Draw(SDL_Texture* sprites);
 
-	void OnCollision(Collider* collider);
+	virtual void OnCollision(Collider* collider);
 	//bool LoadEnemyLayer(pugi::xml_node& node, EnemyLayer* layer);
+	virtual void MoveEnemy(float dt) {};
+
+	SDL_Texture* sprites = nullptr;
+	SDL_Texture* white_wolf = nullptr;
 
 public:
 
-	Animation* animation;
+	Animation* animation = nullptr;
 
 	fPoint pos;
 	fPoint collider_pos;
 	fPoint original_pos;
-
-	SDL_Texture* texture;
-	SDL_Texture* white_wolf;
 
 	Collider* collider = nullptr;
 

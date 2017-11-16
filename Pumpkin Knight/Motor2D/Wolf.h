@@ -6,20 +6,21 @@
 #include "Path.h"
 #include "j1App.h"
 #include "j1Textures.h"
+#include "j1Player.h"
 
 class Wolf : public Entity
 {
 public:
 	Wolf(int x, int y);
 	~Wolf();
-	void MoveEnemy();
+	void MoveEnemy(float dt);
 private:
 	Animation idle;
 	Animation walk;
 
 	fPoint position;
 
-	SDL_Texture* wolfsprite = nullptr;
+	//SDL_Texture* wolfsprite = nullptr;
 };
 
 #endif
