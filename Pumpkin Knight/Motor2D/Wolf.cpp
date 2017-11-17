@@ -33,5 +33,10 @@ void Wolf::MoveEnemy(float dt)
 	pos = original_pos;
 	original_pos.y += App->player->gravity*dt;
 	
+	iPoint EnemyPos = { (int)original_pos.x + 64, (int)original_pos.y + 32};
+	iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
+	App->pathfinding->CreatePath(EnemyPos, PlayerPos);
+	App->pathfinding->BackTracking(PlayerPos, path);
+	App->pathfinding->DrawPath(path);
 	
 }
