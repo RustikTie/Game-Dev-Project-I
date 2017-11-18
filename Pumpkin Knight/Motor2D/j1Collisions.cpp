@@ -99,10 +99,10 @@ bool j1Collisions::Update(float dt)
 				App->player->falling = true;
 			}
 			//PLAYER ENEMY COLLISION
-			/*if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
+			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
 			{
 				App->player->SetPos(100,200);
-			}*/
+			}
 			//GRAVITY ENEMY
 			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_ENEMY && c1->CheckCollisionDownwards(c2->rect, enemygravity, dt) == true)
 			{

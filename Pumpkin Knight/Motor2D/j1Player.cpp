@@ -114,7 +114,10 @@ bool j1Player::Update(float dt)
 		max_height = (pos.y - jump_height);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
 		jumping = false;
+		falling = true;
+	}
 	
 	//FORWARD
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
@@ -161,6 +164,11 @@ bool j1Player::Update(float dt)
 	if (player->CheckCollision(App->map->collider) == false)
 	{
 		pos.y += gravity*dt;
+	}
+
+	if (falling)
+	{
+		animation = &jump;
 	}
 	//DRAW PLAYER -----------------------------------------
 	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);

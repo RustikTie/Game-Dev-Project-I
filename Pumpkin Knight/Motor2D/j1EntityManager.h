@@ -20,6 +20,7 @@ enum ENTITY_TYPES
 	NO_TYPE,
 	BAT,
 	WOLF,
+	PLAYER,
 };
 
 class Entity;
@@ -51,6 +52,7 @@ public:
 	
 	bool bat;
 	bool wolf;
+	bool player;
 
 	EntityInfo queue[MAX_ENEMIES];
 
