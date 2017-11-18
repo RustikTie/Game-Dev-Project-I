@@ -153,6 +153,7 @@
     <ClInclude Include="Path.h">
       <Filter>Desenvolupament  ========</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
