@@ -21,9 +21,11 @@ private:
 	Animation idle;
 	Animation fly;
 
-	int counter = 0;
+	uint counter = 0;
 
-	bool attack = false;
+	bool attack_x = false;
+	bool attack_y = false;
+	bool move = false;
 
 	fPoint position;
 };

@@ -37,8 +37,18 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("level1_v4.tmx");
-	App->entity_manager->AddEnemy(WOLF, 100, 100);
-	App->entity_manager->AddEnemy(BAT, 300, 200);
+	if (level1) 
+	{
+		App->entity_manager->AddEnemy(WOLF, 500, 100);
+		/*App->entity_manager->AddEnemy(WOLF, 200, 100);
+		App->entity_manager->AddEnemy(WOLF, 400, 100);
+		App->entity_manager->AddEnemy(WOLF, 300, 100);*/
+		App->entity_manager->AddEnemy(BAT, 300, 200);
+	/*	App->entity_manager->AddEnemy(BAT, 400, 200);
+		App->entity_manager->AddEnemy(BAT, 500, 200);*/
+
+	
+	}
 	
 	return true;
 }
@@ -58,10 +68,6 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 		{
-			iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46};
-			App->pathfinding->CreatePath({ 100, 100 }, PlayerPos);
-			App->pathfinding->BackTracking(PlayerPos, path);
-			LOG("PATH");
 		}
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -114,7 +120,6 @@ bool j1Scene::Update(float dt)
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-	App->pathfinding->DrawPath(path);
 
 	return true;
 }

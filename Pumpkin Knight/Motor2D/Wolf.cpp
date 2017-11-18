@@ -3,7 +3,7 @@
 
 Wolf::Wolf(int x, int y) : Entity(x, y)
 {
-	white_wolf = App->tex->Load("assets/wolfLight.png");
+	sprites = App->tex->Load("assets/wolfLight.png");
 	App->entity_manager->wolf = true;
 
 	idle.PushBack({ 0, 0, 64, 32 });
@@ -29,7 +29,7 @@ Wolf::Wolf(int x, int y) : Entity(x, y)
 
 Wolf::~Wolf()
 {
-	App->tex->UnLoad(white_wolf);
+	App->tex->UnLoad(sprites);
 }
 
 void Wolf::MoveEnemy(float dt)
@@ -42,51 +42,64 @@ void Wolf::MoveEnemy(float dt)
 	iPoint EnemyPos = { (int)original_pos.x + 64, (int)original_pos.y + 32};
 	iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
 
-	if ((abs(PlayerPos.x - EnemyPos.x) < 400))
+	if ((abs(App->player->pos.x - EnemyPos.x) < 400) && !move)
 	{
+		counter = 0;
+
 		App->pathfinding->CreatePath(EnemyPos, PlayerPos);
-		App->pathfinding->BackTracking(PlayerPos, path);
+		App->pathfinding->BackTrackingGround(PlayerPos, path);
+		
+		move = true;
 		attack = true;
+
+		//attack = true;
 		//App->pathfinding->DrawPath(path);
 	}
 
-	if (attack)
+	if (move)
 	{
+		/*iPoint Destination = App->map->MapToWorld(path[counter].x, path[counter].y);*/
+		iPoint Destination = { path[counter].x, path[counter].y };
 		animation = &walk;
-		if (EnemyPos.x < PlayerPos.x)
-		{
-			speed.x = 2;
-			flip = false;
-		}
 		
-		if (EnemyPos.x > PlayerPos.x)
+		if (EnemyPos.x < Destination.x)
 		{
-			speed.x = -2;
-			flip = true;
-		}
-
-		//iPoint Destination = App->map->MapToWorld(path[counter].x, path[counter].y);
-
-		if (EnemyPos.x != PlayerPos.x)
-		{
+			speed.x = 100*dt;
 			original_pos.x += speed.x;
-		}
-		
-		if (EnemyPos == PlayerPos)
-		{
-			speed.x = 0;
-			counter++;
+			flip = false;
+			if (EnemyPos.x >= Destination.x)
+			{
+				counter++;
+				move = false;
+			}
 		}
 
-		if (abs(PlayerPos.x - (int)original_pos.x) >= 400)
+		else
 		{
-			attack = false;
-			//initial_pos = original_pos.x;
+			speed.x = -100 * dt;
+			original_pos.x += speed.x;
+			flip = true;
+			if (EnemyPos.x <= Destination.x)
+			{
+				counter++;
+				move = false;
+			}
 		}
+
+		if (EnemyPos.x != Destination.x && EnemyPos.y != Destination.y)
+		{
+			move = false;
+		}
+		
 	}
 	else
 	{
 		animation = &idle;
+	}
+
+	if (abs(App->player->pos.x - EnemyPos.x) >= 400)
+	{
+		move = false;
 	}
 	
 }

@@ -32,18 +32,17 @@ void Entity::Draw(SDL_Texture* sprites)
 
 	if (animation != nullptr)
 	{
-		if (App->entity_manager->wolf)
-		{
-			sprites = white_wolf;
+		
+		sprites = this->sprites;
 
-			App->render->Blit(sprites, pos.x, pos.y, 2, 2, flip, &(animation->GetCurrentFrame()));
-		}
-		if (App->entity_manager->bat)
+		App->render->Blit(sprites, pos.x, pos.y, 2, 2, flip, &(animation->GetCurrentFrame()));
+		
+		/*if (App->entity_manager->bat)
 		{
 			sprites = batsprite;
 
 			App->render->Blit(sprites, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()));
-		}
+		}*/
 	}
 
 	/*for (int i = 0; App->entity_manager->entities[i]; ++i)

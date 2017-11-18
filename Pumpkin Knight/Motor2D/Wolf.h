@@ -23,6 +23,7 @@ private:
 
 	int counter = 0;
 
+	bool move = false;
 	bool attack = false;
 
 	fPoint position;

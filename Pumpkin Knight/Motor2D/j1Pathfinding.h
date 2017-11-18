@@ -13,6 +13,7 @@
 #include "j1Map.h"
 #include "p2Log.h"
 
+#define COST_MAP 1000
 
 class j1Pathfinding : public j1Module
 {
@@ -35,7 +36,9 @@ public:
 	void DrawPath(p2DynArray<iPoint>& path);
 
 	//Backtracking function
-	void BackTracking(const iPoint& start, p2DynArray<iPoint>& path);
+	void BackTrackingGround(const iPoint& start, p2DynArray<iPoint>& path);
+
+	void BackTrackingAir(const iPoint& start, p2DynArray<iPoint>& path);
 
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const iPoint& pos) const;
@@ -50,6 +53,9 @@ private:
 	p2List<iPoint>		visited;
 	p2List<iPoint>		breadcrumbs;
 	p2DynArray<iPoint>	last_path;
+
+	uint				cost_so_far[COST_MAP][COST_MAP];
+
 
 };
 #endif

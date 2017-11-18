@@ -28,8 +28,6 @@ public:
 	virtual void MoveEnemy(float dt) {};
 
 	SDL_Texture* sprites = nullptr;
-	SDL_Texture* white_wolf = nullptr;
-	SDL_Texture* batsprite = nullptr;
 
 public:
 
