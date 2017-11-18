@@ -29,6 +29,7 @@ public:
 
 	SDL_Texture* sprites = nullptr;
 	SDL_Texture* white_wolf = nullptr;
+	SDL_Texture* batsprite = nullptr;
 
 public:
 
@@ -40,6 +41,10 @@ public:
 
 	Collider* collider = nullptr;
 
+	int initial_pos;
+
+	bool flip;
+	
 };
 
 #endif // !_ENTITY_H_

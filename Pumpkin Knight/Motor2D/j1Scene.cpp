@@ -38,6 +38,7 @@ bool j1Scene::Start()
 {
 	App->map->Load("level1_v4.tmx");
 	App->entity_manager->AddEnemy(WOLF, 100, 100);
+	App->entity_manager->AddEnemy(BAT, 300, 200);
 	
 	return true;
 }

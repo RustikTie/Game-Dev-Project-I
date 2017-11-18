@@ -3,40 +3,90 @@
 
 Wolf::Wolf(int x, int y) : Entity(x, y)
 {
-	white_wolf = App->tex->Load("assets/wolfMedium.png");
-	idle.PushBack({ 0, 33, 64, 64 });
-	idle.PushBack({ 65, 33, 64, 64 });
+	white_wolf = App->tex->Load("assets/wolfLight.png");
+	App->entity_manager->wolf = true;
 
-	idle.speed = 1.5f;
+	idle.PushBack({ 0, 0, 64, 32 });
+	//idle.PushBack({ 65, 0, 64, 32 });
+
+	idle.speed = 0.15f;
 	idle.loop = true;
 
 	walk.PushBack({ 65, 98, 64, 32 });
 	walk.PushBack({ 130, 98, 64, 32 });
 	walk.PushBack({ 195, 98, 64, 32 });
 	walk.PushBack({ 260, 98, 64, 32 });
-	walk.speed = 0.3f;
+	walk.speed = 0.1f;
 	walk.loop = true;
 
-	animation = &walk;
+	animation = &idle;
 
 	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 64*2, 32*2 }, COLLIDER_ENEMY, (j1Module*)App->entity_manager);
+
+	initial_pos = original_pos.x;
 }
 
 
 Wolf::~Wolf()
 {
+	App->tex->UnLoad(white_wolf);
 }
 
 void Wolf::MoveEnemy(float dt)
 {
-	//animation = &walk;
 	pos = original_pos;
 	original_pos.y += App->player->gravity*dt;
-	
+
+	fPoint speed;
+
 	iPoint EnemyPos = { (int)original_pos.x + 64, (int)original_pos.y + 32};
 	iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
-	App->pathfinding->CreatePath(EnemyPos, PlayerPos);
-	App->pathfinding->BackTracking(PlayerPos, path);
-	App->pathfinding->DrawPath(path);
+
+	if ((abs(PlayerPos.x - EnemyPos.x) < 400))
+	{
+		App->pathfinding->CreatePath(EnemyPos, PlayerPos);
+		App->pathfinding->BackTracking(PlayerPos, path);
+		attack = true;
+		//App->pathfinding->DrawPath(path);
+	}
+
+	if (attack)
+	{
+		animation = &walk;
+		if (EnemyPos.x < PlayerPos.x)
+		{
+			speed.x = 2;
+			flip = false;
+		}
+		
+		if (EnemyPos.x > PlayerPos.x)
+		{
+			speed.x = -2;
+			flip = true;
+		}
+
+		//iPoint Destination = App->map->MapToWorld(path[counter].x, path[counter].y);
+
+		if (EnemyPos.x != PlayerPos.x)
+		{
+			original_pos.x += speed.x;
+		}
+		
+		if (EnemyPos == PlayerPos)
+		{
+			speed.x = 0;
+			counter++;
+		}
+
+		if (abs(PlayerPos.x - (int)original_pos.x) >= 400)
+		{
+			attack = false;
+			//initial_pos = original_pos.x;
+		}
+	}
+	else
+	{
+		animation = &idle;
+	}
 	
 }

@@ -32,9 +32,18 @@ void Entity::Draw(SDL_Texture* sprites)
 
 	if (animation != nullptr)
 	{
-		sprites = white_wolf;
+		if (App->entity_manager->wolf)
+		{
+			sprites = white_wolf;
 
-		App->render->Blit(sprites, pos.x, pos.y, 2, 2, false, &(animation->GetCurrentFrame()));
+			App->render->Blit(sprites, pos.x, pos.y, 2, 2, flip, &(animation->GetCurrentFrame()));
+		}
+		if (App->entity_manager->bat)
+		{
+			sprites = batsprite;
+
+			App->render->Blit(sprites, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()));
+		}
 	}
 
 	/*for (int i = 0; App->entity_manager->entities[i]; ++i)
@@ -46,10 +55,6 @@ void Entity::Draw(SDL_Texture* sprites)
 
 void Entity::OnCollision(Collider* collider)
 {
-	if (collider->type == COLLIDER_ENEMY)
-	{
-
-	}
 
 }
 

@@ -8,6 +8,7 @@
 #include "j1Textures.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 
 class Wolf : public Entity
 {
@@ -19,6 +20,10 @@ public:
 private:
 	Animation idle;
 	Animation walk;
+
+	int counter = 0;
+
+	bool attack = false;
 
 	fPoint position;
 

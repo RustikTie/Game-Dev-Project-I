@@ -346,32 +346,32 @@ bool j1Map::Load(const char* file_name)
 			if (object_num == 2)
 			{
 
-				if (data.objectlayers[object_num]->entity_type[i] == WOLF)
-				{
-										
-					LOG("Entity: white wolf");
+				//if (data.objectlayers[object_num]->entity_type[i] == WOLF)
+				//{
+				//						
+				//	LOG("Entity: white wolf");
 
-				}
-				if (data.objectlayers[object_num]->entity_type[i] == BAT)
-				{
-					
-					LOG("Entity: black bat");
+				//}
+				//if (data.objectlayers[object_num]->entity_type[i] == BAT)
+				//{
+				//	
+				//	LOG("Entity: black bat");
 
-				}
-				EntityInfo aux;
-				aux.type = data.objectlayers[object_num]->entity_type[i];
-				aux.x = data.objectlayers[object_num]->x[i];
-				aux.y = data.objectlayers[object_num]->y[i];
+				//}
+				//EntityInfo aux;
+				//aux.type = data.objectlayers[object_num]->entity_type[i];
+				//aux.x = data.objectlayers[object_num]->x[i];
+				//aux.y = data.objectlayers[object_num]->y[i];
 
-				if (j != MAX_ENEMIES)
-				{
-					App->entity_manager->queue[j].type = aux.type;
-					App->entity_manager->queue[j].x = aux.x;
-					App->entity_manager->queue[j].y = aux.y;
+				//if (j != MAX_ENEMIES)
+				//{
+				//	App->entity_manager->queue[j].type = aux.type;
+				//	App->entity_manager->queue[j].x = aux.x;
+				//	App->entity_manager->queue[j].y = aux.y;
 
-				}
-				
-				++j;
+				//}
+				//
+				//++j;
 			}
 		
 		}

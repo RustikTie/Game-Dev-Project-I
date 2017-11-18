@@ -131,7 +131,9 @@ void j1EntityManager::SpawnEntity(const EntityInfo& info)
 		case ENTITY_TYPES::WOLF:
 			entities[i] = new Wolf(info.x, info.y);
 			break;
-
+		case ENTITY_TYPES::BAT:
+			entities[i] = new Bat(info.x, info.y);
+			break;
 		}
 	}
 }
