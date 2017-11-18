@@ -1,21 +1,22 @@
 #include "Bat.h"
 
 
-
 Bat::Bat(int x, int y) : Entity (x,y)
 {
 	sprites = App->tex->Load("assets/bat.png");
 	App->entity_manager->bat = true;
 
-	fly.PushBack({ 0, 0, 31, 31 });
-	fly.PushBack({ 32, 0, 31, 31 });
-	fly.PushBack({ 64, 0, 31, 31 });
-	fly.PushBack({ 96, 0, 31, 31 });
-	fly.PushBack({ 128, 0, 31, 31 });
+	fly.PushBack({ 0, 0, 31, 44 });
+	fly.PushBack({ 32, 0, 31, 44 });
+	fly.PushBack({ 64, 0, 31, 44 });
+	fly.PushBack({ 96, 0, 31, 44 });
+	fly.PushBack({ 128, 0, 31, 44 });
 	fly.speed = 0.4f;
+
 	fly.loop = true;
 
 	animation = &fly;
+
 
 	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 31 * 2, 31 * 2}, COLLIDER_ENEMY, (j1Module*)App->entity_manager);
 

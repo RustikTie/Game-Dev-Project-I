@@ -1,6 +1,7 @@
 #include "j1EntityManager.h"
 #include "Entity.h"
 #include "Wolf.h"
+#include "Player.h"
 #include "j1Map.h"
 
 #define SPAWN_MARGIN 100

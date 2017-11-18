@@ -60,7 +60,7 @@ private:
 	Animation idle;
 	Animation forward;
 	Animation jump;
-	
+	Animation death;
 
 	bool flip = false;
 	bool dead = false;

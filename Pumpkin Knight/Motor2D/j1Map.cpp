@@ -343,36 +343,40 @@ bool j1Map::Load(const char* file_name)
 
 			}
 
-			if (object_num == 2)
+			/*if (object_num == 2)
 			{
 
-				//if (data.objectlayers[object_num]->entity_type[i] == WOLF)
-				//{
-				//						
-				//	LOG("Entity: white wolf");
+				if (data.objectlayers[object_num]->entity_type[i] == WOLF)
+				{
+										
+					LOG("Entity: white wolf");
 
-				//}
-				//if (data.objectlayers[object_num]->entity_type[i] == BAT)
-				//{
-				//	
-				//	LOG("Entity: black bat");
+				}
+				if (data.objectlayers[object_num]->entity_type[i] == BAT)
+				{
+					
+					LOG("Entity: black bat");
 
-				//}
-				//EntityInfo aux;
-				//aux.type = data.objectlayers[object_num]->entity_type[i];
-				//aux.x = data.objectlayers[object_num]->x[i];
-				//aux.y = data.objectlayers[object_num]->y[i];
+				}
+				if (data.objectlayers[object_num]->entity_type[i] == PLAYER)
+				{
+					LOG("Entity: player");
+				}
+				EntityInfo aux;
+				aux.type = data.objectlayers[object_num]->entity_type[i];
+				aux.x = data.objectlayers[object_num]->x[i];
+				aux.y = data.objectlayers[object_num]->y[i];
 
-				//if (j != MAX_ENEMIES)
-				//{
-				//	App->entity_manager->queue[j].type = aux.type;
-				//	App->entity_manager->queue[j].x = aux.x;
-				//	App->entity_manager->queue[j].y = aux.y;
+				if (j != MAX_ENEMIES)
+				{
+					App->entity_manager->queue[j].type = aux.type;
+					App->entity_manager->queue[j].x = aux.x;
+					App->entity_manager->queue[j].y = aux.y;
 
-				//}
-				//
-				//++j;
-			}
+				}
+				
+				++j;
+			}*/
 		
 		}
 
@@ -590,15 +594,32 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 	layer->id = new uint[200];
 	layer->rect = new SDL_Rect[200];
 	layer->entity_type = new ENTITY_TYPES[200];
+
 	layer->name = node.attribute("name").as_string();
 	
 	while (aux != NULL)
 	{
-		layer->id[i] = aux.attribute("id").as_uint();
-		layer->x[i] = aux.attribute("x").as_int();
-		layer->y[i] = aux.attribute("y").as_int();
-		layer->width[i] = aux.attribute("width").as_uint();
-		layer->height[i] = aux.attribute("height").as_uint();
+		if (aux.attribute("id").as_uint() != NULL)
+		{
+			layer->id[i] = aux.attribute("id").as_uint();
+		}
+		if (aux.attribute("x").as_int() != NULL)
+		{
+			layer->x[i] = aux.attribute("x").as_int();
+		}
+		if (aux.attribute("y").as_int() != NULL)
+		{
+			layer->y[i] = aux.attribute("y").as_int();
+		}
+		if (aux.attribute("width").as_uint() != NULL)
+		{
+			layer->width[i] = aux.attribute("width").as_uint();
+		}
+		if (aux.attribute("height").as_uint() != NULL)
+		{
+			layer->height[i] = aux.attribute("height").as_uint();
+		}		
+		
 		layer->rect[i].h = layer->height[i];
 		layer->rect[i].w = layer->width[i];
 		layer->rect[i].x = layer->x[i];
@@ -607,11 +628,15 @@ bool j1Map::LoadObjectLayer(pugi::xml_node& node, ObjectLayer* layer)
 		p2SString type(aux.child("properties").child("property").attribute("value").as_string());
 		if (type == "WHITE WOLF")
 		{
-			layer->entity_type[i] = WOLF;
+			layer->entity_type[i] = WOLF;			
 		}
 		if (type == "BLACK BAT")
 		{
 			layer->entity_type[i] = BAT;
+		}
+		if (type == "PLAYER")
+		{
+			layer->entity_type[i] = PLAYER;
 		}
 		if (type == NULL)
 		{

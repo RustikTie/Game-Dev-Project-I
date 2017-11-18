@@ -49,12 +49,19 @@ struct ImageLayer
 struct ObjectLayer
 {
 	p2SString			name;
-	uint*				width;
-	uint*				height;
-	float*				x;
-	float*				y;
-	uint*				id;
-	SDL_Rect*			rect;
+	uint*				width = nullptr;
+	uint*				height = nullptr;
+	float*				x = nullptr;
+	float*				y = nullptr;
+	uint*				id = nullptr;
+	SDL_Rect*			rect = nullptr;
+	float*				acceleration_x = nullptr;
+	float*				acceleration_y = nullptr;
+	float*				velocity_x = nullptr;
+	float*				velocity_y = nullptr;
+	float*				jump_height = nullptr;
+	float*				double_jump_height = nullptr;
+	float*				gravity = nullptr;
 	ENTITY_TYPES*		entity_type = nullptr;
 
 };
@@ -72,7 +79,7 @@ struct TileSet
 	int					spacing;
 	int					tile_width;
 	int					tile_height;
-	SDL_Texture*		texture;
+	SDL_Texture*		texture = nullptr;
 	int					tex_width;
 	int					tex_height;
 	int					num_tiles_width;
