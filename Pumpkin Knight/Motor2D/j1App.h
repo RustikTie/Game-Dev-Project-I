@@ -123,6 +123,7 @@ private:
 	int					capped_ms = -1;
 	int					cap = 0;
 	bool				enable_cap = true;
+	p2SString			CAP = "On";
 
 };
 
