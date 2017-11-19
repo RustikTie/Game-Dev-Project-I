@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="32" tileheight="32" nextobjectid="124">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="32" tileheight="32" nextobjectid="125">
  <tileset firstgid="1" name="Metroidvania Tileset" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="../assets/Metroidvania Tileset.png" width="256" height="256"/>
   <terraintypes>
@@ -6168,18 +6168,11 @@
   <object id="120" x="214.167" y="745.989" width="35" height="224.688"/>
  </objectgroup>
  <objectgroup name="Enemies">
-  <object id="121" x="3154" y="286" width="90" height="54">
-   <properties>
-    <property name="enemy_type" value="WHITE WOLF"/>
-   </properties>
-  </object>
   <object id="122" x="1290.5" y="780.833" width="35" height="33">
    <properties>
     <property name="enemy_type" value="BLACK BAT"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="EnemyBlocker">
-  <object id="123" x="3036.33" y="580.333" width="33.3333" height="39.3333"/>
- </objectgroup>
+ <objectgroup name="EnemyBlocker"/>
 </map>
