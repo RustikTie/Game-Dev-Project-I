@@ -104,7 +104,7 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 
-		int cap = app_config.attribute("framerate_cap").as_int(-1);
+		cap = app_config.attribute("framerate_cap").as_int(-1);
 
 		if (cap > 0)
 		{
@@ -201,6 +201,7 @@ void j1App::PrepareUpdate()
 
 	dt = frame_time.ReadSec();
 	frame_time.Start();
+
 }
 
 // ---------------------------------------------
@@ -213,6 +214,19 @@ void j1App::FinishUpdate()
 		LoadGameNow();
 
 	// Framerate calculations --
+	
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		if (capped_ms > 0)
+		{
+			capped_ms = 0;
+		}
+		else
+		{
+			capped_ms = 1000 / 30;
+		}
+
+	}
 
 	if (last_sec_frame_time.Read() > 1000)
 	{
@@ -260,6 +274,8 @@ bool j1App::PreUpdate()
 
 		ret = item->data->PreUpdate();
 	}
+	
+
 
 	return ret;
 }
