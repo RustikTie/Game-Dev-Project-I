@@ -342,14 +342,12 @@ bool j1Map::Load(const char* file_name)
 				LOG("Entity: wall");
 
 			}
-			if (object_num == 3)
+			if (object_num == 2)
 			{
-				App->collisions->AddCollider(collider, COLLIDER_BLOCKER);
-				LOG("Entity: blocker");
-			}
-
-			/*if (object_num == 2)
-			{
+				EntityInfo aux;
+				aux.type = data.objectlayers[object_num]->entity_type[i];
+				aux.x = data.objectlayers[object_num]->x[i];
+				aux.y = data.objectlayers[object_num]->y[i];
 
 				if (data.objectlayers[object_num]->entity_type[i] == WOLF)
 				{
@@ -366,22 +364,26 @@ bool j1Map::Load(const char* file_name)
 				if (data.objectlayers[object_num]->entity_type[i] == PLAYER)
 				{
 					LOG("Entity: player");
-				}
-				EntityInfo aux;
-				aux.type = data.objectlayers[object_num]->entity_type[i];
-				aux.x = data.objectlayers[object_num]->x[i];
-				aux.y = data.objectlayers[object_num]->y[i];
+				/*	App->entity_manager->playerInfo.type = aux.type;
+					App->entity_manager->playerInfo.x = aux.x;
+					App->entity_manager->playerInfo.y = aux.y;*/
 
-				if (j != MAX_ENEMIES)
+				}
+
+				if (j != MAX_ENEMIES && data.objectlayers[object_num]->entity_type[i])
 				{
 					App->entity_manager->queue[j].type = aux.type;
 					App->entity_manager->queue[j].x = aux.x;
 					App->entity_manager->queue[j].y = aux.y;
 
 				}
-				
 				++j;
-			}*/
+			}
+			if (object_num == 3)
+			{
+				App->collisions->AddCollider(collider, COLLIDER_BLOCKER);
+				LOG("Entity: blocker");
+			}
 		
 		}
 

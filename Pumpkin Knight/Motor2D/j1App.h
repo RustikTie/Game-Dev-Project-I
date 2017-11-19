@@ -101,7 +101,7 @@ private:
 
 	p2List<j1Module*>	modules;
 	int					argc;
-	char**				args;
+	char**				args = nullptr;
 	uint				frames;
 
 	p2SString			title;

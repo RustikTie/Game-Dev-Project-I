@@ -38,10 +38,15 @@ bool j1EntityManager::PreUpdate()
 		{
 			if (queue[i].y * SCREEN_SIZE > App->render->camera.y - SPAWN_MARGIN)
 			{
+			
 				LOG("Spawning enemy at %d", queue[i].y* SCREEN_SIZE);
 				SpawnEntity(queue[i]);
+				if (queue[i].type == PLAYER)
+				{
+					//playerEntity = entities[i];
+				}
 				queue[i].type = ENTITY_TYPES::NO_TYPE;
-
+				
 			}
 		}
 	}
