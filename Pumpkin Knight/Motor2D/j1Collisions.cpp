@@ -107,19 +107,20 @@ bool j1Collisions::Update(float dt)
 			//GRAVITY PLAYER
 			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
 			{
-					App->player->pos.y -= (App->player->gravity)*dt;
-					App->player->falling = false;	
-					App->player->contact = false;
+					App->entity_manager->player_entity->pos.y -= (App->entity_manager->player_entity->gravity)*dt;
+					App->entity_manager->player_entity->falling = false;
+					App->entity_manager->player_entity->contact = false;
+				//App->entity_manager->OnCollision(c2, c1, enemygravity);
 			}
 			//FOWARD and BACKWARD COLLISION PLAYER w/ WALL
 			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
 			{
-				App->player->pos.x -= (App->player->speed)*dt;
+				App->entity_manager->player_entity->pos.x -= (App->entity_manager->player_entity->speed)*dt;
 			}
 			//PLAYER ENEMY COLLISION
-			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) && !App->player->godmode)
+			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) && !App->entity_manager->player_entity->godmode)
 			{
-				App->player->SetPos(100,200);
+				App->entity_manager->player_entity->SetPos(100,200);
 			}
 			//GRAVITY ENEMY
 			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_ENEMY && c1->CheckCollisionDownwards(c2->rect, enemygravity, dt) == true)
@@ -294,7 +295,7 @@ bool Collider::CheckCollisionDownwards(const SDL_Rect& r, float& gravity, float 
 {
 	if (r.y + r.h > rect.y - 2 && r.y < rect.y + rect.h && r.x + r.w >= rect.x  && r.x <= rect.x + rect.w)
 	{
-		gravity = App->player->gravity*dt;
+		gravity = App->entity_manager->player_entity->gravity*dt;
 		return true;
 	}
 
@@ -308,7 +309,7 @@ bool Collider::CheckCollisionForward(const SDL_Rect& r, float& force, float dt)
 {
 	if (r.y +r.h  > rect.y && r.y + r.h < rect.y + rect.h && r.x + r.w >= rect.x && r.x + r.w < rect.x + rect.w)
 	{
-		force = App->entity->speed.x*dt;
+		force = App->entity_manager->player_entity->speed*dt;
 		return true;
 		
 	}

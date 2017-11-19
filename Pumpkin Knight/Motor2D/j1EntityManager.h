@@ -9,11 +9,14 @@
 #include "p2Point.h"
 #include "Bat.h"
 #include "Wolf.h"
+#include "Player.h"
 
 #define MAX_ENEMIES 1000
 #define SCREEN_SIZE 1
 #define SCREEN_WIDTH 6400
 #define SCREEN_HEIGHT 520
+
+class Player;
 
 enum ENTITY_TYPES
 {
@@ -61,13 +64,13 @@ public:
 	EntityInfo queue[MAX_ENEMIES];
 	Entity* entities[MAX_ENEMIES];
 	pugi::xml_document config_file;
+	pugi::xml_node entity_config;
 	EntityInfo playerInfo;
-	//Player* player_entity;
-	Entity* playerEntity;
+	Player* player_entity;
+	
 
 private:
 
-	//Entity* player;
 
 };
 

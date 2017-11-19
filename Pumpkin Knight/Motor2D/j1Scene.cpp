@@ -41,8 +41,8 @@ bool j1Scene::Start()
 	if (level1) 
 	{
 		App->map->Load("level1_v4.tmx");
-		App->entity_manager->AddEnemy(WOLF, 1100, 0);
-		//App->entity_manager->AddEnemy(WOLF, 500, 0);
+		//App->entity_manager->AddEnemy(WOLF, 1100, 0);
+		App->entity_manager->AddEnemy(WOLF, 500, 0);
 		/*App->entity_manager->AddEnemy(WOLF, 200, 100);
 		App->entity_manager->AddEnemy(WOLF, 400, 100);
 		App->entity_manager->AddEnemy(WOLF, 300, 100);*/
@@ -51,10 +51,12 @@ bool j1Scene::Start()
 		App->entity_manager->AddEnemy(BAT, 500, 200);*/
 	}
 
+
 	if (level2)
 	{
-
+		App->map->Load("level2_v2.tmx");
 	}
+
 	
 	return true;
 }
@@ -89,19 +91,20 @@ bool j1Scene::Update(float dt)
 		if (level1 == false) 
 		{
 			App->map->CleanUp();
+			App->entity_manager->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
 			App->map->Load("level1_v4.tmx");
-			App->player->SetPos(100, 200);
+			App->entity_manager->player_entity->SetPos(100, 200);
 			level1 = true;
 		}
 		else
 		{
-			App->player->SetPos(100, 250);
+			App->entity_manager->player_entity->SetPos(100, 250);
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2))
 	{
-		App->player->SetPos(100, 250);
+		App->entity_manager->player_entity->SetPos(100, 250);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F5))
 		App->SaveGame();
@@ -110,14 +113,15 @@ bool j1Scene::Update(float dt)
 		App->LoadGame();
 
 	//CHANGE LEVEL
-	if (App->player->getX() >= 6200.f && level1 == true) 
+	if (App->entity_manager->player_entity->getX() >= 6200.f && level1 == true)
 
 	{
 		level2 = true;
 		App->map->CleanUp();
+		App->entity_manager->CleanUp();
 		App->collisions->Erase_Non_Player_Colliders();
 		App->map->Load("level2_v2.tmx");
-		App->player->SetPos(100, 250);
+		App->entity_manager->player_entity->SetPos(100, 250);
 		level1 = false;
 	}
 

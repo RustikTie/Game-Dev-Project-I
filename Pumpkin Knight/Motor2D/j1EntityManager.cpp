@@ -3,6 +3,8 @@
 #include "Wolf.h"
 #include "Player.h"
 #include "j1Map.h"
+#include "Brofiler\Brofiler.h"
+
 
 #define SPAWN_MARGIN 100
 
@@ -14,6 +16,7 @@ j1EntityManager::j1EntityManager()
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	config_file.load_file("config.xml");
+	entity_config = config;
 
 	return true;
 }
@@ -26,11 +29,21 @@ j1EntityManager::~j1EntityManager()
 bool j1EntityManager::Start()
 {
 	LOG("loading entities");
+	
+	if (player_entity == nullptr)
+	{
+		player_entity = new Player(100, 200);
+		player_entity->Awake(entity_config);
+		player_entity->Start();
+	}
+
 	return true;
 }
 
 bool j1EntityManager::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate EntityManager", Profiler::Color::Yellow)
+
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -40,11 +53,7 @@ bool j1EntityManager::PreUpdate()
 			{
 			
 				LOG("Spawning enemy at %d", queue[i].y* SCREEN_SIZE);
-				SpawnEntity(queue[i]);
-				if (queue[i].type == PLAYER)
-				{
-					//playerEntity = entities[i];
-				}
+				SpawnEntity(queue[i]);	
 				queue[i].type = ENTITY_TYPES::NO_TYPE;
 				
 			}
@@ -57,13 +66,20 @@ bool j1EntityManager::PreUpdate()
 // Called before render is available
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("PreUpdate EntityManager", Profiler::Color::Green)
+
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (entities[i] != nullptr)
 		{
 			entities[i]->MoveEnemy(dt);
 			entities[i]->Draw(entities[i]->sprites);
-			entities[i]->Awake(config_file);
+			entities[i]->Awake(entity_config);
+		}
+		if (player_entity != nullptr)
+		{
+			player_entity->MoveEnemy(dt);
+			player_entity->Draw(player_entity->sprites);
 		}
 	}
 	return true;
@@ -71,6 +87,8 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate EntityManager", Profiler::Color::Blue)
+
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -78,14 +96,9 @@ bool j1EntityManager::PostUpdate()
 		{
 			if ((abs((int)App->render->camera.y) + SCREEN_HEIGHT + SPAWN_MARGIN) < entities[i]->pos.y)
 			{
-				despawning = true;
 				LOG("DeSpawning enemy at %d", entities[i]->pos.y * SCREEN_SIZE);
 				delete entities[i];
 				entities[i] = nullptr;
-			}
-			else
-			{
-				despawning = false;
 			}
 		}
 	}
@@ -196,6 +209,19 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2, float counterforce
 				}
 			}
 		}
+
+		if (player_entity != nullptr && player_entity->GetCollider() == c1)
+		{
+			if (c2->type == COLLIDER_GROUND)
+			{
+				player_entity->pos.y -= counterforce;
+			}
+
+			if (c2->type == COLLIDER_WALL)
+			{
+				player_entity->original_pos.x -= counterforce;
+			}
+		}
 	}
 
 }
@@ -221,18 +247,18 @@ void j1EntityManager::EraseEnemies()
 
 bool j1EntityManager::Load(pugi::xml_node& data)
 {
-	/*pos.x = data.child("player_pos").attribute("x").as_float();
-	pos.y = data.child("player_pos").attribute("y").as_float();*/
+	player_entity->pos.x = data.child("player_pos").attribute("x").as_float();
+	player_entity->pos.y = data.child("player_pos").attribute("y").as_float();
 
 	return true;
 }
 
 bool j1EntityManager::Save(pugi::xml_node& data)const
 {
-	/*pugi::xml_node& node = data.append_child("player_pos");
+	pugi::xml_node& node = data.append_child("player_pos");
 
-	node.append_attribute("x") = pos.x;
-	node.append_attribute("y") = pos.y;*/
+	node.append_attribute("x") = player_entity->pos.x;
+	node.append_attribute("y") = player_entity->pos.y;
 
 	return true;
 }

@@ -342,7 +342,7 @@ bool j1Map::Load(const char* file_name)
 				LOG("Entity: wall");
 
 			}
-			if (object_num == 2)
+			/*if (object_num == 2)
 			{
 				EntityInfo aux;
 				aux.type = data.objectlayers[object_num]->entity_type[i];
@@ -364,9 +364,9 @@ bool j1Map::Load(const char* file_name)
 				if (data.objectlayers[object_num]->entity_type[i] == PLAYER)
 				{
 					LOG("Entity: player");
-				/*	App->entity_manager->playerInfo.type = aux.type;
+					App->entity_manager->playerInfo.type = aux.type;
 					App->entity_manager->playerInfo.x = aux.x;
-					App->entity_manager->playerInfo.y = aux.y;*/
+					App->entity_manager->playerInfo.y = aux.y;
 
 				}
 
@@ -378,7 +378,7 @@ bool j1Map::Load(const char* file_name)
 
 				}
 				++j;
-			}
+			}*/
 			if (object_num == 3)
 			{
 				App->collisions->AddCollider(collider, COLLIDER_BLOCKER);
@@ -389,8 +389,6 @@ bool j1Map::Load(const char* file_name)
 
 		
 	}
-
-
 	/*for (uint layer_num = 0; layer_num < data.maplayers.count(); ++layer_num)
 	{
 		for (int i = 0; i < data.width; ++i)

@@ -27,7 +27,7 @@ public:
 
 	virtual bool Awake(pugi::xml_node&);
 
-	virtual void Draw(SDL_Texture* sprites);
+	virtual void Draw(SDL_Texture* sprite);
 
 	virtual void OnCollision(Collider* collider);
 	//bool LoadEnemyLayer(pugi::xml_node& node, EnemyLayer* layer);
@@ -47,6 +47,8 @@ public:
 	p2DynArray<iPoint> path;
 
 	int initial_pos;
+	int x_scale;
+	int y_scale;
 
 	bool flip;
 };

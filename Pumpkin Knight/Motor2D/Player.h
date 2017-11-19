@@ -15,10 +15,25 @@ class Player : public Entity
 public:
 	Player(int x, int y);
 	~Player();
-	void MovePlayer(float dt);
+	bool Start();
+	void MoveEnemy(float dt);
 	void Jump(float dt);
 	bool Awake(pugi::xml_node& config);
 
+	void SetPos(float x, float y) {
+		pos.x = x;
+		pos.y = y;
+	}
+
+	float getX()
+	{
+		return pos.x;
+	}
+		float getY()
+	{
+		return pos.y;
+	}
+	Collider* playercollider = nullptr;
 
 	float gravity;
 	float speed;
@@ -29,6 +44,7 @@ public:
 	bool jumping = false;
 	bool double_jumping = false;
 	bool contact = false;
+	bool godmode = false;
 
 	fPoint velocity;
 	fPoint acceleration;
@@ -39,8 +55,8 @@ public:
 
 
 private:
-	Animation* animation = nullptr;
-	Animation* last_direction = nullptr;
+	//Animation* animation = nullptr;
+	//Animation* last_direction = nullptr;
 	Animation idle;
 	Animation forward;
 	Animation jump;

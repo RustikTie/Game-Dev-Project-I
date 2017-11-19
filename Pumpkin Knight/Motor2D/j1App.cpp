@@ -37,7 +37,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	map = new j1Map();
 	collisions = new j1Collisions();
-	player = new j1Player();
+	//player = new j1Player();
 	pathfinding = new j1Pathfinding();
 	entity_manager = new j1EntityManager();
 	
@@ -52,7 +52,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(collisions);
 	AddModule(entity_manager);
-	AddModule(player);
+	//AddModule(player);
 	AddModule(pathfinding);
 
 	// render last to swap buffer
@@ -104,11 +104,11 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 
-		int cap = app_config.attribute("framerate_cap").as_int(-1);
+		cap = app_config.attribute("framerate_cap").as_int(-1);
 
 		if (cap > 0)
 		{
-			capped_ms = 1000 / cap;
+			capped_ms = 1000 / cap ;
 		}
 		if (cap == 0)
 		{
@@ -201,6 +201,7 @@ void j1App::PrepareUpdate()
 
 	dt = frame_time.ReadSec();
 	frame_time.Start();
+
 }
 
 // ---------------------------------------------
@@ -213,6 +214,21 @@ void j1App::FinishUpdate()
 		LoadGameNow();
 
 	// Framerate calculations --
+	
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		if (capped_ms > 0)
+		{
+			capped_ms = 0;
+			CAP = "Off";
+		}
+		else
+		{
+			capped_ms = 1000 / cap;
+			CAP = "On";
+		}
+
+	}
 
 	if (last_sec_frame_time.Read() > 1000)
 	{
@@ -227,7 +243,7 @@ void j1App::FinishUpdate()
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
+	sprintf_s(title, 256, "Frame Cap: %s Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ", CAP.GetString(),
 		avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
@@ -260,6 +276,8 @@ bool j1App::PreUpdate()
 
 		ret = item->data->PreUpdate();
 	}
+	
+
 
 	return ret;
 }

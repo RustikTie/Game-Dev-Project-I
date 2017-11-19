@@ -28,12 +28,19 @@ Wolf::Wolf(int x, int y) : Entity(x, y)
 
 bool Wolf::Awake(pugi::xml_node& config)
 {
-	pugi::xml_node wolf_entity = config.child("config").child("entities");
+	pugi::xml_document	config_file;
+	pugi::xml_node		config2;
+	
+	config2 = App->LoadConfig(config_file);
 
-	speed.x = wolf_entity.child("wolf").child("speed").attribute("x").as_float();
-	speed.y = wolf_entity.child("wolf").child("speed").attribute("y").as_float();
-	move = wolf_entity.child("wolf").child("move").attribute("value").as_bool(false);
-	attack = wolf_entity.child("wolf").child("attack").attribute("value").as_bool(false);
+	config2 = config2.child("entities").child("wolf");
+
+	speed.x = config2.child("speed").attribute("x").as_float();
+	speed.y = config2.child("speed").attribute("y").as_float();
+	move = config2.child("move").attribute("value").as_bool(false);
+	attack = config2.child("attack").attribute("value").as_bool(false);
+	x_scale = config2.child("scale").attribute("x").as_int();
+	y_scale = config2.child("scale").attribute("x").as_int();
 
 	return true;
 }
@@ -46,13 +53,13 @@ Wolf::~Wolf()
 void Wolf::MoveEnemy(float dt)
 {
 	pos = original_pos;
-	original_pos.y += App->player->gravity*dt;
+	original_pos.y += App->entity_manager->player_entity->gravity*dt;
 
 
 	iPoint EnemyPos = { (int)original_pos.x + 64, (int)original_pos.y + 32};
-	iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
+	iPoint PlayerPos{ (int)App->entity_manager->player_entity->pos.x + 30, (int)App->entity_manager->player_entity->pos.y + 46 };
 
-	if ((abs(App->player->pos.x - EnemyPos.x) < 400) && !move)
+	if ((abs(App->entity_manager->player_entity->pos.x - EnemyPos.x) < 400) && !move)
 	{
 		counter = 0;
 
@@ -85,8 +92,7 @@ void Wolf::MoveEnemy(float dt)
 
 		else
 		{
-			speed.x = -speed.x;
-			original_pos.x += speed.x*dt;
+			original_pos.x -= speed.x*dt;
 			flip = true;
 			if (EnemyPos.x <= Destination.x)
 			{
@@ -106,7 +112,7 @@ void Wolf::MoveEnemy(float dt)
 		animation = &idle;
 	}
 
-	if (abs(App->player->pos.x - EnemyPos.x) >= 400)
+	if (abs(App->entity_manager->player_entity->pos.x - EnemyPos.x) >= 400)
 	{
 		move = false;
 	}

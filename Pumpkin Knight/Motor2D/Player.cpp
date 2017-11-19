@@ -5,9 +5,10 @@
 Player::Player(int x, int y) : Entity(x, y)
 {
 	App->entity_manager->player = true;
-	collider = App->collisions->AddCollider({(int)pos.x, (int)pos.y, 25, 40}, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
+	//collider = App->collisions->AddCollider({(int)pos.x, (int)pos.y, 25, 40}, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 	animation = NULL;
 	graphics = NULL;
+	
 
 	idle.PushBack({ 1,48,30,46 });
 	idle.PushBack({ 32,48,30,46 });
@@ -54,34 +55,60 @@ Player::Player(int x, int y) : Entity(x, y)
 	jump.loop = false;
 	jump.speed = 0.04f;
 
+	//animation = &idle;
+	initial_pos = original_pos.x;
 }
 
 
 Player::~Player()
 {
+	App->tex->UnLoad(sprites);
+
 }
 
-bool Player::Awake(pugi::xml_node& config)
+bool Player::Start()
 {
-	pugi::xml_node player = config.child("player_data");
+	LOG("Loading Player");
 
-	velocity.x = player.child("velocity").attribute("value").as_float();
-	velocity.y = player.child("velocity").attribute("value").as_float();
-	acceleration.x = player.child("acceleration").attribute("x").as_float();
-	acceleration.y = player.child("acceleration").attribute("y").as_float();
-	gravity = player.child("gravity").attribute("value").as_float();
-	jump_speed.y = player.child("jump").attribute("velocity_y").as_float();
-	jump_height = player.child("jump").attribute("height").as_float();
-	jump_speed.x = player.child("jump").attribute("velocity_x").as_float();
+	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
+	sprites = App->tex->Load("assets/Pumpkin sprites.png");
 
 	return true;
 }
 
-void Player::MovePlayer(float dt)
+bool Player::Awake(pugi::xml_node& config)
 {
+	pugi::xml_document	config_file;
+	pugi::xml_node		config2;
+
+	config2 = App->LoadConfig(config_file);
+
+	config2 = config2.child("entities").child("player");
+
+	velocity.x = config2.child("velocity").attribute("value").as_float();
+	velocity.y = config2.child("velocity").attribute("value").as_float();
+	acceleration.x = config2.child("acceleration").attribute("x").as_float();
+	acceleration.y = config2.child("acceleration").attribute("y").as_float();
+	gravity = config2.child("gravity").attribute("value").as_float();
+	jump_speed.y = config2.child("jump").attribute("velocity_y").as_float();
+	jump_height = config2.child("jump").attribute("height").as_float();
+	jump_speed.x = config2.child("jump").attribute("velocity_x").as_float();
+	x_scale = config2.child("scale").attribute("x").as_int();
+	y_scale = config2.child("scale").attribute("x").as_int();
+
+	return true;
+}
+
+void Player::MoveEnemy(float dt)
+{
+	dt = dt / 1000;
+
 	idle.speed = 10.f*dt;
 	forward.speed = 10.f*dt;
 	jump.speed = 10.f*dt;
+
+	//pos = original_pos;
+	//animation = &idle;
 
 	//MOVEMEMT
 	//JUMP
@@ -118,9 +145,9 @@ void Player::MovePlayer(float dt)
 	//BACKWARD
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		flip = true;
 		animation = &forward;
 		speed = -velocity.x;
+		flip = true;
 	}
 	//IDLE 
 	else
@@ -146,43 +173,61 @@ void Player::MovePlayer(float dt)
 	}
 	if (!dead && !jumping)
 	{
+		speed;
 		pos.x += speed*dt;
 	}
 
-	if (collider->CheckCollision(App->map->collider) == false)
-	{
-		pos.y += gravity*dt;
-	}
+	//if (collider->CheckCollision(App->map->collider) == false)
+	//{
+	//	//speed = gravity*dt;
+	//	pos.y += gravity*dt;
+	//}
 
 	if (falling)
 	{
 		animation = &jump;
 	}
-	/*//DRAW PLAYER -----------------------------------------
-	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
+
+	if (App->input->GetKey(SDL_SCANCODE_F10))
+	{
+		if (!godmode)
+		{
+			godmode = true;
+		}
+		else
+		{
+			godmode = false;
+		}
+	}
+	////DRAW PLAYER -----------------------------------------
+	////App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
 	App->render->camera.x = (-pos.x + 400);
 
-	if (player != nullptr)
-	{
-		player->SetPos(pos.x + 10, pos.y + 50);
-	}
+	//if (playercollider != nullptr)
+	//{
+	//	playercollider->SetPos(pos.x + 10, pos.y + 50);
+	//}
 
 	if (pos.y > 500)
 	{
-		if (pos.y > 600)
+		if (pos.y > 800)
 		{
 			pos.x = 100;
 			pos.y = 200;
 		}
 
-	}*/
+	}
 
 }
 
 void Player::Jump(float dt)
 {
-	if (jumping == true)
+	if (!jumping)
+	{
+		pos.y += gravity*dt;
+	}
+	if (jumping)
 	{
 		if (pos.y >= max_height)
 		{
@@ -199,7 +244,7 @@ void Player::Jump(float dt)
 		}
 	}
 
-	if (double_jumping == true)
+	if (double_jumping)
 	{
 		jumping_speed.y = 0;
 		if (pos.y >= max_height)

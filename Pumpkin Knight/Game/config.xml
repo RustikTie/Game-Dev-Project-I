@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap = "0">
+  <app framerate_cap = "30">
     <title>Pumpkin Knight</title>
     <organization>UPC</organization>
   </app>
@@ -33,6 +33,7 @@
 	<pos x = "100" y = "200"/>
 	<gravity value = "250"/>
 	<jump velocity_y = "300" velocity_x = "160" height = "300"/>
+  <scale x="3" y="3"/>
   </player_data>
 
   <entities>
@@ -40,15 +41,24 @@
       <speed x ="80" y="0" />
       <move value ="false" />
       <attack value ="false" />
-      <flip value ="false" />
+      <scale x="2" y="2"/>
     </wolf>
 
     <bat>
       <speed x="80" y="80" />
       <move value ="false" />
       <attack value ="false" />
-      <flip value ="false" />
+      <scale x="2" y="2"/>  
     </bat>
+  
+    <player>
+	    <velocity value = "200"/>
+	    <acceleration x = "200" y ="200" />
+	    <pos x = "100" y = "200"/>
+	    <gravity value = "250"/>
+	    <jump velocity_y = "300" velocity_x = "160" height = "300"/>
+      <scale x="3" y="3"/>
+    </player>
   </entities>
 
 </config>

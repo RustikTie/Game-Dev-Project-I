@@ -57,10 +57,12 @@ public:
 	void SaveGame() const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
+	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+
 private:
 
 	// Load config file
-	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+	
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -121,6 +123,10 @@ private:
 	uint32				prev_last_sec_frame_count = 0;
 	float				dt = 0.0f;
 	int					capped_ms = -1;
+	int					cap = 0;
+	bool				enable_cap = true;
+	p2SString			CAP = "On";
+
 };
 
 extern j1App* App; 

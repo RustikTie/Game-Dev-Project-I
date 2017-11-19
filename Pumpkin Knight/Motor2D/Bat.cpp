@@ -25,10 +25,17 @@ Bat::Bat(int x, int y) : Entity (x,y)
 
 bool Bat::Awake(pugi::xml_node& config)
 {
-	pugi::xml_node bat_entity = config.child("config").child("entities");
+	pugi::xml_document	config_file;
+	pugi::xml_node		config2;
 
-	speed.x = bat_entity.child("bat").child("speed").attribute("x").as_float();
-	speed.y = bat_entity.child("bat").child("speed").attribute("y").as_float();
+	config2 = App->LoadConfig(config_file);
+
+	config2 = config2.child("entities").child("bat");
+
+	speed.x = config2.child("speed").attribute("x").as_float();
+	speed.y = config2.child("speed").attribute("y").as_float();
+	x_scale = config2.attribute("x").as_int();
+	y_scale = config2.attribute("x").as_int();
 
 	return true;
 }
@@ -45,9 +52,9 @@ void Bat::MoveEnemy(float dt)
 	
 
 	iPoint EnemyPos = { (int)original_pos.x + 32, (int)original_pos.y };
-	iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
+	iPoint PlayerPos{ (int)App->entity_manager->player_entity->pos.x + 30, (int)App->entity_manager->player_entity->pos.y + 46 };
 
-	if ((abs(App->player->pos.x - EnemyPos.x) < 400) && !move)
+	if ((abs(App->entity_manager->player_entity->pos.x - EnemyPos.x) < 400) && !move)
 	{
 		counter = 0;
 		//iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
@@ -119,7 +126,7 @@ void Bat::MoveEnemy(float dt)
 		animation = &fly;
 	}
 
-	if (abs(App->player->pos.x - EnemyPos.x) >= 400)
+	if (abs(App->entity_manager->player_entity->pos.x - EnemyPos.x) >= 400)
 	{
 		move = false;
 	}
