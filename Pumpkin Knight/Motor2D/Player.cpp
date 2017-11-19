@@ -69,8 +69,6 @@ bool Player::Awake(pugi::xml_node& config)
 	velocity.y = player.child("velocity").attribute("value").as_float();
 	acceleration.x = player.child("acceleration").attribute("x").as_float();
 	acceleration.y = player.child("acceleration").attribute("y").as_float();
-	pos.x = player.child("pos").attribute("x").as_float();
-	pos.y = player.child("pos").attribute("y").as_float();
 	gravity = player.child("gravity").attribute("value").as_float();
 	jump_speed.y = player.child("jump").attribute("velocity_y").as_float();
 	jump_height = player.child("jump").attribute("height").as_float();

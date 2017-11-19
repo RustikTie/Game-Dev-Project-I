@@ -51,17 +51,19 @@ public:
 	void SpawnEntity(const EntityInfo& info);
 
 	
-	bool bat;
-	bool wolf;
-	bool player;
+	bool bat = false;
+	bool wolf = false;
+	bool player = false;
 
 	EntityInfo queue[MAX_ENEMIES];
 	pugi::xml_document config_file;
+	EntityInfo playerInfo;
+	Entity* playerEntity;
 
 private:
 
 	Entity* entities[MAX_ENEMIES];
-
+	//Entity* player;
 };
 
 #endif

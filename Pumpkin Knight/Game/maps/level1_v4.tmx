@@ -4935,32 +4935,17 @@
  <objectgroup name="Enemies">
   <object id="73" x="907" y="316" width="90" height="54">
    <properties>
-    <property name="acceleration_x" type="float" value="1"/>
-    <property name="acceleration_y" type="float" value="2"/>
-    <property name="end" type="float" value="0"/>
     <property name="enemy_type" value="WHITE WOLF"/>
-    <property name="gravity" type="float" value="200"/>
-    <property name="velocity_x" type="float" value="200"/>
    </properties>
   </object>
   <object id="74" x="513" y="330" width="35" height="33">
    <properties>
-    <property name="end" type="float" value="0"/>
     <property name="enemy_type" value="BLACK BAT"/>
-    <property name="gravity" type="float" value="200"/>
-    <property name="jump_height" type="float" value="300"/>
-    <property name="velocity_x" type="float" value="200"/>
-    <property name="velocity_y" type="float" value="100"/>
    </properties>
   </object>
   <object id="139" x="177" y="430.5" width="49" height="85">
    <properties>
-    <property name="end" type="float" value="0"/>
     <property name="enemy_type" value="PLAYER"/>
-    <property name="gravity" type="float" value="200"/>
-    <property name="jump_height" type="float" value="300"/>
-    <property name="velocity_x" type="float" value="200"/>
-    <property name="velocity_y" type="float" value="100"/>
    </properties>
   </object>
  </objectgroup>
