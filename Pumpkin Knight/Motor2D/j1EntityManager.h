@@ -38,6 +38,7 @@ public:
 	j1EntityManager();
 	~j1EntityManager();
 
+	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
@@ -55,10 +56,10 @@ public:
 	bool player;
 
 	EntityInfo queue[MAX_ENEMIES];
+	pugi::xml_document config_file;
 
 private:
 
-	//EntityInfo queue[MAX_ENEMIES];
 	Entity* entities[MAX_ENEMIES];
 
 };

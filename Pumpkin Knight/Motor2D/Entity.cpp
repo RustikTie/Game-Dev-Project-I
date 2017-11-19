@@ -10,6 +10,12 @@ Entity::Entity(int x, int y) : pos(x, y), original_pos(x, y), collider_pos(0, 0)
 
 }
 
+bool Entity::Awake(pugi::xml_node& entity)
+{
+	Awake(entity);
+
+	return true;
+}
 
 Entity::~Entity()
 {

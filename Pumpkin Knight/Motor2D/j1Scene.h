@@ -17,7 +17,7 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node&);
 
 	// Called before the first frame
 	bool Start();
@@ -36,7 +36,8 @@ public:
 	p2DynArray<iPoint> path;
 private:
 	
-	bool level1 = true;
+	bool level1 = false;
+	bool level2 = false;
 };
 
 #endif // __j1SCENE_H__

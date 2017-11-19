@@ -23,6 +23,15 @@ Bat::Bat(int x, int y) : Entity (x,y)
 	initial_pos = original_pos.x;
 }
 
+bool Bat::Awake(pugi::xml_node& config)
+{
+	pugi::xml_node bat_entity = config.child("config").child("entities");
+
+	speed.x = bat_entity.child("bat").child("speed").attribute("x").as_float();
+	speed.y = bat_entity.child("bat").child("speed").attribute("y").as_float();
+
+	return true;
+}
 
 Bat::~Bat()
 {
@@ -33,7 +42,7 @@ void Bat::MoveEnemy(float dt)
 {
 	pos = original_pos;
 
-	fPoint speed;
+	
 
 	iPoint EnemyPos = { (int)original_pos.x + 32, (int)original_pos.y };
 	iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
@@ -58,8 +67,7 @@ void Bat::MoveEnemy(float dt)
 		
 		if (EnemyPos.x < Destination.x)
 		{
-			speed.x = 2;
-			original_pos.x += speed.x;
+			original_pos.x += speed.x*dt;
 			flip = true;
 			if (EnemyPos.x >= Destination.x)
 			{
@@ -70,8 +78,7 @@ void Bat::MoveEnemy(float dt)
 
 		else
 		{
-			speed.x = -2;
-			original_pos.x += speed.x;
+			original_pos.x -= speed.x*dt;
 			flip = false;
 			if (EnemyPos.x <= Destination.x)
 			{
@@ -82,8 +89,7 @@ void Bat::MoveEnemy(float dt)
 
 		if (EnemyPos.y < Destination.y)
 		{
-			speed.y = 2;
-			original_pos.y += speed.y;
+			original_pos.y += speed.y*dt;
 			if (EnemyPos.y >= Destination.y)
 			{
 				counter++;
@@ -93,8 +99,7 @@ void Bat::MoveEnemy(float dt)
 		 
 		else 
 		{
-			speed.y = -2;
-			original_pos.y += speed.y;
+			original_pos.y -= speed.y*dt;
 			if (EnemyPos.y < Destination.y)
 			{
 				counter++;

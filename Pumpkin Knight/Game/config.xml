@@ -34,6 +34,21 @@
 	<gravity value = "200"/>
 	<jump velocity_y = "200" velocity_x = "160" height = "300"/>
   </player_data>
-	
+
+  <entities>
+    <wolf>
+      <speed x ="80" y="0" />
+      <move value ="false" />
+      <attack value ="false" />
+      <flip value ="false" />
+    </wolf>
+
+    <bat>
+      <speed x="80" y="80" />
+      <move value ="false" />
+      <attack value ="false" />
+      <flip value ="false" />
+    </bat>
+  </entities>
 
 </config>

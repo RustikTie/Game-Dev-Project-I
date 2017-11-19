@@ -14,9 +14,10 @@ class Bat : public Entity
 public:
 	Bat(int x, int y);
 	~Bat();
-	void MoveEnemy(float dt);
-	p2DynArray<iPoint> path;
 
+	bool Awake(pugi::xml_node&);
+	void MoveEnemy(float dt);
+	
 private:
 	Animation idle;
 	Animation fly;
@@ -28,6 +29,7 @@ private:
 	bool move = false;
 
 	fPoint position;
+	fPoint speed;
 };
 
 #endif

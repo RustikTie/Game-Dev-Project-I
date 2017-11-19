@@ -15,8 +15,10 @@ class Wolf : public Entity
 public:
 	Wolf(int x, int y);
 	~Wolf();
+
+	bool Awake(pugi::xml_node&);
 	void MoveEnemy(float dt);
-	p2DynArray<iPoint> path;
+
 private:
 	Animation idle;
 	Animation walk;
@@ -27,6 +29,7 @@ private:
 	bool attack = false;
 
 	fPoint position;
+	fPoint speed;
 
 	//SDL_Texture* wolfsprite = nullptr;
 };

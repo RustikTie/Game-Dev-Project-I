@@ -11,6 +11,13 @@ j1EntityManager::j1EntityManager()
 	name.create("entities");
 }
 
+bool j1EntityManager::Awake(pugi::xml_node& config)
+{
+	config_file.load_file("config.xml");
+
+	return true;
+}
+
 // Destructor
 j1EntityManager::~j1EntityManager()
 {
@@ -51,6 +58,7 @@ bool j1EntityManager::Update(float dt)
 		{
 			entities[i]->MoveEnemy(dt);
 			entities[i]->Draw(entities[i]->sprites);
+			entities[i]->Awake(config_file);
 		}
 	}
 	return true;

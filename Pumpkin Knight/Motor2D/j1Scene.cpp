@@ -25,10 +25,12 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+	level1 = true;
+	level2 = false;
 
 	return ret;
 }
@@ -36,9 +38,9 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("level1_v4.tmx");
 	if (level1) 
 	{
+		App->map->Load("level1_v4.tmx");
 		App->entity_manager->AddEnemy(WOLF, 500, 100);
 		/*App->entity_manager->AddEnemy(WOLF, 200, 100);
 		App->entity_manager->AddEnemy(WOLF, 400, 100);
@@ -48,6 +50,11 @@ bool j1Scene::Start()
 		App->entity_manager->AddEnemy(BAT, 500, 200);*/
 
 	
+	}
+
+	if (level2)
+	{
+
 	}
 	
 	return true;
@@ -111,6 +118,7 @@ bool j1Scene::Update(float dt)
 	if (App->player->getX() >= 6200.f && level1 == true) 
 
 	{
+		level2 = true;
 		App->map->CleanUp();
 		App->collisions->Erase_Non_Player_Colliders();
 		App->map->Load("level2_v2.tmx");

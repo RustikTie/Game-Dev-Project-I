@@ -26,6 +26,18 @@ Wolf::Wolf(int x, int y) : Entity(x, y)
 	initial_pos = original_pos.x;
 }
 
+bool Wolf::Awake(pugi::xml_node& config)
+{
+	pugi::xml_node wolf_entity = config.child("config").child("entities");
+
+	speed.x = wolf_entity.child("wolf").child("speed").attribute("x").as_float();
+	speed.y = wolf_entity.child("wolf").child("speed").attribute("y").as_float();
+	move = wolf_entity.child("wolf").child("move").attribute("value").as_bool(false);
+	attack = wolf_entity.child("wolf").child("attack").attribute("value").as_bool(false);
+	flip = wolf_entity.child("wolf").child("flip").attribute("value").as_bool(false);
+
+	return true;
+}
 
 Wolf::~Wolf()
 {
@@ -37,7 +49,6 @@ void Wolf::MoveEnemy(float dt)
 	pos = original_pos;
 	original_pos.y += App->player->gravity*dt;
 
-	fPoint speed;
 
 	iPoint EnemyPos = { (int)original_pos.x + 64, (int)original_pos.y + 32};
 	iPoint PlayerPos{ (int)App->player->pos.x + 30, (int)App->player->pos.y + 46 };
@@ -64,8 +75,7 @@ void Wolf::MoveEnemy(float dt)
 		
 		if (EnemyPos.x < Destination.x)
 		{
-			speed.x = 100*dt;
-			original_pos.x += speed.x;
+			original_pos.x += speed.x*dt;
 			flip = false;
 			if (EnemyPos.x >= Destination.x)
 			{
@@ -76,8 +86,7 @@ void Wolf::MoveEnemy(float dt)
 
 		else
 		{
-			speed.x = -100 * dt;
-			original_pos.x += speed.x;
+			original_pos.x -= speed.x*dt;
 			flip = true;
 			if (EnemyPos.x <= Destination.x)
 			{
