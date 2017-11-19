@@ -75,6 +75,7 @@ bool j1Collisions::Update(float dt)
 	Collider* c2;
 
 	float enemygravity;
+	float force;
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -104,7 +105,6 @@ bool j1Collisions::Update(float dt)
 			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
 			{
 				App->player->pos.x -= (App->player->speed)*dt;
-				App->player->falling = true;
 			}
 			//PLAYER ENEMY COLLISION
 			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
@@ -120,11 +120,11 @@ bool j1Collisions::Update(float dt)
 				}
 			}
 			//ENEMY BLOCKERS
-			if (c1->type == COLLIDER_BLOCKER && c2->type == COLLIDER_ENEMY && c1->CheckCollision(c2->rect))
+			if (c1->type == COLLIDER_BLOCKER && c2->type == COLLIDER_ENEMY && c1->CheckCollisionDownwards(c2->rect, force, dt) == true)
 			{
 				if (App->entity_manager->wolf)
 				{
-					App->entity_manager->OnCollision(c2, c1, enemygravity);
+					App->entity_manager->OnCollision(c2, c1, force);
 				}
 				
 			}
@@ -279,10 +279,11 @@ bool Collider::CheckCollisionDownwards(const SDL_Rect& r, float& gravity, float 
 	}
 }
 
-bool Collider::CheckCollisionForward(const SDL_Rect& r) const
+bool Collider::CheckCollisionForward(const SDL_Rect& r, float& force, float dt)
 {
 	if (r.y +r.h  > rect.y && r.y + r.h < rect.y + rect.h && r.x + r.w >= rect.x && r.x + r.w < rect.x + rect.w)
 	{
+		force = App->entity->speed.x*dt;
 		return true;
 		
 	}
@@ -293,10 +294,11 @@ bool Collider::CheckCollisionForward(const SDL_Rect& r) const
 	}
 }
 
-bool Collider::CheckCollisionBackward(const SDL_Rect& r) const
+bool Collider::CheckCollisionBackward(const SDL_Rect& r, float& force, float dt)
 {
 	if (r.y + r.h < rect.y + rect.h && r.y + r.h > rect.y && r.x >= rect.x +rect.w && r.x > rect.x)
 	{
+		force = App->entity->speed.x*dt;
 		return true;
 	}
 

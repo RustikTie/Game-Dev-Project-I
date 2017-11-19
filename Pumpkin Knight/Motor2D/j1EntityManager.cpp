@@ -161,7 +161,7 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2, float counterforce
 
 			if (c2->type == COLLIDER_BLOCKER)
 			{
-				//entities[i]->original_pos.x -= App->entity->speed.x;
+				entities[i]->original_pos.x -= counterforce;
 			}
 		}
 	}
