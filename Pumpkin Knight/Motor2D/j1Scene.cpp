@@ -38,24 +38,21 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	if (level1) 
-	{
-		App->map->Load("level1_v4.tmx");
-		//App->entity_manager->AddEnemy(WOLF, 1100, 0);
-		App->entity_manager->AddEnemy(WOLF, 500, 0);
-		/*App->entity_manager->AddEnemy(WOLF, 200, 100);
-		App->entity_manager->AddEnemy(WOLF, 400, 100);
-		App->entity_manager->AddEnemy(WOLF, 300, 100);*/
-		/*App->entity_manager->AddEnemy(BAT, 300, 200);
-		App->entity_manager->AddEnemy(BAT, 400, 200);
-		App->entity_manager->AddEnemy(BAT, 500, 200);*/
-	}
+	//if (level1) 
+	//{
+	//	App->map->Load("level1_v4.tmx");
+
+	//	App->entity_manager->AddEnemy(WOLF, 1300, 0);
+	//	App->entity_manager->AddEnemy(WOLF, 5000, 0);
+	//}
 
 
-	if (level2)
-	{
+	//if (level2)
+	//{
 		App->map->Load("level2_v2.tmx");
-	}
+		App->entity_manager->AddEnemy(WOLF, 1000, 0);
+		App->entity_manager->AddEnemy(BAT, 1300, 450);
+	//}
 
 	
 	return true;
