@@ -5,7 +5,7 @@
 Player::Player(int x, int y) : Entity(x, y)
 {
 	App->entity_manager->player = true;
-
+	collider = App->collisions->AddCollider({(int)pos.x, (int)pos.y, 25, 40}, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 	animation = NULL;
 	graphics = NULL;
 
@@ -61,7 +61,161 @@ Player::~Player()
 {
 }
 
+bool Player::Awake(pugi::xml_node& config)
+{
+	pugi::xml_node player = config.child("player_data");
+
+	velocity.x = player.child("velocity").attribute("value").as_float();
+	velocity.y = player.child("velocity").attribute("value").as_float();
+	acceleration.x = player.child("acceleration").attribute("x").as_float();
+	acceleration.y = player.child("acceleration").attribute("y").as_float();
+	pos.x = player.child("pos").attribute("x").as_float();
+	pos.y = player.child("pos").attribute("y").as_float();
+	gravity = player.child("gravity").attribute("value").as_float();
+	jump_speed.y = player.child("jump").attribute("velocity_y").as_float();
+	jump_height = player.child("jump").attribute("height").as_float();
+	jump_speed.x = player.child("jump").attribute("velocity_x").as_float();
+
+	return true;
+}
+
 void Player::MovePlayer(float dt)
 {
+	idle.speed = 10.f*dt;
+	forward.speed = 10.f*dt;
+	jump.speed = 10.f*dt;
 
+	//MOVEMEMT
+	//JUMP
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && !falling)
+	{
+		jumping = true;
+		max_height = (pos.y - jump_height);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
+		jumping = false;
+		falling = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && pos.y - max_height != jump_height && !contact)
+	{
+		jumping = false;
+		double_jumping = true;
+		contact = true;
+		max_height = (pos.y - jump_height);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
+		double_jumping = false;
+		falling = true;
+	}
+	//FORWARD
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		flip = false;
+		animation = &forward;
+		speed = velocity.x;
+	}
+
+	//BACKWARD
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		flip = true;
+		animation = &forward;
+		speed = -velocity.x;
+	}
+	//IDLE 
+	else
+	{
+		speed = 0;
+		animation = &idle;
+	}
+
+	Jump(dt);
+	//JUMP LEFT OR RIGHT
+
+	if (jumping == true)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			pos.x += speed*dt;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			pos.x += speed*dt;
+		}
+		pos.y -= jump_speed.y*dt;
+	}
+	if (!dead && !jumping)
+	{
+		pos.x += speed*dt;
+	}
+
+	if (collider->CheckCollision(App->map->collider) == false)
+	{
+		pos.y += gravity*dt;
+	}
+
+	if (falling)
+	{
+		animation = &jump;
+	}
+	/*//DRAW PLAYER -----------------------------------------
+	App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
+
+	App->render->camera.x = (-pos.x + 400);
+
+	if (player != nullptr)
+	{
+		player->SetPos(pos.x + 10, pos.y + 50);
+	}
+
+	if (pos.y > 500)
+	{
+		if (pos.y > 600)
+		{
+			pos.x = 100;
+			pos.y = 200;
+		}
+
+	}*/
+
+}
+
+void Player::Jump(float dt)
+{
+	if (jumping == true)
+	{
+		if (pos.y >= max_height)
+		{
+			jumping_speed.y = jump_speed.y*dt;
+			animation = &jump;
+			pos.y -= jumping_speed.y;
+		}
+		if (pos.y < max_height)
+		{
+			jumping_speed.y = 0;
+			jumping = false;
+			jump.Reset();
+			falling = true;
+		}
+	}
+
+	if (double_jumping == true)
+	{
+		jumping_speed.y = 0;
+		if (pos.y >= max_height)
+		{
+			jumping_speed.y = jump_speed.y*dt * 2;
+			animation = &jump;
+			pos.y -= jumping_speed.y;
+		}
+		if (pos.y < max_height)
+		{
+			jumping_speed.y = 0;
+			double_jumping = false;
+			jump.Reset();
+			falling = true;
+		}
+	}
 }

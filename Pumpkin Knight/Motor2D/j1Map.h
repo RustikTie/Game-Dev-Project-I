@@ -152,15 +152,15 @@ private:
 
 public:
 
-	MapData data;
-	SDL_Rect collider;
+	MapData				data;
+	SDL_Rect			collider;
 	uint				cost_so_far[COST_MAP][COST_MAP];
 	
 private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
-	bool				map_loaded;
+	bool				map_loaded = false;
 
 	/// BFS
 	p2PQueue<iPoint>	frontier;

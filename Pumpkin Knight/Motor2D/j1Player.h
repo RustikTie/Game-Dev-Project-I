@@ -35,7 +35,7 @@ public:
 		pos.y = y;
 	}
 	void Jump(float dt);
-	Collider* player;
+	Collider* player = nullptr;
 	//fPoint pos;
 
 

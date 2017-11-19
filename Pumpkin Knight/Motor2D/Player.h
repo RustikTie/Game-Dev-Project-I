@@ -16,6 +16,27 @@ public:
 	Player(int x, int y);
 	~Player();
 	void MovePlayer(float dt);
+	void Jump(float dt);
+	bool Awake(pugi::xml_node& config);
+
+
+	float gravity;
+	float speed;
+	float jump_height;
+	float max_height;
+
+	bool falling = false;
+	bool jumping = false;
+	bool double_jumping = false;
+	bool contact = false;
+
+	fPoint velocity;
+	fPoint acceleration;
+	fPoint jump_speed;
+	fPoint jumping_speed;
+
+	fPoint position;
+
 
 private:
 	Animation* animation = nullptr;
@@ -29,8 +50,8 @@ private:
 
 	int counter = 0;
 
+	bool dead = false;
 
-	fPoint position;
 
 };
 
