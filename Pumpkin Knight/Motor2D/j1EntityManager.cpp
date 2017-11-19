@@ -76,11 +76,16 @@ bool j1EntityManager::PostUpdate()
 	{
 		if (entities[i] != nullptr)
 		{
-			if (entities[i]->pos.y >(-App->render->camera.y + SCREEN_HEIGHT + (SPAWN_MARGIN + 1)) || entities[i]->pos.y < (-App->render->camera.y - (SPAWN_MARGIN + 1)))
+			if ((abs((int)App->render->camera.y) + SCREEN_HEIGHT + SPAWN_MARGIN) < entities[i]->pos.y)
 			{
+				despawning = true;
 				LOG("DeSpawning enemy at %d", entities[i]->pos.y * SCREEN_SIZE);
 				delete entities[i];
 				entities[i] = nullptr;
+			}
+			else
+			{
+				despawning = false;
 			}
 		}
 	}
@@ -148,6 +153,9 @@ void j1EntityManager::SpawnEntity(const EntityInfo& info)
 		case ENTITY_TYPES::BAT:
 			entities[i] = new Bat(info.x, info.y);
 			break;
+		case ENTITY_TYPES::PLAYER:
+			entities[i] = new Player(info.x, info.y);
+			break;
 		}
 	}
 }
@@ -165,6 +173,11 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2, float counterforce
 			}
 
 			if (c2->type == COLLIDER_BLOCKER)
+			{
+				entities[i]->original_pos.x -= counterforce;
+			}
+
+			if (c2->type == COLLIDER_WALL)
 			{
 				entities[i]->original_pos.x -= counterforce;
 			}
@@ -190,4 +203,22 @@ void j1EntityManager::EraseEnemies()
 			entities[i] = nullptr;
 		}
 	}
+}
+
+bool j1EntityManager::Load(pugi::xml_node& data)
+{
+	/*pos.x = data.child("player_pos").attribute("x").as_float();
+	pos.y = data.child("player_pos").attribute("y").as_float();*/
+
+	return true;
+}
+
+bool j1EntityManager::Save(pugi::xml_node& data)const
+{
+	/*pugi::xml_node& node = data.append_child("player_pos");
+
+	node.append_attribute("x") = pos.x;
+	node.append_attribute("y") = pos.y;*/
+
+	return true;
 }

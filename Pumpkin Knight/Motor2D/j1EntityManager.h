@@ -12,8 +12,8 @@
 
 #define MAX_ENEMIES 1000
 #define SCREEN_SIZE 1
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 6400
+#define SCREEN_HEIGHT 460
 
 enum ENTITY_TYPES
 {
@@ -46,11 +46,14 @@ public:
 	bool CleanUp();
 	void EraseEnemies();
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&)const;
+
 	void OnCollision(Collider* c1, Collider* c2, float counterforce);
 	bool AddEnemy(ENTITY_TYPES type, int x, int y);
 	void SpawnEntity(const EntityInfo& info);
 
-	
+	bool despawning = false;
 	bool bat = false;
 	bool wolf = false;
 	bool player = false;
@@ -59,6 +62,7 @@ public:
 	Entity* entities[MAX_ENEMIES];
 	pugi::xml_document config_file;
 	EntityInfo playerInfo;
+	//Player* player_entity;
 	Entity* playerEntity;
 
 private:

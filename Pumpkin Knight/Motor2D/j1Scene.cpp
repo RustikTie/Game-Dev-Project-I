@@ -41,7 +41,7 @@ bool j1Scene::Start()
 	if (level1) 
 	{
 		App->map->Load("level1_v4.tmx");
-		//App->entity_manager->AddEnemy(WOLF, 500, 100);
+		App->entity_manager->AddEnemy(WOLF, 1100, 0);
 		//App->entity_manager->AddEnemy(WOLF, 200, 100);
 		/*App->entity_manager->AddEnemy(WOLF, 400, 100);
 		App->entity_manager->AddEnemy(WOLF, 300, 100);*/
