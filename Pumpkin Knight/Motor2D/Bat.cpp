@@ -34,8 +34,8 @@ bool Bat::Awake(pugi::xml_node& config)
 
 	speed.x = config2.child("speed").attribute("x").as_float();
 	speed.y = config2.child("speed").attribute("y").as_float();
-	x_scale = config2.attribute("x").as_int();
-	y_scale = config2.attribute("x").as_int();
+	x_scale = config2.child("scale").attribute("x").as_int();
+	y_scale = config2.child("scale").attribute("y").as_int();
 
 	return true;
 }
