@@ -3,6 +3,8 @@
 #include "Wolf.h"
 #include "Player.h"
 #include "j1Map.h"
+#include "Brofiler\Brofiler.h"
+
 
 #define SPAWN_MARGIN 100
 
@@ -31,6 +33,8 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate EntityManager", Profiler::Color::Yellow)
+
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -57,6 +61,8 @@ bool j1EntityManager::PreUpdate()
 // Called before render is available
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("PreUpdate EntityManager", Profiler::Color::Green)
+
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (entities[i] != nullptr)
@@ -71,6 +77,8 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate EntityManager", Profiler::Color::Blue)
+
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
