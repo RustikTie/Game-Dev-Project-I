@@ -107,6 +107,7 @@ bool j1Player::Update(float dt)
 	
 	//MOVEMEMT
 	//JUMP
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
 	{
@@ -118,7 +119,17 @@ bool j1Player::Update(float dt)
 		jumping = false;
 		falling = true;
 	}
-	
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && pos.y - max_height != jump_height)
+	{
+		jumping = false;
+		double_jumping = true;
+		max_height = (pos.y - jump_height);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
+		double_jumping = false;
+		falling = true;
+	}
 	//FORWARD
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -258,6 +269,24 @@ void j1Player::Jump(float dt)
 		{
 			jumping_speed.y = 0;
 			jumping = false;
+			jump.Reset();
+			falling = true;
+		}
+	}
+
+	if (double_jumping == true)
+	{
+		jumping_speed.y = 0;
+		if (pos.y >= max_height)
+		{
+			jumping_speed.y = jump_speed.y*dt*2;
+			animation = &jump;
+			pos.y -= jumping_speed.y;
+		}
+		if (pos.y < max_height)
+		{
+			jumping_speed.y = 0;
+			double_jumping = false;
 			jump.Reset();
 			falling = true;
 		}

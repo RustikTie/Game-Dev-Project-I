@@ -32,7 +32,7 @@
 	<acceleration x = "200" y ="200" />
 	<pos x = "100" y = "200"/>
 	<gravity value = "200"/>
-	<jump velocity_y = "200" velocity_x = "160" height = "300"/>
+	<jump velocity_y = "300" velocity_x = "160" height = "300"/>
   </player_data>
 
   <entities>

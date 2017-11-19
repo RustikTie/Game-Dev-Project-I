@@ -40,14 +40,16 @@ public:
 
 
 	fPoint pos;
-	float gravity;
-	float speed;
 	fPoint velocity;
 	fPoint acceleration;
 	fPoint jump_speed;
 	fPoint jumping_speed;
-	float jump_height = 200;
+
+	float gravity;
+	float speed;
+	float jump_height;
 	float max_height;
+
 	bool falling = false;
 	bool jumping = false;
 	bool double_jumping = false;
