@@ -42,11 +42,12 @@ bool j1Scene::Start()
 	{
 		App->map->Load("level1_v4.tmx");
 		App->entity_manager->AddEnemy(WOLF, 1100, 0);
-		//App->entity_manager->AddEnemy(WOLF, 200, 100);
-		/*App->entity_manager->AddEnemy(WOLF, 400, 100);
+		//App->entity_manager->AddEnemy(WOLF, 500, 0);
+		/*App->entity_manager->AddEnemy(WOLF, 200, 100);
+		App->entity_manager->AddEnemy(WOLF, 400, 100);
 		App->entity_manager->AddEnemy(WOLF, 300, 100);*/
-		//App->entity_manager->AddEnemy(BAT, 300, 200);
-	/*	App->entity_manager->AddEnemy(BAT, 400, 200);
+		/*App->entity_manager->AddEnemy(BAT, 300, 200);
+		App->entity_manager->AddEnemy(BAT, 400, 200);
 		App->entity_manager->AddEnemy(BAT, 500, 200);*/
 	}
 

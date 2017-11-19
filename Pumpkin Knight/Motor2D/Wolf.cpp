@@ -34,7 +34,6 @@ bool Wolf::Awake(pugi::xml_node& config)
 	speed.y = wolf_entity.child("wolf").child("speed").attribute("y").as_float();
 	move = wolf_entity.child("wolf").child("move").attribute("value").as_bool(false);
 	attack = wolf_entity.child("wolf").child("attack").attribute("value").as_bool(false);
-	flip = wolf_entity.child("wolf").child("flip").attribute("value").as_bool(false);
 
 	return true;
 }
@@ -86,7 +85,8 @@ void Wolf::MoveEnemy(float dt)
 
 		else
 		{
-			original_pos.x -= speed.x*dt;
+			speed.x = -speed.x;
+			original_pos.x += speed.x*dt;
 			flip = true;
 			if (EnemyPos.x <= Destination.x)
 			{

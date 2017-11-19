@@ -48,7 +48,7 @@ public:
 
 	int initial_pos;
 
-	bool flip = false;
+	bool flip;
 };
 
 #endif // !_ENTITY_H_

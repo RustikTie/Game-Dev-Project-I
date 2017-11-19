@@ -174,12 +174,19 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2, float counterforce
 
 			if (c2->type == COLLIDER_BLOCKER)
 			{
-				entities[i]->original_pos.x -= counterforce;
+				if (!entities[i]->flip)
+				{
+					entities[i]->original_pos.x -= counterforce;
+				}
+				else
+				{
+					entities[i]->original_pos.x += counterforce;
+				}
 			}
 
 			if (c2->type == COLLIDER_WALL)
 			{
-				entities[i]->original_pos.x -= counterforce;
+				entities[i]->original_pos.x += counterforce;
 			}
 		}
 	}
