@@ -128,6 +128,7 @@ bool j1Collisions::Update(float dt)
 				{
 					App->entity_manager->OnCollision(c2, c1, enemygravity);
 				}
+				
 			}
 			//ENEMY BLOCKERS
 			if (c1->type == COLLIDER_BLOCKER && c2->type == COLLIDER_ENEMY && c1->CheckCollisionDownwards(c2->rect, force, dt) == true)
@@ -136,6 +137,7 @@ bool j1Collisions::Update(float dt)
 				{
 					App->entity_manager->OnCollision(c2, c1, force);
 				}
+				
 			}	
 			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_ENEMY && c1->CheckCollisionDownwards(c2->rect, force, dt) == true)
 			{
@@ -143,6 +145,7 @@ bool j1Collisions::Update(float dt)
 				{
 					App->entity_manager->OnCollision(c2, c1, force);
 				}
+				
 			}
 		}
 	}
