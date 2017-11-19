@@ -206,7 +206,7 @@ bool j1Player::Update(float dt)
 	
 	if (pos.y > 500)
 	{
-		if (pos.y > 600)
+		if (pos.y > 800)
 		{
 			pos.x = 100;
 			pos.y = 200;
