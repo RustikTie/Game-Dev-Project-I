@@ -54,6 +54,7 @@ public:
 	bool jumping = false;
 	bool double_jumping = false;
 	bool contact = false;
+	bool godmode = false;
 
 private:
 	SDL_Texture* graphics = nullptr;

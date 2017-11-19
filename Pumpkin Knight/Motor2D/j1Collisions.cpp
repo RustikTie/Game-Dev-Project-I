@@ -18,21 +18,31 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_GROUND][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_GROUND][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_GROUND][COLLIDER_BLOCKER] = false;
+	matrix[COLLIDER_GROUND][COLLIDER_GOD] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_BLOCKER] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
 
-	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_BLOCKER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_GOD] = false;
 
-	matrix[COLLIDER_BLOCKER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_BLOCKER][COLLIDER_GROUND] = false;
 	matrix[COLLIDER_BLOCKER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_BLOCKER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_BLOCKER][COLLIDER_BLOCKER] = false;
+	matrix[COLLIDER_BLOCKER][COLLIDER_GOD] = false;
+
+	matrix[COLLIDER_GOD][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_GOD][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_GOD][COLLIDER_BLOCKER] = false;
+	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
 }
 
 // Destructor
@@ -107,7 +117,7 @@ bool j1Collisions::Update(float dt)
 				App->player->pos.x -= (App->player->speed)*dt;
 			}
 			//PLAYER ENEMY COLLISION
-			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
+			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) && !App->player->godmode)
 			{
 				App->player->SetPos(100,200);
 			}
@@ -126,9 +136,7 @@ bool j1Collisions::Update(float dt)
 				{
 					App->entity_manager->OnCollision(c2, c1, force);
 				}
-				
-			}
-			
+			}	
 		}
 	}
 
@@ -139,7 +147,7 @@ bool j1Collisions::Update(float dt)
 
 void j1Collisions::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		LOG("You can see the colliders");
 		debug = !debug;
 	}
@@ -174,9 +182,16 @@ void j1Collisions::DebugDraw()
 			case COLLIDER_BLOCKER: // orange
 				App->render->DrawQuad(colliders[i]->rect, 229, 83, 0, alpha, false);
 			}
-
-
 		}
+		
+		for (uint i = 0; i < MAX_ENEMIES; ++i)
+		{
+			if (App->entity_manager->entities[i] != nullptr)
+			{
+				App->pathfinding->DrawPath(App->entity_manager->entities[i]->wolfpath);
+			}
+		}
+		
 	}
 }
 

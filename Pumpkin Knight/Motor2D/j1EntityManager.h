@@ -56,14 +56,15 @@ public:
 	bool player = false;
 
 	EntityInfo queue[MAX_ENEMIES];
+	Entity* entities[MAX_ENEMIES];
 	pugi::xml_document config_file;
 	EntityInfo playerInfo;
 	Entity* playerEntity;
 
 private:
 
-	Entity* entities[MAX_ENEMIES];
 	//Entity* player;
+
 };
 
 #endif
