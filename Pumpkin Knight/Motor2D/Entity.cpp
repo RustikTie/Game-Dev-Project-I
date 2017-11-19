@@ -30,6 +30,14 @@ const Collider* Entity::GetCollider() const
 
 void Entity::Draw(SDL_Texture* sprite)
 {
+	if (animation != nullptr)
+	{
+		sprite = sprites;
+
+		App->render->Blit(sprite, pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
+
+	}
+	
 	if (collider != nullptr)
 	{
 		collider->SetPos(pos.x, pos.y);
@@ -38,18 +46,10 @@ void Entity::Draw(SDL_Texture* sprite)
 	if (collider->type == COLLIDER_PLAYER)
 	{
 		collider->SetPos(pos.x + 10, pos.y + 50);
-
-		//App->render->Blit(sprites, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 		
 	}
 
-	if (animation != nullptr)
-	{
-		sprite = sprites;
-
-		App->render->Blit(sprites, pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
-
-	}
+	
 
 	/*for (int i = 0; App->entity_manager->entities[i]; ++i)
 	{
