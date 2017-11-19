@@ -110,6 +110,10 @@ bool j1App::Awake()
 		{
 			capped_ms = 1000 / cap;
 		}
+		if (cap == 0)
+		{
+			capped_ms = 0;
+		}
 	}
 
 	if(ret == true)
