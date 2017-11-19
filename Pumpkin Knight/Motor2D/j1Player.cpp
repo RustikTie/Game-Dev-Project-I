@@ -72,7 +72,7 @@ bool j1Player::Start()
 {
 	LOG("Loading Player");
 
-	player = App->collisions->AddCollider({ 0, 500, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, this);
+	player = App->collisions->AddCollider({ 0, 0, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, this);
 	graphics = App->tex->Load("assets/Pumpkin sprites.png");
 
 	return true;
@@ -151,6 +151,18 @@ bool j1Player::Update(float dt)
 	{
 		speed = 0;
 		animation = &idle;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F10))
+	{
+		if (!godmode)
+		{
+			godmode = true;
+		}
+		else
+		{
+			godmode = false;
+		}
 	}
 
 	Jump(dt);

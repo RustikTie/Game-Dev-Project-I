@@ -48,8 +48,6 @@ bool j1Scene::Start()
 		//App->entity_manager->AddEnemy(BAT, 300, 200);
 	/*	App->entity_manager->AddEnemy(BAT, 400, 200);
 		App->entity_manager->AddEnemy(BAT, 500, 200);*/
-
-	
 	}
 
 	if (level2)
@@ -72,10 +70,6 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
-
-		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
-		{
-		}
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 200.0f * dt;
@@ -113,7 +107,7 @@ bool j1Scene::Update(float dt)
 	
 	if (App->input->GetKey(SDL_SCANCODE_F6))
 		App->LoadGame();
-	
+
 	//CHANGE LEVEL
 	if (App->player->getX() >= 6200.f && level1 == true) 
 
