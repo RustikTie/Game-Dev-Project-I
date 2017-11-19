@@ -53,6 +53,7 @@ public:
 	bool falling = false;
 	bool jumping = false;
 	bool double_jumping = false;
+	bool contact = false;
 
 private:
 	SDL_Texture* graphics = nullptr;

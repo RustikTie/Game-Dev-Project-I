@@ -29,7 +29,7 @@ private:
 	bool move = false;
 
 	fPoint position;
-	fPoint speed;
+	
 };
 
 #endif

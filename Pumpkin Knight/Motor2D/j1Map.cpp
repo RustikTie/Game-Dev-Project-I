@@ -342,6 +342,11 @@ bool j1Map::Load(const char* file_name)
 				LOG("Entity: wall");
 
 			}
+			if (object_num == 3)
+			{
+				App->collisions->AddCollider(collider, COLLIDER_BLOCKER);
+				LOG("Entity: blocker");
+			}
 
 			/*if (object_num == 2)
 			{

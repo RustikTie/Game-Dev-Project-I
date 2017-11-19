@@ -40,6 +40,7 @@ public:
 	fPoint pos;
 	fPoint collider_pos;
 	fPoint original_pos;
+	fPoint speed;
 
 	Collider* collider = nullptr;
 
@@ -48,7 +49,6 @@ public:
 	int initial_pos;
 
 	bool flip;
-	
 };
 
 #endif // !_ENTITY_H_

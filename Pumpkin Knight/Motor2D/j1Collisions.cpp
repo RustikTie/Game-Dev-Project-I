@@ -17,15 +17,22 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
 	matrix[COLLIDER_GROUND][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_GROUND][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_BLOCKER] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
-
+	matrix[COLLIDER_PLAYER][COLLIDER_BLOCKER] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_BLOCKER] = true;
+
+	matrix[COLLIDER_BLOCKER][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_BLOCKER][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_BLOCKER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_BLOCKER][COLLIDER_BLOCKER] = false;
 }
 
 // Destructor
@@ -90,7 +97,8 @@ bool j1Collisions::Update(float dt)
 			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
 			{
 					App->player->pos.y -= (App->player->gravity)*dt;
-					App->player->falling = false;					
+					App->player->falling = false;	
+					App->player->contact = false;
 			}
 			//FOWARD and BACKWARD COLLISION PLAYER w/ WALL
 			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
@@ -110,6 +118,15 @@ bool j1Collisions::Update(float dt)
 				{
 					App->entity_manager->OnCollision(c2, c1, enemygravity);
 				}
+			}
+			//ENEMY BLOCKERS
+			if (c1->type == COLLIDER_BLOCKER && c2->type == COLLIDER_ENEMY && c1->CheckCollision(c2->rect))
+			{
+				if (App->entity_manager->wolf)
+				{
+					App->entity_manager->OnCollision(c2, c1, enemygravity);
+				}
+				
 			}
 			
 		}
@@ -154,7 +171,8 @@ void j1Collisions::DebugDraw()
 				break;
 			case COLLIDER_ENEMY: // yellow
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha, false);
-
+			case COLLIDER_BLOCKER: // orange
+				App->render->DrawQuad(colliders[i]->rect, 229, 83, 0, alpha, false);
 			}
 
 

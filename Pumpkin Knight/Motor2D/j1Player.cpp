@@ -109,7 +109,7 @@ bool j1Player::Update(float dt)
 	//JUMP
 	
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && falling == false)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && !falling)
 	{
 		jumping = true;
 		max_height = (pos.y - jump_height);
@@ -119,10 +119,11 @@ bool j1Player::Update(float dt)
 		jumping = false;
 		falling = true;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && pos.y - max_height != jump_height)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && pos.y - max_height != jump_height && !contact)
 	{
 		jumping = false;
 		double_jumping = true;
+		contact = true;
 		max_height = (pos.y - jump_height);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
