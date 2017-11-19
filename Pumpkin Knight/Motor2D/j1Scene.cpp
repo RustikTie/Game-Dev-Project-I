@@ -41,7 +41,7 @@ bool j1Scene::Start()
 	if (level1) 
 	{
 		App->map->Load("level1_v4.tmx");
-		App->entity_manager->AddEnemy(WOLF, 1100, 0);
+		//App->entity_manager->AddEnemy(WOLF, 1100, 0);
 		//App->entity_manager->AddEnemy(WOLF, 500, 0);
 		/*App->entity_manager->AddEnemy(WOLF, 200, 100);
 		App->entity_manager->AddEnemy(WOLF, 400, 100);
@@ -53,7 +53,7 @@ bool j1Scene::Start()
 
 	if (level2)
 	{
-
+		App->map->Load("level2_v2.tmx");
 	}
 	
 	return true;
@@ -89,6 +89,7 @@ bool j1Scene::Update(float dt)
 		if (level1 == false) 
 		{
 			App->map->CleanUp();
+			App->entity_manager->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
 			App->map->Load("level1_v4.tmx");
 			App->player->SetPos(100, 200);
@@ -115,6 +116,7 @@ bool j1Scene::Update(float dt)
 	{
 		level2 = true;
 		App->map->CleanUp();
+		App->entity_manager->CleanUp();
 		App->collisions->Erase_Non_Player_Colliders();
 		App->map->Load("level2_v2.tmx");
 		App->player->SetPos(100, 250);
