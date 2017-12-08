@@ -1,3 +1,4 @@
+#include "j1Gui.h"
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
@@ -5,11 +6,10 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
-#include "j1Gui.h"
-//#include "Elements.h"
-//#include "Background.h"
-//#include "Button.h"
-//#include "Text.h"
+#include "Element.h"
+#include "Background.h"
+#include "Button.h"
+#include "Text.h"
 //#include "Text_Box.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -57,12 +57,12 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	p2List_item<Elements*>* element = elements.start;
+	p2List_item<Element*>* item = elements.start;
 
-	/*while (element != nullptr)
+	/*while (item != nullptr)
 	{
-		element->data->Draw();
-		element = element->next;
+		item->data->Draw();
+		item = item->next;
 	}*/
 	return true;
 }
@@ -72,11 +72,19 @@ bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
 
+	p2List_item<Element*>* item;
+	item = elements.start;
+	while (item != NULL)
+	{
+		RELEASE(item->data);
+		item = item->next;
+	}
+
 	return true;
 }
 
 // const getter for atlas
-const SDL_Texture* j1Gui::GetAtlas() const
+SDL_Texture* j1Gui::GetAtlas() const
 {
 	return atlas;
 }
@@ -92,25 +100,25 @@ SDL_Texture* j1Gui::GetButton() const
 }
 
 
-//void j1Gui::AddBackground(int x, int y, ELEMENT_TYPES types)
+//void j1Gui::AddBackground(int x, int y, ElementType type)
 //{
 //	Elements* element = new Background(x, y, types);
 //	elements.add(element);
 //}
 //
-//void j1Gui::AddButton(int x, int y, ELEMENT_TYPES types, const char* text)
+//void j1Gui::AddButton(int x, int y, ElementType type, const char* text)
 //{
 //	Elements* element = new Button(x, y, types, text);
 //	elements.add(element);
 //}
 //
-//void j1Gui::AddText(int x, int y, ELEMENT_TYPES types, const char* text)
+//void j1Gui::AddText(int x, int y, ElementType type, const char* text)
 //{
 //	Elements* element = new Text(x, y, types, text);
 //	elements.add(element);
 //}
 //
-//void j1Gui::AddTextBox(int x, int y, ELEMENT_TYPES types, const char* text)
+//void j1Gui::AddTextBox(int x, int y, ElementType type, const char* text)
 //{
 //	Elements* element = new Text_Box(x, y, types, text);
 //	elements.add(element);

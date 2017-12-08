@@ -1,28 +1,26 @@
 #ifndef __j1GUI_H__
 #define __j1GUI_H__
 
+#define CURSOR_WIDTH 2
+
 #include "p2List.h"
 #include "p2Log.h"
 #include "j1Module.h"
 #include "p2DynArray.h"
 
-#define CURSOR_WIDTH 2
 
 // TODO 1: Create your structure of classes
-enum ELEMENT_TYPES
+enum ElementType
 {
 	BACKGROUND,
-	TEXT_BOX,
 	BUTTON,
-	IMAGE,
 	TEXT,
-	NOTYPE
+	NOTYPE,
 };
 
-class SDL_Texture;
-class SDL_Rect;
-class Elements;
-class _TTF_Font;
+class Element;
+struct SDL_Texture;
+struct _TTF_Font;
 
 // ---------------------------------------------------
 class j1Gui : public j1Module
@@ -51,25 +49,25 @@ public:
 
 	// TODO 2: Create the factory methods
 	// Gui creation functions
-	/*void AddBackground(int x, int y, ELEMENT_TYPES types);
-	void AddButton(int x, int y, ELEMENT_TYPES types, const char* text);
-	void AddText(int x, int y, ELEMENT_TYPES types, const char* text);
-	void AddTextBox(int x, int y, ELEMENT_TYPES types, const char* text);*/
+	/*void AddBackground(int x, int y, ElementType type);
+	void AddButton(int x, int y, ElementType type, const char* text);
+	void AddText(int x, int y, ElementType type, const char* text);
+	void AddTextBox(int x, int y, ElementType type, const char* text);*/
 
-	const SDL_Texture* GetAtlas() const;
+	SDL_Texture* GetAtlas() const;
 	SDL_Texture* GetBackground() const;
 	SDL_Texture* GetButton() const;
 
-	p2List<Elements*> elements;
+	p2List<Element*> elements;
 	p2DynArray<_TTF_Font*> fonts;
-	SDL_Texture* background = nullptr;
+
 	SDL_Texture* button = nullptr;
 	SDL_Texture* box = nullptr;
 	_TTF_Font* font = nullptr;
 
 private:
 
-
+	SDL_Texture* background = nullptr;
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
 };
