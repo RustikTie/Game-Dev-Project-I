@@ -61,6 +61,8 @@ Title: Darkness / http://www.purple-planet.com
 ### Walk FX by:
 Finnolia Productions Inc / https://www.soundeffectsplus.com/product/footsteps-walking-on-road-01/
 
+### GUI assets by:
+https://www.gameart2d.com/free-fantasy-game-gui.html
 ### Developed by :
 Ivan Drofiak: https://github.com/FurryGhoul
 Clara Ratera: https://github.com/RustikTie
