@@ -1,0 +1,6 @@
+pause menu back {797, 933, 555, 743}
+heart icon {4344, 2670, 122, 114} 
+button idle {102,3152, 363, 181}
+button hover {487, 3152, 363, 181}
+button click {870, 3152, 363, 181}
+button locked {1257, 3152, 363, 181}
