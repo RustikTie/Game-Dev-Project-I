@@ -4,7 +4,6 @@
 #include "j1Module.h"
 #include "Entity.h"
 #include "j1Map.h"
-#include "j1PLayer.h"
 #include "p2List.h"
 #include "p2Point.h"
 #include "Bat.h"

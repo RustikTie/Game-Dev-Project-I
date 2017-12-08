@@ -15,10 +15,11 @@ class j1Textures;
 class j1Audio;
 class j1Scene;
 class j1Map;
-class j1Player;
 class j1Collisions;
 class j1Pathfinding;
 class j1EntityManager;
+class j1Gui;
+class j1Fonts;
 class Entity;
 
 class j1App
@@ -93,10 +94,11 @@ public:
 	j1Audio*			audio = NULL;
 	j1Scene*			scene = NULL;
 	j1Map*				map = NULL;
-	j1Player*			player = NULL;
 	j1Collisions*		collisions = NULL;
 	j1Pathfinding*		pathfinding = NULL;
 	j1EntityManager*	entity_manager = NULL;
+	j1Gui*				gui = NULL;
+	j1Fonts*			font = NULL;
 	Entity*				entity = NULL;
 
 private:

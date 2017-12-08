@@ -11,11 +11,12 @@
 #include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Map.h"
-#include "j1Player.h"
 #include "j1App.h"
 #include "j1Collisions.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
@@ -37,9 +38,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	map = new j1Map();
 	collisions = new j1Collisions();
-	//player = new j1Player();
 	pathfinding = new j1Pathfinding();
 	entity_manager = new j1EntityManager();
+	gui = new j1Gui();
+	font = new j1Fonts();
 	
 
 	// Ordered for awake / Start / Update
@@ -52,8 +54,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(collisions);
 	AddModule(entity_manager);
-	//AddModule(player);
 	AddModule(pathfinding);
+	AddModule(gui);
+	AddModule(font);
 
 	// render last to swap buffer
 	AddModule(render);

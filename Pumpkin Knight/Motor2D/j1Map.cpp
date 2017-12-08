@@ -4,7 +4,6 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
-#include "j1Player.h"
 #include "j1EntityManager.h"
 #include <math.h>
 
