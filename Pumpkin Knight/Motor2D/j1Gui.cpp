@@ -37,7 +37,7 @@ bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
 
-	background = App->tex->Load("gui/background.png");
+	background = App->tex->Load("gui/MenuBackground.png");
 	button = App->tex->Load("gui/button_panel.png");
 	box = App->tex->Load("gui/text_box.png");
 
@@ -59,11 +59,12 @@ bool j1Gui::PostUpdate()
 {
 	p2List_item<Element*>* item = elements.start;
 
-	/*while (item != nullptr)
+	while (item != NULL)
 	{
 		item->data->Draw();
 		item = item->next;
-	}*/
+	}
+
 	return true;
 }
 
@@ -79,6 +80,7 @@ bool j1Gui::CleanUp()
 		RELEASE(item->data);
 		item = item->next;
 	}
+	elements.clear();
 
 	return true;
 }
@@ -100,26 +102,26 @@ SDL_Texture* j1Gui::GetButton() const
 }
 
 
-//void j1Gui::AddBackground(int x, int y, ElementType type)
-//{
-//	Elements* element = new Background(x, y, types);
-//	elements.add(element);
-//}
+void j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
+{
+	Element* elem = new Background(x, y, type, rec);
+	elements.add(elem);
+}
 //
 //void j1Gui::AddButton(int x, int y, ElementType type, const char* text)
 //{
-//	Elements* element = new Button(x, y, types, text);
-//	elements.add(element);
+//	Element* elem = new Button(x, y, type, text);
+//	elements.add(elem);
 //}
 //
 //void j1Gui::AddText(int x, int y, ElementType type, const char* text)
 //{
-//	Elements* element = new Text(x, y, types, text);
-//	elements.add(element);
+//	Element* elem = new Text(x, y, type, text);
+//	elements.add(elem);
 //}
 //
 //void j1Gui::AddTextBox(int x, int y, ElementType type, const char* text)
 //{
-//	Elements* element = new Text_Box(x, y, types, text);
-//	elements.add(element);
+//	Element* elem = new Text_Box(x, y, type, text);
+//	elements.add(elem);
 //}

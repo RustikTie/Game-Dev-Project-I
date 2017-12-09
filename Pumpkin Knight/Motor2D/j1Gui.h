@@ -13,6 +13,7 @@
 enum ElementType
 {
 	BACKGROUND,
+	WINDOW,
 	BUTTON,
 	TEXT,
 	NOTYPE,
@@ -20,6 +21,7 @@ enum ElementType
 
 class Element;
 struct SDL_Texture;
+struct SDL_Rect;
 struct _TTF_Font;
 
 // ---------------------------------------------------
@@ -49,8 +51,8 @@ public:
 
 	// TODO 2: Create the factory methods
 	// Gui creation functions
-	/*void AddBackground(int x, int y, ElementType type);
-	void AddButton(int x, int y, ElementType type, const char* text);
+	void AddBackground(int x, int y, ElementType type, SDL_Rect rec);
+	/*void AddButton(int x, int y, ElementType type, const char* text);
 	void AddText(int x, int y, ElementType type, const char* text);
 	void AddTextBox(int x, int y, ElementType type, const char* text);*/
 

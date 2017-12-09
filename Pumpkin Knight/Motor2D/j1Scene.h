@@ -34,8 +34,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 	p2DynArray<iPoint> path;
+
+	bool start = true;
+
 private:
-	
 	bool level1 = false;
 	bool level2 = false;
 };

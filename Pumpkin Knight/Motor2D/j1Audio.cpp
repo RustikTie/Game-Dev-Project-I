@@ -50,7 +50,6 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	PlayMusic("audio/music/Darkness.ogg");
 	LoadFx("audio/fx/Walk.wav");
 
 	return ret;

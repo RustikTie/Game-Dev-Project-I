@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "j1Gui.h"
 #include "Brofiler\Brofiler.h"
 
 using namespace pugi;
@@ -28,7 +29,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-	level1 = true;
+	start = true; 
+	level1 = false;
 	level2 = false;
 
 	return ret;
@@ -37,6 +39,12 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
+	if (start)
+	{
+		App->gui->AddBackground(-500, 180, BACKGROUND, {0,0,1024,768 });
+		App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
+
+	}
 	if (level1) 
 	{
 		App->map->Load("level1_v4.tmx");
@@ -68,6 +76,9 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
+
+	
 	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -86,18 +97,28 @@ bool j1Scene::Update(float dt)
 	{
 		if (level1 == false) 
 		{
+			start = false;
 			App->map->CleanUp();
+			App->gui->CleanUp();
 			App->entity_manager->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
-			App->map->Load("level1_v4.tmx");
-			App->entity_manager->player_entity->SetPos(100, 200);
+			App->map->Load("level1_v4.tmx");			
+			
+				if (App->entity_manager->player_entity == nullptr)
+				{
+					App->entity_manager->player_entity = new Player(100, 200);
+					App->entity_manager->player_entity->Awake(App->entity_manager->entity_config);
+					App->entity_manager->player_entity->Start();
+				}
+			}
+			App->audio->PlayMusic("audio/music/Darkness.ogg");
 			level1 = true;
 		}
 		else
 		{
-			App->entity_manager->player_entity->SetPos(100, 250);
+			//App->entity_manager->player_entity->SetPos(100, 250);
 		}
-	}
+	
 	if (App->input->GetKey(SDL_SCANCODE_F2))
 	{
 		App->entity_manager->player_entity->SetPos(100, 250);
@@ -109,20 +130,25 @@ bool j1Scene::Update(float dt)
 		App->LoadGame();
 
 	//CHANGE LEVEL
-	if (App->entity_manager->player_entity->getX() >= 6200.f && level1 == true)
-
+	if (level1)
 	{
-		level2 = true;
-		App->map->CleanUp();
-		App->entity_manager->CleanUp();
-		App->collisions->Erase_Non_Player_Colliders();
-		App->map->Load("level2_v2.tmx");
-		App->entity_manager->player_entity->SetPos(100, 250);
-		level1 = false;
+		if (App->entity_manager->player_entity->getX() >= 6200.f)
+
+		{
+			level2 = true;
+			App->map->CleanUp();
+			App->entity_manager->CleanUp();
+			App->collisions->Erase_Non_Player_Colliders();
+			App->map->Load("level2_v2.tmx");
+			App->entity_manager->player_entity->SetPos(100, 250);
+			level1 = false;
+		}
 	}
+	
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
+	
 
 	return true;
 }

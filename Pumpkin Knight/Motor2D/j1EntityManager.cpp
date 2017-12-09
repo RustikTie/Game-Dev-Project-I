@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Wolf.h"
 #include "Player.h"
+#include "j1Scene.h"
 #include "j1Map.h"
 #include "Brofiler\Brofiler.h"
 
@@ -29,14 +30,15 @@ j1EntityManager::~j1EntityManager()
 bool j1EntityManager::Start()
 {
 	LOG("loading entities");
-	
-	if (player_entity == nullptr)
+	if (App->scene->start == false)
 	{
-		player_entity = new Player(100, 200);
-		player_entity->Awake(entity_config);
-		player_entity->Start();
+		if (player_entity == nullptr)
+		{
+			player_entity = new Player(100, 200);
+			player_entity->Awake(entity_config);
+			player_entity->Start();
+		}
 	}
-
 	return true;
 }
 
@@ -59,6 +61,8 @@ bool j1EntityManager::PreUpdate()
 			}
 		}
 	}
+
+	
 
 	return true;
 }
