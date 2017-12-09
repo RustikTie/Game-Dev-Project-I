@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Textures.h"
 #include "j1Window.h"
 #include "j1Gui.h"
 
@@ -12,6 +13,8 @@ Button::Button(int x, int y, ElementType type, SDL_Rect rec, const char* text, S
 	this->text = text;
 	this->tex = tex;
 	this->font = font;
+
+	App->tex->GetSize(this->tex, tex_width, tex_height);
 }
 
 

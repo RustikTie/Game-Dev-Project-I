@@ -11,6 +11,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1Gui.h"
+#include "Element.h"
 #include "Brofiler\Brofiler.h"
 
 using namespace pugi;
@@ -174,4 +175,17 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
+bool j1Scene::MouseEvents(Element* element)
+{
+	switch (element->event_type)
+	{
+	case MOUSE_ENTER:
+	case MOUSE_EXIT:
+	case MOUSE_CLICK:
+	case MOUSE_STOP_CLICK:
+
+	}
+
+	return true;
+}
 

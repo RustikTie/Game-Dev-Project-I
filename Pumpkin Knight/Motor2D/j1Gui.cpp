@@ -6,6 +6,7 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
+#include "j1Scene.h"
 #include "Element.h"
 #include "Background.h"
 #include "Button.h"
@@ -59,12 +60,30 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	p2List_item<Element*>* item = elements.start;
+	p2List_item<Element*>* element = elements.start;
 
-	while (item != NULL)
+	while (element != nullptr)
 	{
-		item->data->Draw();
-		item = item->next;
+		if (MouseCollision(element->data))
+		{
+			element->data->mouse_in = true;
+			element->data->mouse_out = false;
+			element->data->event_type = MOUSE_ENTER;
+			App->scene->MouseEvents(element->data);
+
+			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+			{
+				element->data->event_type = MOUSE_CLICK;
+			}
+
+			if (App->input->GetMouseButtonDown(1) == KEY_UP)
+			{
+				element->data->event_type = MOUSE_STOP_CLICK;
+			}
+		}
+		element->data->Draw();
+
+		element = element->next;
 	}
 
 	return true;
@@ -132,4 +151,18 @@ void j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
 {
 	Element* elem = new Window(x, y, type, rec);
 	elements.add(elem);
+}
+
+bool j1Gui::MouseCollision(Element* element)
+{
+	bool ret = false;
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	if (x > element->pos.x && x < element->pos.x + element->tex_width && y > element->pos.y && x < element->pos.y + element->tex_height)
+	{
+		ret = true;
+	}
+
+	return ret;
 }

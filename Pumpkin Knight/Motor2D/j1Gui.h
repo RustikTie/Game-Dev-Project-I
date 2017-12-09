@@ -19,6 +19,14 @@ enum ElementType
 	NOTYPE,
 };
 
+enum UIEvents
+{
+	MOUSE_ENTER,
+	MOUSE_EXIT,
+	MOUSE_CLICK,
+	MOUSE_STOP_CLICK
+};
+
 class Element;
 struct SDL_Texture;
 struct SDL_Rect;
@@ -51,11 +59,17 @@ public:
 
 	// TODO 2: Create the factory methods
 	// Gui creation functions
+	bool MouseCollision(Element* element);
+
+	//void MouseEvent(Element* element);
+
 	void AddBackground(int x, int y, ElementType type, SDL_Rect rec);
 	/*void AddButton(int x, int y, ElementType type, const char* text);
 	void AddText(int x, int y, ElementType type, const char* text);
 	void AddTextBox(int x, int y, ElementType type, const char* text);*/
 	void AddWindow(int x, int y, ElementType type, SDL_Rect rec);
+
+public:
 
 	SDL_Texture* GetAtlas() const;
 	SDL_Texture* GetBackground() const;
