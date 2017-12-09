@@ -55,6 +55,7 @@ public:
 	/*void AddButton(int x, int y, ElementType type, const char* text);
 	void AddText(int x, int y, ElementType type, const char* text);
 	void AddTextBox(int x, int y, ElementType type, const char* text);*/
+	void AddWindow(int x, int y, ElementType type, SDL_Rect rec);
 
 	SDL_Texture* GetAtlas() const;
 	SDL_Texture* GetBackground() const;

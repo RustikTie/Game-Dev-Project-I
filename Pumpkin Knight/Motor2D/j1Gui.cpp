@@ -10,6 +10,8 @@
 #include "Background.h"
 #include "Button.h"
 #include "Text.h"
+#include "Window.h"
+
 //#include "Text_Box.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -125,3 +127,9 @@ void j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
 //	Element* elem = new Text_Box(x, y, type, text);
 //	elements.add(elem);
 //}
+
+void j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
+{
+	Element* elem = new Window(x, y, type, rec);
+	elements.add(elem);
+}
