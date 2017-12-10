@@ -22,6 +22,7 @@ enum ENTITY_TYPES
 	NO_TYPE,
 	BAT,
 	WOLF,
+	CANDY,
 	PLAYER,
 };
 

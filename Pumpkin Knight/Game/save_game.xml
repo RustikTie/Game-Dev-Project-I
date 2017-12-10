@@ -7,11 +7,13 @@
 	<scene />
 	<map />
 	<colliders />
-	<player_data>
-		<player_pos x="100" y="418.399933" />
-	</player_data>
+	<entities>
+		<player_pos x="249.68779" y="606.547424" />
+	</entities>
 	<:anonymous />
+	<gui />
+	<fonts />
 	<renderer>
-		<camera x="300" y="50" />
+		<camera x="150" y="-180" />
 	</renderer>
 </game_state>

@@ -113,7 +113,9 @@ bool j1Scene::Update(float dt)
 				}
 			}
 			App->audio->PlayMusic("audio/music/Halloween.ogg", 0.2f);
-
+			App->entity_manager->AddEnemy(WOLF, 1300, 0);
+			App->entity_manager->AddEnemy(BAT, 1100, 0);
+			App->entity_manager->AddEnemy(CANDY, 400, 690);
 			level1 = true;
 		}
 		else

@@ -5,11 +5,11 @@ Bat::Bat(int x, int y) : Entity (x,y)
 {
 	App->entity_manager->bat = true;
 
-	fly.PushBack({ 0, 0, 31, 44 });
-	fly.PushBack({ 32, 0, 31, 44 });
-	fly.PushBack({ 64, 0, 31, 44 });
-	fly.PushBack({ 96, 0, 31, 44 });
-	fly.PushBack({ 128, 0, 31, 44 });
+	fly.PushBack({ 344, 201, 32, 44 });
+	fly.PushBack({ 376, 201, 32, 44 });
+	fly.PushBack({ 408, 201, 32, 44 });
+	fly.PushBack({ 440, 201, 32, 44 });
+	fly.PushBack({ 472, 201, 32, 44 });
 	fly.speed = 0.4f;
 
 	fly.loop = true;

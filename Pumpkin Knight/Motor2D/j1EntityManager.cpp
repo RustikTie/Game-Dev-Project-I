@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Wolf.h"
 #include "Player.h"
+#include "Candy.h"
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Textures.h"
@@ -13,13 +14,13 @@
 j1EntityManager::j1EntityManager()
 {
 	name.create("entities");
+
 }
 
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	config_file.load_file("config.xml");
 	entity_config = config;
-	entityAtlas = App->tex->Load("assets/enemySprites.png");
 	return true;
 }
 
@@ -31,6 +32,8 @@ j1EntityManager::~j1EntityManager()
 bool j1EntityManager::Start()
 {
 	LOG("loading entities");
+	entityAtlas = App->tex->Load("assets/enemySprites.png");
+
 	if (App->scene->start == false)
 	{
 		if (player_entity == nullptr)
@@ -173,6 +176,9 @@ void j1EntityManager::SpawnEntity(const EntityInfo& info)
 			break;
 		case ENTITY_TYPES::PLAYER:
 			entities[i] = new Player(info.x, info.y);
+			break;
+		case ENTITY_TYPES::CANDY:
+			entities[i] = new Candy(info.x, info.y);
 			break;
 		}
 	}

@@ -3,19 +3,19 @@
 
 Wolf::Wolf(int x, int y) : Entity(x, y)
 {
-	sprites = App->tex->Load("assets/wolfLight.png");
+	
 	App->entity_manager->wolf = true;
 
-	idle.PushBack({ 0, 0, 64, 32 });
+	idle.PushBack({ 0, 98, 65, 32 });
 	//idle.PushBack({ 65, 0, 64, 32 });
 
 	idle.speed = 0.15f;
 	idle.loop = true;
 
-	walk.PushBack({ 65, 98, 64, 32 });
-	walk.PushBack({ 130, 98, 64, 32 });
-	walk.PushBack({ 195, 98, 64, 32 });
-	walk.PushBack({ 260, 98, 64, 32 });
+	walk.PushBack({ 65, 98, 65, 32 });
+	walk.PushBack({ 130, 98, 65, 32 });
+	walk.PushBack({ 195, 98, 65, 32 });
+	walk.PushBack({ 260, 98, 65, 32 });
 	walk.speed = 0.1f;
 	walk.loop = true;
 
