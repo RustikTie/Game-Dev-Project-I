@@ -21,6 +21,13 @@ public:
 
 	iPoint pos;
 	ElementType type;
+	UIEvents event_type;
+
+	uint tex_width;
+	uint tex_height;
+
+	bool mouse_in = false;
+	bool mouse_out = false;
 
 };
 

@@ -33,6 +33,9 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	bool MouseEvents(Element* element);
+
 	p2DynArray<iPoint> path;
 
 	bool start = true;
