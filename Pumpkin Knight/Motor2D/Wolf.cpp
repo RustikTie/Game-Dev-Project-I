@@ -50,7 +50,7 @@ Wolf::~Wolf()
 	App->tex->UnLoad(sprites);
 }
 
-void Wolf::MoveEnemy(float dt)
+void Wolf::MoveEntity(float dt)
 {
 	pos = original_pos;
 	original_pos.y += App->entity_manager->player_entity->gravity*dt;

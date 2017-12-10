@@ -15,7 +15,7 @@ public:
 	Player(int x, int y);
 	~Player();
 	bool Start();
-	void MoveEnemy(float dt);
+	void MoveEntity(float dt);
 	void Jump(float dt);
 	bool Awake(pugi::xml_node& config);
 

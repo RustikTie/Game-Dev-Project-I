@@ -45,7 +45,7 @@ Bat::~Bat()
 	App->tex->UnLoad(sprites);
 }
 
-void Bat::MoveEnemy(float dt)
+void Bat::MoveEntity(float dt)
 {
 	pos = original_pos;
 

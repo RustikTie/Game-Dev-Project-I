@@ -112,7 +112,8 @@ bool j1Scene::Update(float dt)
 					App->entity_manager->player_entity->Start();
 				}
 			}
-			App->audio->PlayMusic("audio/music/Darkness.ogg");
+			App->audio->PlayMusic("audio/music/Halloween.ogg", 0.2f);
+
 			level1 = true;
 		}
 		else
@@ -181,9 +182,9 @@ bool j1Scene::MouseEvents(Element* element)
 	{
 	case MOUSE_ENTER:
 	case MOUSE_EXIT:
-	case MOUSE_CLICK:
-	case MOUSE_STOP_CLICK:
-
+	case MOUSE_DOWN:
+	case MOUSE_UP:
+		break;
 	}
 
 	return true;

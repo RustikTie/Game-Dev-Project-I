@@ -6,6 +6,7 @@
 #include "p2Point.h"
 
 struct SDL_Texture;
+class Element;
 
 class j1Scene : public j1Module
 {

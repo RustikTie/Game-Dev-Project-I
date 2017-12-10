@@ -48,6 +48,12 @@ William.Thompsonj / https://opengameart.org/content/lpc-wolf-animation
 ### Bat Enemy Sprite by: 
 MoikMellah / https://opengameart.org/content/bat-32x32
 
+### Candy Sprites by:
+lumimae / http://thecandyjam.com/ / https://opengameart.org/content/candy-pack-1
+
+### GUI assets by:
+https://www.gameart2d.com/free-fantasy-game-gui.html
+
 ### Background images and parallax from: 
 http://www.gameart2d.com/free-graveyard-platformer-tileset.html
 Separated the background in different layers and modified the image tone to fit the mood. 
@@ -56,13 +62,14 @@ Separated the background in different layers and modified the image tone to fit 
 KIIRA / https://opengameart.org/content/metroidvania-tileset-v2
 
 ### Music by: 
-Title: Darkness / http://www.purple-planet.com 
+Title: This Is Halloween 8-bit / https://www.youtube.com/watch?v=6_wfIDixlHE
+
+### Intro music by:
+Title: Spooky Scary Skeletons 8-bit / https://www.youtube.com/watch?v=IHI6bfFIUCk
 
 ### Walk FX by:
 Finnolia Productions Inc / https://www.soundeffectsplus.com/product/footsteps-walking-on-road-01/
-
-### GUI assets by:
-https://www.gameart2d.com/free-fantasy-game-gui.html
+ 
 ### Developed by :
 Ivan Drofiak: https://github.com/FurryGhoul
 Clara Ratera: https://github.com/RustikTie

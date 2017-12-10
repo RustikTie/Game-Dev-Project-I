@@ -23,8 +23,8 @@ enum UIEvents
 {
 	MOUSE_ENTER,
 	MOUSE_EXIT,
-	MOUSE_CLICK,
-	MOUSE_STOP_CLICK
+	MOUSE_DOWN,
+	MOUSE_UP
 };
 
 class Element;
@@ -64,8 +64,8 @@ public:
 	//void MouseEvent(Element* element);
 
 	void AddBackground(int x, int y, ElementType type, SDL_Rect rec);
-	/*void AddButton(int x, int y, ElementType type, const char* text);
-	void AddText(int x, int y, ElementType type, const char* text);
+	void AddButton(int x, int y, ElementType type, SDL_Rect rec, const char* text, _TTF_Font* font);
+	/*	void AddText(int x, int y, ElementType type, const char* text);
 	void AddTextBox(int x, int y, ElementType type, const char* text);*/
 	void AddWindow(int x, int y, ElementType type, SDL_Rect rec);
 
@@ -74,7 +74,7 @@ public:
 	SDL_Texture* GetAtlas() const;
 	SDL_Texture* GetBackground() const;
 	SDL_Texture* GetButton() const;
-
+	SDL_Texture* GetGuiAtlas() const;
 	p2List<Element*> elements;
 	p2DynArray<_TTF_Font*> fonts;
 
@@ -85,6 +85,7 @@ public:
 private:
 
 	SDL_Texture* background = nullptr;
+	SDL_Texture* guiAtlas = nullptr;
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
 };

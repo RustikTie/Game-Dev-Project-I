@@ -76,13 +76,13 @@ bool j1EntityManager::Update(float dt)
 	{
 		if (entities[i] != nullptr)
 		{
-			entities[i]->MoveEnemy(dt);
+			entities[i]->MoveEntity(dt);
 			entities[i]->Draw(entities[i]->sprites);
 			entities[i]->Awake(entity_config);
 		}
 		if (player_entity != nullptr)
 		{
-			player_entity->MoveEnemy(dt);
+			player_entity->MoveEntity(dt);
 			player_entity->Draw(player_entity->sprites);
 		}
 	}

@@ -41,6 +41,7 @@ bool j1Gui::Start()
 	atlas = App->tex->Load(atlas_file_name.GetString());
 
 	background = App->tex->Load("gui/MenuBackground.png");
+	guiAtlas = App->tex->Load("gui/gui.png");
 	button = App->tex->Load("gui/button_panel.png");
 	box = App->tex->Load("gui/text_box.png");
 
@@ -73,12 +74,12 @@ bool j1Gui::PostUpdate()
 
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			{
-				element->data->event_type = MOUSE_CLICK;
+				element->data->event_type = MOUSE_DOWN;
 			}
 
 			if (App->input->GetMouseButtonDown(1) == KEY_UP)
 			{
-				element->data->event_type = MOUSE_STOP_CLICK;
+				element->data->event_type = MOUSE_UP;
 			}
 		}
 		element->data->Draw();
@@ -121,20 +122,23 @@ SDL_Texture* j1Gui::GetButton() const
 {
 	return button;
 }
-
+SDL_Texture* j1Gui::GetGuiAtlas() const
+{
+	return guiAtlas;
+}
 
 void j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
 {
 	Element* elem = new Background(x, y, type, rec);
 	elements.add(elem);
 }
-//
-//void j1Gui::AddButton(int x, int y, ElementType type, const char* text)
-//{
-//	Element* elem = new Button(x, y, type, text);
-//	elements.add(elem);
-//}
-//
+
+void j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect rec, const char* text, _TTF_Font* font)
+{
+	Element* elem = new Button(x, y, type, rec, text, font);
+	elements.add(elem);
+}
+
 //void j1Gui::AddText(int x, int y, ElementType type, const char* text)
 //{
 //	Element* elem = new Text(x, y, type, text);

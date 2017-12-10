@@ -31,7 +31,7 @@ public:
 
 	virtual void OnCollision(Collider* collider);
 	//bool LoadEnemyLayer(pugi::xml_node& node, EnemyLayer* layer);
-	virtual void MoveEnemy(float dt) {};
+	virtual void MoveEntity(float dt) {};
 
 public:
 

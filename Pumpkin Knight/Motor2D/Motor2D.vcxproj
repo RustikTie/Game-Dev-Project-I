@@ -79,6 +79,7 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Candy.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Candy.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="j1EntityManager.h" />

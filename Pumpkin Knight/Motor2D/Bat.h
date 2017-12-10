@@ -15,7 +15,7 @@ public:
 	~Bat();
 
 	bool Awake(pugi::xml_node&);
-	void MoveEnemy(float dt);
+	void MoveEntity(float dt);
 	
 private:
 	Animation idle;

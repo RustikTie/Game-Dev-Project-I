@@ -99,7 +99,7 @@ bool Player::Awake(pugi::xml_node& config)
 	return true;
 }
 
-void Player::MoveEnemy(float dt)
+void Player::MoveEntity(float dt)
 {
 	dt = dt / 1000;
 

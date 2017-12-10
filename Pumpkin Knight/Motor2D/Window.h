@@ -12,7 +12,7 @@ public:
 
 	void LinkElement(Element* elem);
 	void Draw();
-
+	void Move();
 	~Window();
 
 private:
