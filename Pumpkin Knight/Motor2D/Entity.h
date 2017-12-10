@@ -27,7 +27,7 @@ public:
 
 	virtual bool Awake(pugi::xml_node&);
 
-	virtual void Draw(SDL_Texture* sprite);
+	virtual void Draw(float dt);
 
 	virtual void OnCollision(Collider* collider);
 	//bool LoadEnemyLayer(pugi::xml_node& node, EnemyLayer* layer);

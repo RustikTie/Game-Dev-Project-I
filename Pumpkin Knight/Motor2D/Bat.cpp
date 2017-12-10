@@ -3,7 +3,6 @@
 
 Bat::Bat(int x, int y) : Entity (x,y)
 {
-	sprites = App->tex->Load("assets/bat.png");
 	App->entity_manager->bat = true;
 
 	fly.PushBack({ 0, 0, 31, 44 });
@@ -130,4 +129,11 @@ void Bat::MoveEntity(float dt)
 	{
 		move = false;
 	}
+}
+
+void Bat::Draw(float dt)
+{
+	animation->speed = 10.f*dt;
+	collider->SetPos(pos.x, pos.y);
+	App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
 }

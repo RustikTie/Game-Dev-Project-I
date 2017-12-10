@@ -12,7 +12,7 @@ Entity::Entity(int x, int y) : pos(x, y), original_pos(x, y), collider_pos(0, 0)
 
 bool Entity::Awake(pugi::xml_node& entity)
 {
-	Awake(entity);
+	//Awake(entity);
 
 	return true;
 }
@@ -28,9 +28,11 @@ const Collider* Entity::GetCollider() const
 	return collider;
 }
 
-void Entity::Draw(SDL_Texture* sprite)
+void Entity::Draw(float dt)
 {
-	if (animation != nullptr)
+
+
+	/*if (animation != nullptr)
 	{
 		sprite = sprites;
 
@@ -48,9 +50,7 @@ void Entity::Draw(SDL_Texture* sprite)
 		collider->SetPos(pos.x + 10, pos.y + 50);
 		
 	}
-
-	
-
+	*/
 	/*for (int i = 0; App->entity_manager->entities[i]; ++i)
 	{
 	App->entity_manager->entities[i]->collider->SetPos(App->entity_manager->entities[i]->pos.x, App->entity_manager->entities[i]->pos.y);

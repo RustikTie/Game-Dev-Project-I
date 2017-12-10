@@ -262,3 +262,11 @@ void Player::Jump(float dt)
 		}
 	}
 }
+
+void Player::Draw(float dt)
+{
+	//animation->speed = 10.f*dt;
+	collider->SetPos(pos.x + 10, pos.y + 50);
+	App->render->Blit(sprites, pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
+
+}

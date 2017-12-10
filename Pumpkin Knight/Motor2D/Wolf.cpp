@@ -118,3 +118,10 @@ void Wolf::MoveEntity(float dt)
 	}
 	
 }
+
+void Wolf::Draw(float dt)
+{
+	animation->speed = 10.f*dt;
+	collider->SetPos(pos.x, pos.y);
+	App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
+}

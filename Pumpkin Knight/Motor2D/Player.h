@@ -18,6 +18,7 @@ public:
 	void MoveEntity(float dt);
 	void Jump(float dt);
 	bool Awake(pugi::xml_node& config);
+	void Draw(float dt);
 
 	void SetPos(float x, float y) {
 		pos.x = x;

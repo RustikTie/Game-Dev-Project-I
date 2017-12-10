@@ -1,7 +1,7 @@
 #include "Candy.h"
 #include "j1Gui.h"
 #include "j1Render.h"
-
+#include "j1EntityManager.h"
 
 Candy::Candy(int x, int y): Entity(x,y)
 {
@@ -30,5 +30,6 @@ bool Candy::Awake(pugi::xml_node&)
 void Candy::Draw(float dt)
 {
 	animation->speed = 10.f*dt;
-	//App->render->Blit(, pos.x, pos.y, 1,1,false, &animation->GetCurrentFrame());
+	collider->SetPos(pos.x, pos.y);
+	App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
 }

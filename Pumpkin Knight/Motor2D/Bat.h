@@ -16,6 +16,7 @@ public:
 
 	bool Awake(pugi::xml_node&);
 	void MoveEntity(float dt);
+	void Draw(float dt);
 	
 private:
 	Animation idle;

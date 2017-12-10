@@ -60,6 +60,7 @@ public:
 	bool wolf = false;
 	bool player = false;
 
+	SDL_Texture* GetEntityAtlas() const;
 	EntityInfo queue[MAX_ENEMIES];
 	Entity* entities[MAX_ENEMIES];
 	pugi::xml_document config_file;
@@ -69,7 +70,7 @@ public:
 	
 
 private:
-
+	SDL_Texture* entityAtlas = nullptr;
 
 };
 

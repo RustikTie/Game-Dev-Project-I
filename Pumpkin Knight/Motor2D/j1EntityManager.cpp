@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "j1Textures.h"
 #include "Brofiler\Brofiler.h"
 
 
@@ -18,7 +19,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	config_file.load_file("config.xml");
 	entity_config = config;
-
+	entityAtlas = App->tex->Load("assets/enemySprites.png");
 	return true;
 }
 
@@ -77,13 +78,13 @@ bool j1EntityManager::Update(float dt)
 		if (entities[i] != nullptr)
 		{
 			entities[i]->MoveEntity(dt);
-			entities[i]->Draw(entities[i]->sprites);
+			entities[i]->Draw(dt);
 			entities[i]->Awake(entity_config);
 		}
 		if (player_entity != nullptr)
 		{
 			player_entity->MoveEntity(dt);
-			player_entity->Draw(player_entity->sprites);
+			player_entity->Draw(dt);
 		}
 	}
 	return true;
@@ -265,4 +266,9 @@ bool j1EntityManager::Save(pugi::xml_node& data)const
 	node.append_attribute("y") = player_entity->pos.y;
 
 	return true;
+}
+
+SDL_Texture* j1EntityManager::GetEntityAtlas() const
+{
+	return entityAtlas;
 }
