@@ -4,7 +4,7 @@
 #include "Element.h"
 #include "j1Fonts.h"
 #include "p2SString.h"
-
+#include "Animation.h"
 
 class Button : public Element
 {
@@ -17,6 +17,12 @@ public:
 	void Draw();
 
 private:
+
+	Animation* curr = nullptr;
+	Animation idle;
+	Animation hover;
+	Animation click;
+	Animation locked;
 
 	bool isClicked = false;
 	SDL_Rect rec;

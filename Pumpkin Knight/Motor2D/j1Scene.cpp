@@ -43,6 +43,7 @@ bool j1Scene::Start()
 	if (start)
 	{
 		App->gui->AddBackground(-500, 180, BACKGROUND, {0,0,1024,768 });
+		App->gui->AddButton(100, 400, BUTTON, { 0,0,0,0 }, NULL, NULL);
 		App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
 
 	}

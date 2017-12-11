@@ -12,8 +12,6 @@
 
 struct SDL_Texture;
 
-
-
 class Entity
 {
 protected:

@@ -131,7 +131,7 @@ void j1Render::ResetViewPort()
 }
 
 // Blit to screen
-bool j1Render::Blit(SDL_Texture* texture, int x, int y,int w_scale, int h_scale, bool flip, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
+bool j1Render::Blit(SDL_Texture* texture, int x, int y,float w_scale, float h_scale, bool flip, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
