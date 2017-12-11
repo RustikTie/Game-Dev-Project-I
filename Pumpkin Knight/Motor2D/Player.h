@@ -52,7 +52,7 @@ public:
 	fPoint jumping_speed;
 
 	fPoint position;
-
+	int score = 0;
 
 private:
 	//Animation* animation = nullptr;

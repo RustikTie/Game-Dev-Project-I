@@ -15,7 +15,7 @@ Candy::Candy(int x, int y): Entity(x,y)
 	explosion.PushBack({ 392, 345, 52, 50 });
 	explosion.PushBack({ 444, 345, 52, 50 });
 
-	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 50, 50 }, COLLIDER_ENEMY, (j1Module*)App->entity_manager);
+	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 50, 50 }, COLLIDER_CANDY, (j1Module*)App->entity_manager);
 }
 
 
@@ -31,6 +31,10 @@ bool Candy::Awake(pugi::xml_node&)
 void Candy::Draw(float dt)
 {
 	animation->speed = 5.f*dt;
-	collider->SetPos(pos.x, pos.y);
-	App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, 1, 1, false, &(animation->GetCurrentFrame()));
+	if (collider)
+	{
+		collider->SetPos(pos.x, pos.y);
+		App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, 1, 1, false, &(animation->GetCurrentFrame()));
+	}
+	
 }

@@ -1,9 +1,10 @@
-
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Collisions.h"
 #include "j1EntityManager.h"
+#include "Entity.h"
+#include "Player.h"
 #include "Brofiler\Brofiler.h"
 
 j1Collisions::j1Collisions() : j1Module()
@@ -18,30 +19,42 @@ j1Collisions::j1Collisions() : j1Module()
 	matrix[COLLIDER_GROUND][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_GROUND][COLLIDER_BLOCKER] = false;
 	matrix[COLLIDER_GROUND][COLLIDER_GOD] = false;
+	matrix[COLLIDER_GROUND][COLLIDER_CANDY] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_BLOCKER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_CANDY] = true;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_BLOCKER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_GOD] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_CANDY] = false;
 
 	matrix[COLLIDER_BLOCKER][COLLIDER_GROUND] = false;
 	matrix[COLLIDER_BLOCKER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_BLOCKER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_BLOCKER][COLLIDER_BLOCKER] = false;
 	matrix[COLLIDER_BLOCKER][COLLIDER_GOD] = false;
+	matrix[COLLIDER_BLOCKER][COLLIDER_CANDY] = false;
 
 	matrix[COLLIDER_GOD][COLLIDER_GROUND] = false;
 	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_GOD][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_GOD][COLLIDER_BLOCKER] = false;
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
+	matrix[COLLIDER_GOD][COLLIDER_CANDY] = false;
+
+	matrix[COLLIDER_CANDY][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_CANDY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_CANDY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_CANDY][COLLIDER_BLOCKER] = false;
+	matrix[COLLIDER_CANDY][COLLIDER_GOD] = false;
+	matrix[COLLIDER_CANDY][COLLIDER_CANDY] = false;
 }
 
 // Destructor
@@ -147,7 +160,18 @@ bool j1Collisions::Update(float dt)
 				}
 				
 			}
+			if (c1->type == COLLIDER_CANDY && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
+			{
+				c1->to_delete = true;
+				App->entity_manager->player_entity->score += 1;
+			}
+			if (c2->type == COLLIDER_CANDY && c1->type == COLLIDER_PLAYER && c2->CheckCollision(c1->rect) == true)
+			{
+				c2->to_delete = true;
+				App->entity_manager->player_entity->score += 1;				
+			}
 		}
+		
 	}
 
 	DebugDraw();
@@ -189,8 +213,13 @@ void j1Collisions::DebugDraw()
 				break;
 			case COLLIDER_ENEMY: // yellow
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha, false);
+				break;
 			case COLLIDER_BLOCKER: // orange
 				App->render->DrawQuad(colliders[i]->rect, 229, 83, 0, alpha, false);
+				break;
+			case COLLIDER_CANDY:
+				App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha, false);
+				break;
 			}
 		}
 		
