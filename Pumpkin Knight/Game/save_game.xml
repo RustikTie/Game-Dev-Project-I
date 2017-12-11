@@ -8,12 +8,12 @@
 	<map />
 	<colliders />
 	<entities>
-		<player_pos x="249.68779" y="606.547424" />
+		<player_pos x="201.45433" y="609.275085" />
 	</entities>
 	<:anonymous />
 	<gui />
 	<fonts />
 	<renderer>
-		<camera x="150" y="-180" />
+		<camera x="198" y="-180" />
 	</renderer>
 </game_state>

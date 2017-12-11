@@ -148,8 +148,21 @@ bool j1Scene::Update(float dt)
 			App->entity_manager->player_entity->SetPos(100, 250);
 			level1 = false;
 		}
+		else if (App->entity_manager->player_entity->lives <= -1)
+		{
+			level1 = false;
+			App->map->CleanUp();
+			App->gui->CleanUp();
+			App->entity_manager->CleanUp();
+			App->collisions->Erase_Non_Player_Colliders();
+			start = true;
+			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
+			App->gui->AddBackground(-300, 180, BACKGROUND, { 0,0,1024,768 });
+			App->gui->AddButton(100, 400, BUTTON, { 0,0,0,0 }, NULL, NULL);
+
+		}
 	}
-	
+
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();

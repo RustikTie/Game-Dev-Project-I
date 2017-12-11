@@ -5,6 +5,7 @@
 #include "j1EntityManager.h"
 #include "Entity.h"
 #include "Player.h"
+#include "j1Scene.h"
 #include "Brofiler\Brofiler.h"
 
 j1Collisions::j1Collisions() : j1Module()
@@ -132,11 +133,8 @@ bool j1Collisions::Update(float dt)
 			//PLAYER ENEMY COLLISION
 			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) && !App->entity_manager->player_entity->godmode)
 			{
-				if (App->entity_manager->player_entity->lives == 0)
-				{
-					App->entity_manager->player_entity->SetPos(100, 200);
-				}
-				else if (App->entity_manager->player_entity->lives >= 1)
+				
+				if (App->entity_manager->player_entity->lives >= 0)
 				{
 					App->entity_manager->player_entity->lives -= 1;
 					App->entity_manager->player_entity->SetPos(100, 200);
