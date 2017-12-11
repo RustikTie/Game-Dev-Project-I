@@ -132,7 +132,15 @@ bool j1Collisions::Update(float dt)
 			//PLAYER ENEMY COLLISION
 			if (c2->type == COLLIDER_ENEMY && c1->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) && !App->entity_manager->player_entity->godmode)
 			{
-				App->entity_manager->player_entity->SetPos(100,200);
+				if (App->entity_manager->player_entity->lives == 0)
+				{
+					App->entity_manager->player_entity->SetPos(100, 200);
+				}
+				else if (App->entity_manager->player_entity->lives >= 1)
+				{
+					App->entity_manager->player_entity->lives -= 1;
+					App->entity_manager->player_entity->SetPos(100, 200);
+				}
 			}
 			//GRAVITY ENEMY
 			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_ENEMY && c1->CheckCollisionDownwards(c2->rect, enemygravity, dt) == true)
@@ -164,6 +172,7 @@ bool j1Collisions::Update(float dt)
 			{
 				c1->to_delete = true;
 				App->entity_manager->player_entity->score += 1;
+				
 			}
 			if (c2->type == COLLIDER_CANDY && c1->type == COLLIDER_PLAYER && c2->CheckCollision(c1->rect) == true)
 			{

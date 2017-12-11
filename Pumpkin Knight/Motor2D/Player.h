@@ -51,8 +51,10 @@ public:
 	fPoint jump_speed;
 	fPoint jumping_speed;
 
+
 	fPoint position;
 	int score = 0;
+	int lives = 3;
 
 private:
 	//Animation* animation = nullptr;
@@ -65,9 +67,8 @@ private:
 	SDL_Texture* textures = nullptr;
 
 	int counter = 0;
-
 	bool dead = false;
-
+	SDL_Rect heart;
 
 };
 

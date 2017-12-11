@@ -1,6 +1,6 @@
 #include "Player.h"
-
-
+#include "j1Gui.h"
+#include "j1Render.h"
 
 Player::Player(int x, int y) : Entity(x, y)
 {
@@ -9,6 +9,7 @@ Player::Player(int x, int y) : Entity(x, y)
 	animation = NULL;
 	graphics = NULL;
 	
+	heart = { 4344, 2670, 122, 114 };
 
 	idle.PushBack({ 1,48,30,46 });
 	idle.PushBack({ 32,48,30,46 });
@@ -269,4 +270,17 @@ void Player::Draw(float dt)
 	collider->SetPos(pos.x + 10, pos.y + 50);
 	App->render->Blit(sprites, pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
 
+	if (lives >= 1)
+	{
+		App->render->Blit(App->gui->GetGuiAtlas(), pos.x-5, pos.y, 0.2, 0.2, false, &heart);
+	}
+	if (lives >= 2)
+	{
+		App->render->Blit(App->gui->GetGuiAtlas(), pos.x +25, pos.y, 0.2, 0.2, false, &heart);
+	}
+	if (lives >= 3)
+	{
+		App->render->Blit(App->gui->GetGuiAtlas(), pos.x + 55, pos.y, 0.2, 0.2, false, &heart);
+
+	}
 }
