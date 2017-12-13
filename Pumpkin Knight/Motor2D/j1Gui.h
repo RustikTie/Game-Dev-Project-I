@@ -64,7 +64,7 @@ public:
 	//void MouseEvent(Element* element);
 
 	void AddBackground(int x, int y, ElementType type, SDL_Rect rec);
-	void AddButton(int x, int y, ElementType type, SDL_Rect rec, const char* text, _TTF_Font* font);
+	Element* AddButton(int x, int y, ElementType type, SDL_Rect* TexRect, const char* text = nullptr);
 	/*	void AddText(int x, int y, ElementType type, const char* text);
 	void AddTextBox(int x, int y, ElementType type, const char* text);*/
 	void AddWindow(int x, int y, ElementType type, SDL_Rect rec);
@@ -75,6 +75,7 @@ public:
 	SDL_Texture* GetBackground() const;
 	SDL_Texture* GetButton() const;
 	SDL_Texture* GetGuiAtlas() const;
+
 	p2List<Element*> elements;
 	p2DynArray<_TTF_Font*> fonts;
 

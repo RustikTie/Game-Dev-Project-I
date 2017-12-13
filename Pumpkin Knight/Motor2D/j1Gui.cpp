@@ -65,6 +65,7 @@ bool j1Gui::PostUpdate()
 
 	while (element != nullptr)
 	{
+		element->data->Draw();
 		if (MouseCollision(element->data))
 		{
 			element->data->mouse_in = true;
@@ -75,14 +76,15 @@ bool j1Gui::PostUpdate()
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			{
 				element->data->event_type = MOUSE_DOWN;
+				App->scene->MouseEvents(element->data);
 			}
 
 			if (App->input->GetMouseButtonDown(1) == KEY_UP)
 			{
 				element->data->event_type = MOUSE_UP;
+				App->scene->MouseEvents(element->data);
 			}
 		}
-		element->data->Draw();
 
 		element = element->next;
 	}
@@ -133,10 +135,12 @@ void j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
 	elements.add(elem);
 }
 
-void j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect rec, const char* text, _TTF_Font* font)
+Element* j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect* TexRect, const char* text)
 {
-	Element* elem = new Button(x, y, type, rec, text, font);
+	Element* elem = new Button(x, y, type, TexRect, text);
 	elements.add(elem);
+
+	return elem;
 }
 
 //void j1Gui::AddText(int x, int y, ElementType type, const char* text)
@@ -159,14 +163,21 @@ void j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
 
 bool j1Gui::MouseCollision(Element* element)
 {
+
 	bool ret = false;
-	int x, y;
-	App->input->GetMousePosition(x, y);
-
-	if (x > element->pos.x && x < element->pos.x + element->tex_width && y > element->pos.y && x < element->pos.y + element->tex_height)
+	if (element->type == BUTTON)
 	{
-		ret = true;
-	}
+		int x, y;
+		App->input->GetMousePosition(x, y);
 
+		int posx = element->pos.x + App->render->camera.x;
+		int posy = element->pos.y + App->render->camera.y;
+
+		if (x > posx && x < posx + element->tex_width*0.5f
+			&& y > posy && y < posy + element->tex_height*0.5f)
+		{
+			ret = true;
+		}
+	}
 	return ret;
 }

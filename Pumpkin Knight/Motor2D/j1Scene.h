@@ -42,8 +42,22 @@ public:
 	bool start = true;
 
 private:
+	bool exit = true;
 	bool level1 = false;
 	bool level2 = false;
+	bool credits = false;
+
+	SDL_Rect rect_start;
+	SDL_Rect rect_quit;
+	SDL_Rect rect_options;
+	SDL_Rect rect_credits;
+	SDL_Rect rect_window;
+
+	Element* StartButton = nullptr;
+	Element* QuitButton = nullptr;
+	Element* Options = nullptr;
+	Element* Credits = nullptr;
+	Element* BigWindow = nullptr;
 };
 
 #endif // __j1SCENE_H__
