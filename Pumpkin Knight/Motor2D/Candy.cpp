@@ -31,10 +31,18 @@ bool Candy::Awake(pugi::xml_node&)
 void Candy::Draw(float dt)
 {
 	animation->speed = 5.f*dt;
-	if (collider)
+	if (collider != nullptr)
 	{
+		if (grabbed == false)
+		{		
 		collider->SetPos(pos.x, pos.y);
 		App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, 1, 1, false, &(animation->GetCurrentFrame()));
+		}
 	}
 	
+}
+
+void Candy::OnCollision()
+{
+	grabbed = true;
 }

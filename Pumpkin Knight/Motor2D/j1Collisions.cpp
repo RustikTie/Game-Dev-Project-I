@@ -224,7 +224,7 @@ void j1Collisions::DebugDraw()
 			case COLLIDER_BLOCKER: // orange
 				App->render->DrawQuad(colliders[i]->rect, 229, 83, 0, alpha, false);
 				break;
-			case COLLIDER_CANDY:
+			case COLLIDER_CANDY: // red
 				App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha, false);
 				break;
 			}
