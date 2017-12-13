@@ -12,6 +12,7 @@
 #include "Button.h"
 #include "Text.h"
 #include "Window.h"
+#include "Brofiler\Brofiler.h"
 
 //#include "Text_Box.h"
 
@@ -45,15 +46,16 @@ bool j1Gui::Start()
 	button = App->tex->Load("gui/button_panel.png");
 	box = App->tex->Load("gui/text_box.png");
 
-	fonts.PushBack(App->font->Load("fonts/wow/ARIALN.ttf", 20));
+	fonts.PushBack(App->font->Load("fonts/CFNightmarePERSONAL-Regular.ttf", 30));
 
-	font = App->font->Load("fonts/wow/ARIALN.ttf", 20);
+	font = App->font->Load("fonts/CFNightmarePERSONAL-Regular.ttf", 30);
 	return true;
 }
 
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate GUI", Profiler::Color::Yellow)
 
 	return true;
 }
@@ -61,6 +63,9 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+
+	BROFILER_CATEGORY("PostUpdate GUI", Profiler::Color::Blue)
+
 	p2List_item<Element*>* element = elements.start;
 
 	while (element != NULL)
@@ -144,36 +149,42 @@ SDL_Texture* j1Gui::GetGuiAtlas() const
 	return guiAtlas;
 }
 
-void j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
+Element* j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
 {
 	Element* elem = new Background(x, y, type, rec);
 	elements.add(elem);
+
+	return elem;
+
 }
 
-Element* j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect* TexRect, const char* text)
+Element* j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect rec, const char* text)
 {
-	Element* elem = new Button(x, y, type, TexRect, text);
+	Element* elem = new Button(x, y, type, rec, text);
 	elements.add(elem);
 
 	return elem;
 }
 
-//void j1Gui::AddText(int x, int y, ElementType type, const char* text)
+//Element* j1Gui::AddText(int x, int y, ElementType type, const char* text)
 //{
 //	Element* elem = new Text(x, y, type, text);
 //	elements.add(elem);
 //}
 //
-//void j1Gui::AddTextBox(int x, int y, ElementType type, const char* text)
+//Element* j1Gui::AddTextBox(int x, int y, ElementType type, const char* text)
 //{
 //	Element* elem = new Text_Box(x, y, type, text);
 //	elements.add(elem);
 //}
 
-void j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
+Element* j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
 {
 	Element* elem = new Window(x, y, type, rec);
 	elements.add(elem);
+
+	return elem;
+
 }
 
 bool j1Gui::MouseCollision(Element* element)

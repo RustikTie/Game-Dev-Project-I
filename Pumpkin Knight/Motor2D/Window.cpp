@@ -23,7 +23,7 @@ void Window::LinkElement(Element* elem)
 
 void Window::Draw()
 {
-	App->render->Blit(tex, 300, 300, 1, 1, false, &rec, NULL);
+	App->render->Blit(App->gui->GetGuiAtlas(), 125, 100, 0.7f, 0.7f, false, &rec, NULL);
 }
 
 void Window::Move()

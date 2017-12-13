@@ -40,7 +40,7 @@
 class Button : public Element
 {
 public:
-	Button(int x, int y, ElementType types, SDL_Rect* TexRect, const char* text);
+	Button(int x, int y, ElementType types, SDL_Rect rec, const char* text);
 	~Button();
 
 	void Draw();
@@ -51,7 +51,8 @@ private:
 	SDL_Texture* ButtonBox = nullptr;
 	SDL_Texture* ButtonText = nullptr;
 
-	
+	SDL_Rect rec;
+
 };
 
 

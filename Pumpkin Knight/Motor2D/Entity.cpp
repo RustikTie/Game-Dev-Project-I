@@ -58,9 +58,9 @@ void Entity::Draw(float dt)
 	}*/
 }
 
-void Entity::OnCollision(Collider* collider)
+void Entity::OnCollision()
 {
-
+	
 }
 
 

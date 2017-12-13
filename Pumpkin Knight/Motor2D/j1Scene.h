@@ -7,6 +7,14 @@
 
 struct SDL_Texture;
 class Element;
+enum SCENE
+{
+	MENU,
+	LVL1,
+	LVL2,
+	CREDITS,
+
+};
 
 class j1Scene : public j1Module
 {
@@ -47,6 +55,8 @@ private:
 	bool level2 = false;
 	bool credits = false;
 
+	SCENE previousScene;
+
 	SDL_Rect rect_start;
 	SDL_Rect rect_quit;
 	SDL_Rect rect_options;
@@ -58,6 +68,7 @@ private:
 	Element* Options = nullptr;
 	Element* Credits = nullptr;
 	Element* BigWindow = nullptr;
+	Element* MainMenu = nullptr;
 };
 
 #endif // __j1SCENE_H__

@@ -9,6 +9,7 @@ public:
 	Candy(int x, int y);
 	bool Awake(pugi::xml_node&);
 	void Draw(float dt);
+	void OnCollision();
 
 	~Candy();
 
