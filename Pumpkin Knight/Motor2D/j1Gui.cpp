@@ -63,7 +63,7 @@ bool j1Gui::PostUpdate()
 {
 	p2List_item<Element*>* element = elements.start;
 
-	while (element != nullptr)
+	while (element != NULL)
 	{
 		element->data->Draw();
 		if (MouseCollision(element->data))
@@ -86,7 +86,22 @@ bool j1Gui::PostUpdate()
 			}
 		}
 
+		if (!MouseCollision(element->data) && !element->data->mouse_out)
+		{
+			element->data->mouse_in = false;
+			element->data->mouse_out = true;
+			element->data->event_type = MOUSE_EXIT;
+			App->scene->MouseEvents(element->data);
+		}
+
 		element = element->next;
+	}
+
+	if (cleaning)
+	{
+		cleaning = false;
+		CleanUp();
+		App->scene->Start();
 	}
 
 	return true;

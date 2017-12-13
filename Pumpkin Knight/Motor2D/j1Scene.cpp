@@ -43,16 +43,17 @@ bool j1Scene::Start()
 {
 	if (start)
 	{
+		//App->gui->Start();
 		App->gui->AddBackground(-500, 180, BACKGROUND, {0,0,1024,768 });
 
 		rect_quit = { 102, 3151, 365, 185 };
 		QuitButton = App->gui->AddButton(-400, 280, BUTTON, &rect_quit);
 		rect_start = { 484, 3151, 365, 185 };
-		StartButton = App->gui->AddButton(-400, 380, BUTTON, &rect_start);
-		rect_options = { 868, 3151, 365, 185 };
-		Options = App->gui->AddButton(-400, 480, BUTTON, &rect_options);
-		rect_credits = { 1256, 3151, 365, 185 };
-		Credits = App->gui->AddButton(-400, 580, BUTTON, &rect_credits);
+		StartButton = App->gui->AddButton(-400, 380, BUTTON, &rect_quit);
+		//rect_options = { 868, 3151, 365, 185 };
+		Options = App->gui->AddButton(-400, 480, BUTTON, &rect_quit);
+		//rect_credits = { 1256, 3151, 365, 185 };
+		Credits = App->gui->AddButton(-400, 580, BUTTON, &rect_quit);
 
 		App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
 
@@ -69,16 +70,17 @@ bool j1Scene::Start()
 	if (level1) 
 	{
 		App->map->Load("level1_v4.tmx");
+		App->entity_manager->Start();
 		App->entity_manager->AddEnemy(WOLF, 1300, 0);
 	//	App->entity_manager->AddEnemy(BAT, 500, 100);
 		App->entity_manager->AddEnemy(WOLF, 5000, 0);
 
-		if (App->entity_manager->player_entity == nullptr)
+		/*if (App->entity_manager->player_entity == nullptr)
 		{
 			App->entity_manager->player_entity = new Player(100, 200);
 			App->entity_manager->player_entity->Awake(App->entity_manager->entity_config);
 			App->entity_manager->player_entity->Start();
-		}
+		}*/
 
 		App->audio->PlayMusic("audio/music/Darkness.ogg");
 	}
@@ -105,10 +107,7 @@ bool j1Scene::PreUpdate()
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
-{
-
-
-	
+{	
 	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -123,17 +122,17 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 200.0f * dt;
 
-	if (App->input->GetKey(SDL_SCANCODE_F1)) 
+	if (App->input->GetKey(SDL_SCANCODE_F1))
 	{
-		if (level1 == false) 
+		if (level1 == false)
 		{
-			start = false;
+			/*start = false;
 			App->map->CleanUp();
 			App->gui->CleanUp();
 			App->entity_manager->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
-			App->map->Load("level1_v4.tmx");			
-			
+			App->map->Load("level1_v4.tmx");
+
 				if (App->entity_manager->player_entity == nullptr)
 				{
 					App->entity_manager->player_entity = new Player(100, 200);
@@ -143,14 +142,23 @@ bool j1Scene::Update(float dt)
 			}
 			App->audio->PlayMusic("audio/music/Halloween.ogg", 0.2f);
 			App->entity_manager->AddEnemy(WOLF, 1300, 0);
-			App->entity_manager->AddEnemy(BAT, 1100, 0);
-			App->entity_manager->AddEnemy(CANDY, 400, 690);
+			App->entity_manager->AddEnemy(BAT, 1100, 0);*/
+			
+			start = false;
+			App->map->CleanUp();
+			App->gui->cleaning = true;
+			App->entity_manager->CleanUp();
+			App->collisions->Erase_Non_Player_Colliders();
+			/*App->entity_manager->AddEnemy(CANDY, 400, 690);
+			App->entity_manager->AddEnemy(WOLF, 1300, 0);*/
 			level1 = true;
+			Start();
 		}
 		else
 		{
 			//App->entity_manager->player_entity->SetPos(100, 250);
 		}
+	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_F2))
 	{
@@ -176,7 +184,7 @@ bool j1Scene::Update(float dt)
 			App->entity_manager->player_entity->SetPos(100, 250);
 			level1 = false;
 		}
-		/*else if (App->entity_manager->player_entity->lives <= -1)
+		else if (App->entity_manager->player_entity->lives <= -1)
 		{
 			level1 = false;
 			App->map->CleanUp();
@@ -184,11 +192,12 @@ bool j1Scene::Update(float dt)
 			App->entity_manager->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
 			start = true;
-			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
+			Start();
+			/*App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
 			App->gui->AddBackground(-300, 180, BACKGROUND, { 0,0,1024,768 });
-			App->gui->AddButton(100, 400, BUTTON, { 0,0,0,0 }, NULL, NULL);
+			App->gui->AddButton(100, 400, BUTTON, { 0,0,0,0 }, NULL, NULL);*/
 
-		}*/
+		}
 	}
 
 
@@ -225,29 +234,37 @@ bool j1Scene::MouseEvents(Element* element)
 	case MOUSE_ENTER:
 		if (element == StartButton)
 		{
+			element->texture_rect = &rect_start;
 		}
 		if (element == QuitButton)
 		{
+			element->texture_rect = &rect_start;
 		}
 		if (element == Options)
 		{
+			element->texture_rect = &rect_start;
 		}
 		if (element == Credits)
 		{
+			element->texture_rect = &rect_start;
 		}
 		break;
 	case MOUSE_EXIT:
 		if (element == StartButton)
 		{
+			element->texture_rect = &rect_quit;
 		}
 		if (element == QuitButton)
 		{
+			element->texture_rect = &rect_quit;
 		}
 		if (element == Options)
 		{
+			element->texture_rect = &rect_quit;
 		}
 		if (element == Credits)
 		{
+			element->texture_rect = &rect_quit;
 		}
 		break;
 	case MOUSE_DOWN:
@@ -268,8 +285,8 @@ bool j1Scene::MouseEvents(Element* element)
 		if (element == StartButton)
 		{
 			start = false;
+			App->gui->cleaning = true;
 			level1 = true;
-			Start();
 		}
 		if (element == QuitButton)
 		{

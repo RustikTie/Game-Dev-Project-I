@@ -23,6 +23,8 @@ public:
 	ElementType type;
 	UIEvents event_type;
 
+	SDL_Rect* texture_rect;
+
 	uint tex_width;
 	uint tex_height;
 

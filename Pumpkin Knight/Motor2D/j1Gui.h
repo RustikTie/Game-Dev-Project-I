@@ -71,6 +71,8 @@ public:
 
 public:
 
+	bool cleaning = false;
+
 	SDL_Texture* GetAtlas() const;
 	SDL_Texture* GetBackground() const;
 	SDL_Texture* GetButton() const;
@@ -84,7 +86,7 @@ public:
 	_TTF_Font* font = nullptr;
 
 private:
-
+	
 	SDL_Texture* background = nullptr;
 	SDL_Texture* guiAtlas = nullptr;
 	SDL_Texture* atlas;
