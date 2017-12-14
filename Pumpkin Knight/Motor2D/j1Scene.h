@@ -58,6 +58,7 @@ private:
 	bool credits = false;
 	bool options = false;
 	bool transitioning = false;
+	bool maycontinue = false;
 
 	SCENE previousScene;
 
@@ -75,6 +76,7 @@ private:
 
 	SDL_Texture* transition = nullptr;
 
+	Element* Continue = nullptr;
 	Element* StartButton = nullptr;
 	Element* QuitButton = nullptr;
 	Element* Options = nullptr;

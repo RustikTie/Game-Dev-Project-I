@@ -67,10 +67,11 @@ bool j1Scene::Start()
 			//App->gui->CleanUp();
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 
-			QuitButton = App->gui->AddButton(400, 400, BUTTON, &idle, "QUIT");
-			StartButton = App->gui->AddButton(400, 100, BUTTON, &idle, "START");
-			Options = App->gui->AddButton(400, 200, BUTTON, &idle, "OPTIONS");
-			Credits = App->gui->AddButton(400, 300, BUTTON, &idle, "CREDITS");
+			Continue = App->gui->AddButton(400, 50, BUTTON, &idle, "CONTINUE");
+			QuitButton = App->gui->AddButton(400, 450, BUTTON, &idle, "QUIT");
+			StartButton = App->gui->AddButton(400, 150, BUTTON, &idle, "START");
+			Options = App->gui->AddButton(400, 250, BUTTON, &idle, "OPTIONS");
+			Credits = App->gui->AddButton(400, 350, BUTTON, &idle, "CREDITS");
 
 		}
 		else
@@ -83,10 +84,11 @@ bool j1Scene::Start()
 			App->render->camera.y = 0;
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 
-			QuitButton = App->gui->AddButton(400, 400, BUTTON, &idle, "QUIT");
-			StartButton = App->gui->AddButton(400, 100, BUTTON, &idle, "START");
-			Options = App->gui->AddButton(400, 200, BUTTON, &idle, "OPTIONS");
-			Credits = App->gui->AddButton(400, 300, BUTTON, &idle, "CREDITS");
+			Continue = App->gui->AddButton(400, 50, BUTTON, &idle, "CONTINUE");
+			QuitButton = App->gui->AddButton(400, 450, BUTTON, &idle, "QUIT");
+			StartButton = App->gui->AddButton(400, 150, BUTTON, &idle, "START");
+			Options = App->gui->AddButton(400, 250, BUTTON, &idle, "OPTIONS");
+			Credits = App->gui->AddButton(400, 350, BUTTON, &idle, "CREDITS");
 			
 			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
 		}
@@ -255,7 +257,10 @@ bool j1Scene::Update(float dt)
 		App->entity_manager->player_entity->SetPos(100, 250);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F5))
+	{
 		App->SaveGame();
+		maycontinue = true;
+	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_F6))
 		App->LoadGame();
@@ -319,7 +324,7 @@ bool j1Scene::MouseEvents(Element* element)
 	switch (element->event_type)
 	{
 	case MOUSE_ENTER:
-		if (element == QuitButton || StartButton || Options || Credits || MainMenu)
+		if (element == Continue || QuitButton || StartButton || Options || Credits || MainMenu)
 		{
 			element->texture_rect = &hover;
 		}
@@ -334,7 +339,7 @@ bool j1Scene::MouseEvents(Element* element)
 
 		break;
 	case MOUSE_EXIT:
-		if (element == QuitButton || StartButton || Options || Credits || MainMenu)
+		if (element == Continue || QuitButton || StartButton || Options || Credits || MainMenu)
 		{
 			element->texture_rect = &idle;
 		}
@@ -349,7 +354,7 @@ bool j1Scene::MouseEvents(Element* element)
 
 		break;
 	case MOUSE_DOWN:
-		if (element == QuitButton || StartButton || Options || Credits || MainMenu)
+		if (element == Continue || QuitButton || StartButton || Options || Credits || MainMenu)
 		{
 			element->texture_rect = &click;
 		}
@@ -402,6 +407,10 @@ bool j1Scene::MouseEvents(Element* element)
 			start = false;
 			level1 = false;
 			level2 = false;
+		}
+		if (element == Continue && maycontinue == true)
+		{
+			App->LoadGame();
 		}
 		if (element == Plus)
 		{
