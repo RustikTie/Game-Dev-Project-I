@@ -76,20 +76,24 @@ bool j1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate EntityManager", Profiler::Color::Green)
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (entities[i] != nullptr)
+		if (dt < 1)
 		{
-			entities[i]->MoveEntity(dt);
-			entities[i]->Draw(dt);
-			entities[i]->Awake(entity_config);
+			for (uint i = 0; i < MAX_ENEMIES; ++i)
+			{
+				if (entities[i] != nullptr)
+				{
+					entities[i]->MoveEntity(dt);
+					entities[i]->Draw(dt);
+					entities[i]->Awake(entity_config);
+				}
+				if (player_entity != nullptr)
+				{
+					player_entity->MoveEntity(dt);
+					player_entity->Draw(dt);
+				}
+			}
 		}
-		if (player_entity != nullptr)
-		{
-			player_entity->MoveEntity(dt);
-			player_entity->Draw(dt);
-		}
-	}
+	
 	return true;
 }
 

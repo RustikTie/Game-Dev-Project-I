@@ -216,6 +216,7 @@ void Player::MoveEntity(float dt)
 		{
 			pos.x = 100;
 			pos.y = 200;
+			lives -= 1;
 		}
 
 	}
