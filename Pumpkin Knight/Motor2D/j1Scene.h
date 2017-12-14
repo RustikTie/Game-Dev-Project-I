@@ -50,6 +50,8 @@ public:
 	bool start = true;
 
 private:
+	int volume = 50;
+
 	bool exit = true;
 	bool level1 = false;
 	bool level2 = false;
