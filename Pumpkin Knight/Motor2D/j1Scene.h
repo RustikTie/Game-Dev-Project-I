@@ -13,7 +13,7 @@ enum SCENE
 	LVL1,
 	LVL2,
 	CREDITS,
-
+	OPTIONS,
 };
 
 class j1Scene : public j1Module
@@ -54,6 +54,7 @@ private:
 	bool level1 = false;
 	bool level2 = false;
 	bool credits = false;
+	bool options = false;
 	bool transitioning = false;
 
 	SCENE previousScene;
@@ -72,6 +73,7 @@ private:
 	Element* Credits = nullptr;
 	Element* BigWindow = nullptr;
 	Element* MainMenu = nullptr;
+	Element* CreditText = nullptr;
 };
 
 #endif // __j1SCENE_H__

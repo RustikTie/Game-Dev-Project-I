@@ -65,8 +65,7 @@ public:
 
 	Element* AddBackground(int x, int y, ElementType type, SDL_Rect rec);
 	Element* AddButton(int x, int y, ElementType type, SDL_Rect rec, const char* text = nullptr);
-	/*	void AddText(int x, int y, ElementType type, const char* text);
-	void AddTextBox(int x, int y, ElementType type, const char* text);*/
+	Element* AddText(int x, int y, ElementType type, const char* text);
 	Element* AddWindow(int x, int y, ElementType type, SDL_Rect rec);
 
 public:

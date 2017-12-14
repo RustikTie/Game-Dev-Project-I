@@ -15,7 +15,8 @@ public:
 
 private:
 
-	const char* text;
+	const char* text = nullptr;
+	SDL_Texture* tex = nullptr;
 
 };
 

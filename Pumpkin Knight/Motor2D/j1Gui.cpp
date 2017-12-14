@@ -166,17 +166,12 @@ Element* j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect rec, const ch
 	return elem;
 }
 
-//Element* j1Gui::AddText(int x, int y, ElementType type, const char* text)
-//{
-//	Element* elem = new Text(x, y, type, text);
-//	elements.add(elem);
-//}
-//
-//Element* j1Gui::AddTextBox(int x, int y, ElementType type, const char* text)
-//{
-//	Element* elem = new Text_Box(x, y, type, text);
-//	elements.add(elem);
-//}
+Element* j1Gui::AddText(int x, int y, ElementType type, const char* text)
+{
+	Element* elem = new Text(x, y, type, text);
+	elements.add(elem);
+	return elem;
+}
 
 Element* j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
 {
@@ -184,7 +179,6 @@ Element* j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
 	elements.add(elem);
 
 	return elem;
-
 }
 
 bool j1Gui::MouseCollision(Element* element)
