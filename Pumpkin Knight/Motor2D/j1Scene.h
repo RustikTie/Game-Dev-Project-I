@@ -64,8 +64,14 @@ private:
 	SDL_Rect hover;
 	SDL_Rect idle;
 	SDL_Rect click;
-	SDL_Rect rect_credits;
+	//SDL_Rect rect_credits;
 	SDL_Rect rect_window;
+	SDL_Rect plus_hover;
+	SDL_Rect plus_idle;
+	SDL_Rect plus_click;
+	SDL_Rect minus_hover;
+	SDL_Rect minus_idle;
+	SDL_Rect minus_click;
 
 	SDL_Texture* transition = nullptr;
 
@@ -76,6 +82,8 @@ private:
 	Element* BigWindow = nullptr;
 	Element* MainMenu = nullptr;
 	Element* CreditText = nullptr;
+	Element* Plus = nullptr;
+	Element* Minus = nullptr;
 };
 
 #endif // __j1SCENE_H__

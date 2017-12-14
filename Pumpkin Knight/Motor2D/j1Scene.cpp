@@ -38,10 +38,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	Mix_VolumeMusic(volume);
 
-	idle = { 102, 3151, 365, 185 };
-	hover = { 484, 3151, 365, 185 };
-	click = { 868, 3151, 365, 185 };
-	rect_credits = { 1256, 3151, 365, 185 };
+	//rect_credits = { 1256, 3151, 365, 185 };
 
 	transition = App->tex->Load("gui/transition.png");
 
@@ -51,6 +48,18 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
+	plus_idle = { 377, 3558, 183, 184 };
+	plus_hover = { 574, 3558, 183, 184 };
+	plus_click = { 771, 3558, 183, 184 };
+
+	minus_idle = { 1366, 3558, 183, 184 };
+	minus_hover = { 1562, 3558, 183, 184 };
+	minus_click = { 1759, 3558, 183, 184 };
+
+	idle = { 102, 3151, 365, 185 };
+	hover = { 484, 3151, 365, 185 };
+	click = { 868, 3151, 365, 185 };
+
 	if (start)
 	{
 		if (previousScene == CREDITS || previousScene == OPTIONS)
@@ -58,10 +67,10 @@ bool j1Scene::Start()
 			//App->gui->CleanUp();
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 
-			QuitButton = App->gui->AddButton(400, 400, BUTTON, idle, "QUIT");
-			StartButton = App->gui->AddButton(400, 100, BUTTON, idle, "START");
-			Options = App->gui->AddButton(400, 200, BUTTON, idle, "OPTIONS");
-			Credits = App->gui->AddButton(400, 300, BUTTON, idle, "CREDITS");
+			QuitButton = App->gui->AddButton(400, 400, BUTTON, &idle, "QUIT");
+			StartButton = App->gui->AddButton(400, 100, BUTTON, &idle, "START");
+			Options = App->gui->AddButton(400, 200, BUTTON, &idle, "OPTIONS");
+			Credits = App->gui->AddButton(400, 300, BUTTON, &idle, "CREDITS");
 
 		}
 		else
@@ -74,10 +83,10 @@ bool j1Scene::Start()
 			App->render->camera.y = 0;
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 
-			QuitButton = App->gui->AddButton(400, 400, BUTTON, idle, "QUIT");
-			StartButton = App->gui->AddButton(400, 100, BUTTON, idle, "START");
-			Options = App->gui->AddButton(400, 200, BUTTON, idle, "OPTIONS");
-			Credits = App->gui->AddButton(400, 300, BUTTON, idle, "CREDITS");
+			QuitButton = App->gui->AddButton(400, 400, BUTTON, &idle, "QUIT");
+			StartButton = App->gui->AddButton(400, 100, BUTTON, &idle, "START");
+			Options = App->gui->AddButton(400, 200, BUTTON, &idle, "OPTIONS");
+			Credits = App->gui->AddButton(400, 300, BUTTON, &idle, "CREDITS");
 			
 			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
 		}
@@ -98,7 +107,7 @@ bool j1Scene::Start()
 			rect_window = { 1187, 0, 1113, 848 };
 			BigWindow = App->gui->AddWindow(200, 180, WINDOW, rect_window);
 			CreditText = App->gui->AddText(250, 230, TEXT, "test");
-			MainMenu = App->gui->AddButton(0, 0, BUTTON, idle, "BACK");
+			MainMenu = App->gui->AddButton(0, 0, BUTTON, &idle, "BACK");
 		}
 		//App->map->CleanUp();
 		//App->entity_manager->CleanUp();
@@ -111,14 +120,16 @@ bool j1Scene::Start()
 	{
 		if (previousScene == MENU)
 		{
-			//App->gui->CleanUp();
+			App->gui->CleanUp();
 			App->render->camera.x = 0;
 			App->render->camera.y = 0;
 
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 			rect_window = { 1187, 0, 1113, 848 };
 			BigWindow = App->gui->AddWindow(200, 180, WINDOW, rect_window);
-			MainMenu = App->gui->AddButton(0, 0, BUTTON, idle, "BACK");
+			MainMenu = App->gui->AddButton(0, 0, BUTTON, &idle, "BACK");
+			Plus = App->gui->AddButton(370, 230, BUTTON, &plus_idle);
+			Minus = App->gui->AddButton(250, 230, BUTTON, &minus_idle);
 		}
 		//App->map->CleanUp();
 		//App->entity_manager->CleanUp();
@@ -308,26 +319,48 @@ bool j1Scene::MouseEvents(Element* element)
 	switch (element->event_type)
 	{
 	case MOUSE_ENTER:
-		element->texture_rect = hover;
+		if (element == QuitButton || StartButton || Options || Credits || MainMenu)
+		{
+			element->texture_rect = &hover;
+		}
+		if (element == Plus)
+		{
+			element->texture_rect = &plus_hover;
+		}
+		if (element == Minus)
+		{
+			element->texture_rect = &minus_hover;
+		}
+
 		break;
 	case MOUSE_EXIT:
-		element->texture_rect = idle;
+		if (element == QuitButton || StartButton || Options || Credits || MainMenu)
+		{
+			element->texture_rect = &idle;
+		}
+		if (element == Plus)
+		{
+			element->texture_rect = &plus_idle;
+		}
+		if (element == Minus)
+		{
+			element->texture_rect = &minus_idle;
+		}
+
 		break;
 	case MOUSE_DOWN:
-		if (element == StartButton)
+		if (element == QuitButton || StartButton || Options || Credits || MainMenu)
 		{
-
+			element->texture_rect = &click;
 		}
-		if (element == QuitButton)
+		if (element == Plus)
 		{
+			element->texture_rect = &plus_click;
 		}
-		if (element == Options)
+		if (element == Minus)
 		{
+			element->texture_rect = &minus_click;
 		}
-		if (element == Credits)
-		{
-		}
-		element->texture_rect = click;
 
 		break;
 	case MOUSE_UP:
@@ -338,7 +371,7 @@ bool j1Scene::MouseEvents(Element* element)
 			start = false;
 			level1 = true;
 		}
-		else if (element == MainMenu)
+		if (element == MainMenu)
 		{
 			App->gui->cleaning = true;
 			credits = false;
@@ -347,12 +380,12 @@ bool j1Scene::MouseEvents(Element* element)
 			level1 = false;
 			level2 = false;
 		}
-		else if (element == QuitButton)
+		if (element == QuitButton)
 		{
 			LOG("CY@");
 			exit = false;
 		}
-		else if (element == Options)
+		if (element == Options)
 		{
 			App->gui->cleaning = true;
 			options = true;
@@ -361,7 +394,7 @@ bool j1Scene::MouseEvents(Element* element)
 			level1 = false;
 			level2 = false;
 		}
-		else if (element == Credits)
+		if (element == Credits)
 		{
 			App->gui->cleaning = true;
 			credits = true;
@@ -369,7 +402,17 @@ bool j1Scene::MouseEvents(Element* element)
 			start = false;
 			level1 = false;
 			level2 = false;
-		}	
+		}
+		if (element == Plus)
+		{
+			volume += 10;
+			Mix_VolumeMusic(volume);
+		}
+		if (element == Minus)
+		{
+			volume -= 10;
+			Mix_VolumeMusic(volume);
+		}
 		break;
 
 	}

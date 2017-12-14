@@ -158,7 +158,7 @@ Element* j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
 
 }
 
-Element* j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect rec, const char* text)
+Element* j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect* rec, const char* text)
 {
 	Element* elem = new Button(x, y, type, rec, text);
 	elements.add(elem);
@@ -183,7 +183,6 @@ Element* j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
 
 bool j1Gui::MouseCollision(Element* element)
 {
-
 	bool ret = false;
 	if (element->type == BUTTON)
 	{

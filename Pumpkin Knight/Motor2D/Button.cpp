@@ -57,7 +57,7 @@
 #include "j1Fonts.h"
 #include "j1Gui.h"
 
-Button::Button(int x, int y, ElementType types, SDL_Rect rec, const char* text) : Element(x, y, types)
+Button::Button(int x, int y, ElementType types, SDL_Rect* rec, const char* text) : Element(x, y, types)
 {
 	if (text != nullptr)
 	{
@@ -68,8 +68,8 @@ Button::Button(int x, int y, ElementType types, SDL_Rect rec, const char* text) 
 	texture_rect = rec;
 
 	ButtonBox = App->gui->GetAtlas();
-	tex_width = rec.w;
-	tex_height = rec.h;
+	tex_width = rec->w;
+	tex_height = rec->h;
 }
 
 
@@ -80,7 +80,7 @@ Button::~Button()
 
 void Button::Draw()
 {
-	App->render->Blit(ButtonBox, pos.x, pos.y, 0.5f, 0.5f, false, &texture_rect);
+	App->render->Blit(ButtonBox, pos.x, pos.y, 0.5f, 0.5f, false, texture_rect);
 	App->render->Blit(ButtonText, pos.x + (tex_width/6), pos.y + (tex_height/7), 1, 1, false);
 
 }
