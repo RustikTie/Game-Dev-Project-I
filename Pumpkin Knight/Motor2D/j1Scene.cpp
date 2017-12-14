@@ -43,18 +43,7 @@ bool j1Scene::Start()
 {
 	if (start)
 	{
-		App->gui->AddBackground(-500, 180, BACKGROUND, {0,0,1024,768 });
-
-		rect_quit = { 102, 3151, 365, 185 };
-		QuitButton = App->gui->AddButton(-400, 280, BUTTON, rect_quit);
-		rect_start = { 484, 3151, 365, 185 };
-		StartButton = App->gui->AddButton(-400, 380, BUTTON, rect_quit);
-		//rect_options = { 868, 3151, 365, 185 };
-		Options = App->gui->AddButton(-400, 480, BUTTON, rect_quit);
-		//rect_credits = { 1256, 3151, 365, 185 };
-		Credits = App->gui->AddButton(-400, 580, BUTTON, rect_quit);
-
-		App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
+		
 
 		if (previousScene == CREDITS)
 		{
