@@ -13,6 +13,7 @@
 #include "j1Gui.h"
 #include "Element.h"
 #include "Brofiler\Brofiler.h"
+//#include "SDL_mixer.h"
 
 using namespace pugi;
 
@@ -34,6 +35,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	level1 = false;
 	level2 = false;
 	credits = false;
+
+	Mix_VolumeMusic(volume);
 
 	idle = { 102, 3151, 365, 185 };
 	hover = { 484, 3151, 365, 185 };
@@ -194,6 +197,16 @@ bool j1Scene::Update(float dt)
 {	
 	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
 
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
+	{
+		volume -= 1;
+		Mix_VolumeMusic(volume);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_REPEAT)
+	{
+		volume += 1;
+		Mix_VolumeMusic(volume);
+	}
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 200.0f * dt;
 
@@ -325,37 +338,37 @@ bool j1Scene::MouseEvents(Element* element)
 			start = false;
 			level1 = true;
 		}
-		if (element == MainMenu)
+		else if (element == MainMenu)
 		{
+			App->gui->cleaning = true;
 			credits = false;
 			options = false;
-			App->gui->cleaning = true;
 			start = true;
 			level1 = false;
 			level2 = false;
 		}
-		if (element == QuitButton)
+		else if (element == QuitButton)
 		{
 			LOG("CY@");
 			exit = false;
 		}
-		if (element == Options)
+		else if (element == Options)
 		{
+			App->gui->cleaning = true;
 			options = true;
 			credits = false;
 			start = false;
-			App->gui->cleaning = true;
 			level1 = false;
 			level2 = false;
 		}
-		if (element == Credits)
+		else if (element == Credits)
 		{
-			credits = true;
-			start = false;
 			App->gui->cleaning = true;
+			credits = true;
+			options = false;
+			start = false;
 			level1 = false;
 			level2 = false;
-			
 		}	
 		break;
 
