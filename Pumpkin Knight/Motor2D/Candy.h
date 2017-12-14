@@ -16,6 +16,7 @@ public:
 private: 
 	SDL_Rect rec;
 	bool grabbed = false;
+	bool alive = true;
 	Animation idle;
 	Animation explosion;
 

@@ -183,6 +183,7 @@ void j1EntityManager::SpawnEntity(const EntityInfo& info)
 			break;
 		case ENTITY_TYPES::CANDY:
 			entities[i] = new Candy(info.x, info.y);
+			candies.add(entities[i]);
 			break;
 		}
 	}

@@ -8,13 +8,13 @@ Candy::Candy(int x, int y): Entity(x,y)
 	idle.PushBack({ 339, 294, 52, 50 });
 	idle.PushBack({ 392, 294, 52, 50 });
 	animation = &idle;
-
+	alive = true;
 	explosion.PushBack({ 444, 294, 52, 50 });
 	explosion.PushBack({ 497, 294, 52, 50 });
 	explosion.PushBack({ 339, 345, 52, 50 });
 	explosion.PushBack({ 392, 345, 52, 50 });
 	explosion.PushBack({ 444, 345, 52, 50 });
-
+	explosion.loop = false;
 	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 50, 50 }, COLLIDER_CANDY, (j1Module*)App->entity_manager);
 }
 
@@ -31,12 +31,19 @@ bool Candy::Awake(pugi::xml_node&)
 void Candy::Draw(float dt)
 {
 	animation->speed = 5.f*dt;
-	if (collider != nullptr)
+	
+	if (grabbed == false)
 	{
-		if (grabbed == false)
-		{		
 		collider->SetPos(pos.x, pos.y);
 		App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, 1, 1, false, &(animation->GetCurrentFrame()));
+	}
+	if (grabbed == true && alive == true)
+	{
+		animation = &explosion;
+		App->render->Blit(App->entity_manager->GetEntityAtlas(), pos.x, pos.y, 1, 1, false, &(animation->GetCurrentFrame()));
+		if(animation->Finished() == true)
+		{
+			alive = false;
 		}
 	}
 	

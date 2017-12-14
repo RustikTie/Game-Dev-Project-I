@@ -117,7 +117,7 @@ bool j1Scene::Start()
 		/*App->entity_manager->AddEnemy(WOLF, 1300, 0);
 		App->entity_manager->AddEnemy(BAT, 500, 100);
 		App->entity_manager->AddEnemy(WOLF, 5000, 0);*/
-
+		App->entity_manager->AddEnemy(CANDY, 600, 350);
 		previousScene = LVL1;
 		App->audio->PlayMusic("audio/music/Halloween.ogg");
 	}

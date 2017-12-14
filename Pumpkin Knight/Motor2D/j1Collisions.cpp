@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Player.h"
 #include "j1Scene.h"
+#include "Candy.h"
 #include "Brofiler\Brofiler.h"
 
 j1Collisions::j1Collisions() : j1Module()
@@ -174,8 +175,19 @@ bool j1Collisions::Update(float dt)
 			}
 			if (c2->type == COLLIDER_CANDY && c1->type == COLLIDER_PLAYER && c2->CheckCollision(c1->rect) == true)
 			{
-				c2->to_delete = true;
 				App->entity_manager->player_entity->score += 1;				
+				p2List_item<Entity*>* item;
+				item = App->entity_manager->candies.start;
+				while (item != NULL)
+				{
+					if (c2 == item->data->collider)
+					{
+						item->data->OnCollision();
+					
+					}
+					item = item->next;
+				}
+				
 			}
 		}
 		

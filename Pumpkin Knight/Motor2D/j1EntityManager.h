@@ -68,7 +68,7 @@ public:
 	pugi::xml_node entity_config;
 	EntityInfo playerInfo;
 	Player* player_entity;
-	
+	p2List<Entity*> candies;
 
 private:
 	SDL_Texture* entityAtlas = nullptr;
