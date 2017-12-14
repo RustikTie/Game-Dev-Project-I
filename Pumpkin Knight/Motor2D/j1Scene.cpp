@@ -50,32 +50,32 @@ bool j1Scene::Start()
 {
 	if (start)
 	{
-		if (previousScene == CREDITS)
+		if (previousScene == CREDITS || previousScene == OPTIONS)
 		{
 			//App->gui->CleanUp();
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 
-			QuitButton = App->gui->AddButton(400, 100, BUTTON, idle, "QUIT");
-			StartButton = App->gui->AddButton(400, 200, BUTTON, idle, "START");
-			Options = App->gui->AddButton(400, 300, BUTTON, idle);
-			Credits = App->gui->AddButton(400, 400, BUTTON, idle, "CREDITS");
+			QuitButton = App->gui->AddButton(400, 400, BUTTON, idle, "QUIT");
+			StartButton = App->gui->AddButton(400, 100, BUTTON, idle, "START");
+			Options = App->gui->AddButton(400, 200, BUTTON, idle, "OPTIONS");
+			Credits = App->gui->AddButton(400, 300, BUTTON, idle, "CREDITS");
 
 		}
 		else
 		{
 			App->map->CleanUp();
-			App->gui->CleanUp();
+			//App->gui->CleanUp();
 			App->entity_manager->CleanUp();
 			App->collisions->Erase_Non_Player_Colliders();
 			App->render->camera.x = 0;
 			App->render->camera.y = 0;
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 
-			QuitButton = App->gui->AddButton(400, 100, BUTTON, idle, "QUIT");
-			StartButton = App->gui->AddButton(400, 200, BUTTON, idle, "START");
-			Options = App->gui->AddButton(400, 300, BUTTON, idle);
-			Credits = App->gui->AddButton(400, 400, BUTTON, idle, "CREDITS");
-
+			QuitButton = App->gui->AddButton(400, 400, BUTTON, idle, "QUIT");
+			StartButton = App->gui->AddButton(400, 100, BUTTON, idle, "START");
+			Options = App->gui->AddButton(400, 200, BUTTON, idle, "OPTIONS");
+			Credits = App->gui->AddButton(400, 300, BUTTON, idle, "CREDITS");
+			
 			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
 		}
 		
@@ -94,6 +94,7 @@ bool j1Scene::Start()
 			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
 			rect_window = { 1187, 0, 1113, 848 };
 			BigWindow = App->gui->AddWindow(200, 180, WINDOW, rect_window);
+			CreditText = App->gui->AddText(250, 230, TEXT, "test");
 			MainMenu = App->gui->AddButton(0, 0, BUTTON, idle, "BACK");
 		}
 		//App->map->CleanUp();
@@ -101,6 +102,26 @@ bool j1Scene::Start()
 		//App->collisions->Erase_Non_Player_Colliders();
 		
 		previousScene = CREDITS;
+	}
+
+	if (options)
+	{
+		if (previousScene == MENU)
+		{
+			//App->gui->CleanUp();
+			App->render->camera.x = 0;
+			App->render->camera.y = 0;
+
+			App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
+			rect_window = { 1187, 0, 1113, 848 };
+			BigWindow = App->gui->AddWindow(200, 180, WINDOW, rect_window);
+			MainMenu = App->gui->AddButton(0, 0, BUTTON, idle, "BACK");
+		}
+		//App->map->CleanUp();
+		//App->entity_manager->CleanUp();
+		//App->collisions->Erase_Non_Player_Colliders();
+
+		previousScene = OPTIONS;
 	}
 
 	if (level1) 
@@ -295,6 +316,15 @@ bool j1Scene::MouseEvents(Element* element)
 			start = false;
 			level1 = true;
 		}
+		if (element == MainMenu)
+		{
+			credits = false;
+			options = false;
+			App->gui->cleaning = true;
+			start = true;
+			level1 = false;
+			level2 = false;
+		}
 		if (element == QuitButton)
 		{
 			LOG("CY@");
@@ -302,6 +332,12 @@ bool j1Scene::MouseEvents(Element* element)
 		}
 		if (element == Options)
 		{
+			options = true;
+			credits = false;
+			start = false;
+			App->gui->cleaning = true;
+			level1 = false;
+			level2 = false;
 		}
 		if (element == Credits)
 		{
@@ -311,15 +347,7 @@ bool j1Scene::MouseEvents(Element* element)
 			level1 = false;
 			level2 = false;
 			
-		}
-		if (element == MainMenu)
-		{
-			credits = false;
-			App->gui->cleaning = true;
-			start = true;
-			level1 = false;
-			level2 = false;
-		}
+		}	
 		break;
 
 	}
