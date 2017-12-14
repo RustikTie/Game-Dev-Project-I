@@ -44,7 +44,7 @@ public:
 	bool CleanUp();
 
 	bool MouseEvents(Element* element);
-
+	void Transition();
 	p2DynArray<iPoint> path;
 
 	bool start = true;
@@ -54,14 +54,17 @@ private:
 	bool level1 = false;
 	bool level2 = false;
 	bool credits = false;
+	bool transitioning = false;
 
 	SCENE previousScene;
 
-	SDL_Rect rect_start;
-	SDL_Rect rect_quit;
-	SDL_Rect rect_options;
+	SDL_Rect hover;
+	SDL_Rect idle;
+	SDL_Rect click;
 	SDL_Rect rect_credits;
 	SDL_Rect rect_window;
+
+	SDL_Texture* transition = nullptr;
 
 	Element* StartButton = nullptr;
 	Element* QuitButton = nullptr;

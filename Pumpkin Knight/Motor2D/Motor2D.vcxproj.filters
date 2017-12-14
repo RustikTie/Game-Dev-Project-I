@@ -85,6 +85,9 @@
     <ClCompile Include="Candy.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="Candy.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
