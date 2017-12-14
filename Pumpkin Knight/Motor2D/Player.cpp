@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "j1Gui.h"
 #include "j1Render.h"
+#include "j1Fonts.h"
 
 Player::Player(int x, int y) : Entity(x, y)
 {
@@ -58,6 +59,8 @@ Player::Player(int x, int y) : Entity(x, y)
 
 	//animation = &idle;
 	initial_pos = original_pos.x;
+
+	scoreChar = App->font->Print("SCORE:", { 255,255,255 }, App->gui->font);
 }
 
 
@@ -284,4 +287,5 @@ void Player::Draw(float dt)
 		App->render->Blit(App->gui->GetGuiAtlas(), pos.x + 55, pos.y, 0.2, 0.2, false, &heart);
 
 	}
+	
 }

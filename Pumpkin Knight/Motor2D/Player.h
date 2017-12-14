@@ -55,6 +55,7 @@ public:
 	fPoint position;
 	int score = 0;
 	int lives = 3;
+	int candiesGrabbed = 0;
 
 private:
 	//Animation* animation = nullptr;
@@ -69,7 +70,7 @@ private:
 	int counter = 0;
 	bool dead = false;
 	SDL_Rect heart;
-
+	SDL_Texture* scoreChar = nullptr;
 };
 
 #endif

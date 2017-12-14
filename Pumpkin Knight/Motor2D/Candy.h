@@ -6,7 +6,7 @@
 class Candy : public Entity
 {
 public:
-	Candy(int x, int y);
+	Candy(int x, int y, int score);
 	bool Awake(pugi::xml_node&);
 	void Draw(float dt);
 	void OnCollision();
@@ -20,6 +20,8 @@ private:
 	Animation idle;
 	Animation explosion;
 
+	int score = 0;
+	int candiesGrabbed = 0; 
 };
 
 #endif // !__CANDY_H__

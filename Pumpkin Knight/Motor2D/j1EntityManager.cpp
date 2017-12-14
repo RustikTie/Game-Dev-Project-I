@@ -181,8 +181,16 @@ void j1EntityManager::SpawnEntity(const EntityInfo& info)
 		case ENTITY_TYPES::PLAYER:
 			entities[i] = new Player(info.x, info.y);
 			break;
-		case ENTITY_TYPES::CANDY:
-			entities[i] = new Candy(info.x, info.y);
+		case ENTITY_TYPES::CANDY_ORANGE:
+			entities[i] = new Candy(info.x, info.y, 100);
+			candies.add(entities[i]);
+			break;
+		case ENTITY_TYPES::CANDY_PINK:
+			entities[i] = new Candy(info.x, info.y, 500);
+			candies.add(entities[i]);
+			break;
+		case ENTITY_TYPES::CANDY_BLUE:
+			entities[i] = new Candy(info.x, info.y, 1000);
 			candies.add(entities[i]);
 			break;
 		}

@@ -3,17 +3,41 @@
 #include "j1Render.h"
 #include "j1EntityManager.h"
 
-Candy::Candy(int x, int y): Entity(x,y)
+Candy::Candy(int x, int y, int score): Entity(x,y)
 {
-	idle.PushBack({ 339, 294, 52, 50 });
-	idle.PushBack({ 392, 294, 52, 50 });
+	this->score = score;
+	if (score == 100)
+	{
+		idle.PushBack({ 339, 294, 52, 50 });
+		idle.PushBack({ 392, 294, 52, 50 });
+		explosion.PushBack({ 444, 294, 52, 50 });
+		explosion.PushBack({ 497, 294, 52, 50 });
+		explosion.PushBack({ 339, 345, 52, 50 });
+		explosion.PushBack({ 392, 345, 52, 50 });
+		explosion.PushBack({ 444, 345, 52, 50 });
+	}
+	else if (score == 500)
+	{
+		idle.PushBack({ 0, 397, 52, 50 });
+		idle.PushBack({ 53, 397, 52, 50 });
+		explosion.PushBack({ 106, 397, 52, 50 });
+		explosion.PushBack({ 158, 397, 52, 50});
+		explosion.PushBack({ 0, 448, 52, 50 });
+		explosion.PushBack({ 53, 448, 52, 50 });
+		explosion.PushBack({ 444, 345, 52, 50 });
+	}
+	else if (score == 1000)
+	{
+		idle.PushBack({ 0, 499, 52, 50 });
+		idle.PushBack({ 53, 499, 52, 50 });
+		explosion.PushBack({ 106, 499, 52, 50 });
+		explosion.PushBack({ 158, 499, 52, 50 });
+		explosion.PushBack({ 0, 550, 52, 50 });
+		explosion.PushBack({ 53, 550, 52, 50 });
+		explosion.PushBack({ 444, 345, 52, 50 });
+	}
 	animation = &idle;
-	alive = true;
-	explosion.PushBack({ 444, 294, 52, 50 });
-	explosion.PushBack({ 497, 294, 52, 50 });
-	explosion.PushBack({ 339, 345, 52, 50 });
-	explosion.PushBack({ 392, 345, 52, 50 });
-	explosion.PushBack({ 444, 345, 52, 50 });
+	alive = true;	
 	explosion.loop = false;
 	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 50, 50 }, COLLIDER_CANDY, (j1Module*)App->entity_manager);
 }
@@ -52,4 +76,14 @@ void Candy::Draw(float dt)
 void Candy::OnCollision()
 {
 	grabbed = true;
+	if (score == 500)
+	{
+		App->entity_manager->player_entity->score += 500;
+	}
+	if (score == 100)
+	{
+		App->entity_manager->player_entity->score += 100;
+	}
+	App->entity_manager->player_entity->candiesGrabbed += 1;
+	LOG("SCORE: %d, CANDIES: %d", App->entity_manager->player_entity->score , App->entity_manager->player_entity->candiesGrabbed);
 }

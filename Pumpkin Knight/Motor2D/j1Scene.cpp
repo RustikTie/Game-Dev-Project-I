@@ -135,10 +135,19 @@ bool j1Scene::Start()
 		App->map->Load("level1_v4.tmx");
 
 		App->entity_manager->Start();
-		/*App->entity_manager->AddEnemy(WOLF, 1300, 0);
-		App->entity_manager->AddEnemy(BAT, 500, 100);
-		App->entity_manager->AddEnemy(WOLF, 5000, 0);*/
-		App->entity_manager->AddEnemy(CANDY, 600, 350);
+		//App->entity_manager->AddEnemy(WOLF, 1300, 0);
+		//App->entity_manager->AddEnemy(BAT, 500, 100);
+		//App->entity_manager->AddEnemy(WOLF, 5000, 0);
+		App->entity_manager->AddEnemy(CANDY_PINK, 600, 675);
+		App->entity_manager->AddEnemy(CANDY_ORANGE, 600, 600);
+		App->entity_manager->AddEnemy(CANDY_PINK, 600, 550);
+		App->entity_manager->AddEnemy(CANDY_PINK, 500, 675);
+		App->entity_manager->AddEnemy(CANDY_BLUE, 750, 675);
+
+
+
+
+
 		previousScene = LVL1;
 		App->audio->PlayMusic("audio/music/Halloween.ogg");
 	}
