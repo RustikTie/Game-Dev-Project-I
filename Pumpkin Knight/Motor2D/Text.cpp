@@ -8,10 +8,12 @@
 #include "j1Gui.h"
 
 
-Text::Text(int x, int y, ElementType type, const char* text) :Element(x, y, type)
+Text::Text(int x, int y, ElementType type, bool show, const char* text) :Element(x, y, type)
 {
 	this->text = text;
 	tex = App->font->Print(this->text, { 255, 0, 255 }, App->gui->font);
+
+	this->show = show;
 }
 
 

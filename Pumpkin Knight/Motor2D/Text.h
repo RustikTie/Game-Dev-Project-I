@@ -8,7 +8,7 @@
 class Text : public Element
 {
 public:
-	Text(int x, int y, ElementType type, const char* text);
+	Text(int x, int y, ElementType type, bool show, const char* text);
 	~Text();
 
 	void Draw();

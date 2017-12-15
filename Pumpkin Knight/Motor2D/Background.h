@@ -7,7 +7,7 @@
 class Background : public Element
 {
 public:
-	Background(int x, int y, ElementType type, SDL_Rect rec);
+	Background(int x, int y, ElementType type, bool show, SDL_Rect rec);
 	~Background();
 	void Draw();
 

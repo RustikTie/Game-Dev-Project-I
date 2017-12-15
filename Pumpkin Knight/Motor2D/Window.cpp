@@ -6,10 +6,11 @@
 #include "j1Gui.h"
 
 // window coords {16, 528, 457, 485 }
-Window::Window(int x, int y, ElementType type, SDL_Rect rec) : Element(x, y, type)
+Window::Window(int x, int y, ElementType type, bool show, SDL_Rect rec) : Element(x, y, type)
 {
 	this->rec = rec;
 	this->tex = GetAtlas();
+	this->show = show;
 }
 
 Window::~Window()
@@ -23,7 +24,11 @@ void Window::LinkElement(Element* elem)
 
 void Window::Draw()
 {
-	App->render->Blit(App->gui->GetGuiAtlas(), 125, 100, 0.7f, 0.7f, false, &rec, NULL);
+	if(show)
+	{
+		App->render->Blit(App->gui->GetGuiAtlas(), 125, 100, 0.7f, 0.7f, false, &rec, NULL);
+	}
+
 }
 
 void Window::Move()

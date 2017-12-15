@@ -82,7 +82,8 @@ private:
 	Element* Options = nullptr;
 	Element* Credits = nullptr;
 	Element* BigWindow = nullptr;
-	Element* MainMenu = nullptr;
+	Element* Menu_Credits = nullptr;
+	Element* Menu_Options = nullptr;
 	Element* CreditText = nullptr;
 	Element* Plus = nullptr;
 	Element* Minus = nullptr;

@@ -8,7 +8,7 @@
 class Window : public Element
 {
 public:
-	Window(int x, int y, ElementType type, SDL_Rect rec);
+	Window(int x, int y, ElementType type, bool show, SDL_Rect rec);
 
 	void LinkElement(Element* elem);
 	void Draw();

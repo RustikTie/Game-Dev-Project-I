@@ -31,6 +31,8 @@ public:
 	bool mouse_in = false;
 	bool mouse_out = false;
 
+	bool show = false;
+
 };
 
 #endif // !__ELEMENT_H__

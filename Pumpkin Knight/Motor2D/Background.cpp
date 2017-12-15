@@ -6,10 +6,10 @@
 #include "j1Gui.h"
 
 
-Background::Background(int x, int y, ElementType type, SDL_Rect rec) : Element(x, y, type)
+Background::Background(int x, int y, ElementType type, bool show, SDL_Rect rec) : Element(x, y, type)
 {
 	this->rec = rec;
-
+	this->show = show;
 }
 
 
@@ -19,7 +19,8 @@ Background::~Background()
 
 void Background::Draw()
 {
-
-	App->render->Blit(App->gui->GetBackground(), pos.x, pos.y, 1, 1, false, &rec);
-
+	if (show)
+	{
+		App->render->Blit(App->gui->GetBackground(), pos.x, pos.y, 1, 1, false, &rec);
+	}
 }

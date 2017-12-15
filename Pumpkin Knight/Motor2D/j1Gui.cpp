@@ -73,10 +73,13 @@ bool j1Gui::PostUpdate()
 		element->data->Draw();
 		if (MouseCollision(element->data))
 		{
-			element->data->mouse_in = true;
-			element->data->mouse_out = false;
-			element->data->event_type = MOUSE_ENTER;
-			App->scene->MouseEvents(element->data);
+			if (element->data->mouse_in == false)
+			{
+				element->data->mouse_in = true;
+				element->data->mouse_out = false;
+				element->data->event_type = MOUSE_ENTER;
+				App->scene->MouseEvents(element->data);
+			}
 
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			{
@@ -91,7 +94,7 @@ bool j1Gui::PostUpdate()
 			}
 		}
 
-		if (!MouseCollision(element->data) && !element->data->mouse_out)
+		if (!MouseCollision(element->data) && element->data->mouse_in)
 		{
 			element->data->mouse_in = false;
 			element->data->mouse_out = true;
@@ -119,11 +122,13 @@ bool j1Gui::CleanUp()
 
 	p2List_item<Element*>* item;
 	item = elements.start;
-	while (item != NULL)
+	
+	while (item != nullptr)
 	{
 		RELEASE(item->data);
 		item = item->next;
 	}
+	
 	elements.clear();
 
 	return true;
@@ -149,33 +154,33 @@ SDL_Texture* j1Gui::GetGuiAtlas() const
 	return guiAtlas;
 }
 
-Element* j1Gui::AddBackground(int x, int y, ElementType type, SDL_Rect rec)
+Element* j1Gui::AddBackground(int x, int y, ElementType type, bool show, SDL_Rect rec)
 {
-	Element* elem = new Background(x, y, type, rec);
+	Element* elem = new Background(x, y, type, show, rec);
 	elements.add(elem);
 
 	return elem;
 
 }
 
-Element* j1Gui::AddButton(int x, int y, ElementType type, SDL_Rect* rec, const char* text)
+Element* j1Gui::AddButton(int x, int y, ElementType type, bool show, SDL_Rect* rec, const char* text)
 {
-	Element* elem = new Button(x, y, type, rec, text);
+	Element* elem = new Button(x, y, type, show, rec, text);
 	elements.add(elem);
 
 	return elem;
 }
 
-Element* j1Gui::AddText(int x, int y, ElementType type, const char* text)
+Element* j1Gui::AddText(int x, int y, ElementType type, bool show, const char* text)
 {
-	Element* elem = new Text(x, y, type, text);
+	Element* elem = new Text(x, y, type, show, text);
 	elements.add(elem);
 	return elem;
 }
 
-Element* j1Gui::AddWindow(int x, int y, ElementType type, SDL_Rect rec)
+Element* j1Gui::AddWindow(int x, int y, ElementType type, bool show, SDL_Rect rec)
 {
-	Element* elem = new Window(x, y, type, rec);
+	Element* elem = new Window(x, y, type, show, rec);
 	elements.add(elem);
 
 	return elem;

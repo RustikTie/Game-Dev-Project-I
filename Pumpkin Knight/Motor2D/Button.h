@@ -40,7 +40,7 @@
 class Button : public Element
 {
 public:
-	Button(int x, int y, ElementType types, SDL_Rect* rec, const char* text);
+	Button(int x, int y, ElementType types, bool show, SDL_Rect* rec, const char* text);
 	~Button();
 
 	void Draw();
