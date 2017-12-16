@@ -7,7 +7,19 @@ Clara Ratera
 GUI, Entity Manager
 
 # The Game
-instructions and video 
+
+- Move the player using the WAD keys (W to jump/double jump, press W twice to double jump, A/D as Left/Right movement)
+- Press F1 to begin from the first level starting position
+- Press F2 begin from the starting position of the current level
+- Press F5 to save current status
+- Press F6 to load last saved status
+- Press F8 to show UI debug
+- Press F9 to show colliders and pathfinding
+- Press F10 to enable/disable god mode
+- Press F11 to enable/disable frame cap
+- Quit hitting Escape 
+
+and video 
 
 Repo: https://github.com/RustikTie/Pumpkin-Knight
 
