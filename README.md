@@ -3,6 +3,7 @@
 Simple platformer game for the first assignment of Game Development class at UPC. Using the SDL and XML libraries. Loading game config, player position and all map data(tiles, background, parallax, colliders) from XML documents. Map created with Tiled, enemies position and type load from Tiled.  
 
 Git: https://github.com/RustikTie/Pumpkin-Knight
+
 Git Pages: https://rustiktie.github.io/Pumpkin-Knight/
 
 ## Installation
