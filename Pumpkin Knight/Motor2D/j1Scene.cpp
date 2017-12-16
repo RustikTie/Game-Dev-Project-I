@@ -84,7 +84,7 @@ bool j1Scene::Start()
 			App->collisions->Erase_Non_Player_Colliders();
 			App->render->camera.x = 0;
 			App->render->camera.y = 0;
-			App->gui->AddBackground(0, 0, BACKGROUND, true, { 0,0,1024,768 });
+			App->gui->AddBackground( 0, 0, BACKGROUND, true, { 0,0,1024,768 });
 
 			Continue = App->gui->AddButton(400, 50, BUTTON, true, &idle, "CONTINUE");
 			QuitButton = App->gui->AddButton(400, 450, BUTTON, true, &idle, "QUIT");
@@ -99,6 +99,10 @@ bool j1Scene::Start()
 			CreditText = App->gui->AddText(250, 230, TEXT, false, "test");
 
 			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
+			/*if (previousScene == LVL1)
+			{
+
+			}*/
 		
 		
 		previousScene = MENU;
@@ -284,8 +288,8 @@ bool j1Scene::Update(float dt)
 		}
 		else if (App->entity_manager->player_entity->lives <= -1)
 		{
-			App->render->camera.x = 0;
-			App->render->camera.y = 0;
+			//App->render->camera.x = 0;
+			//App->render->camera.y = 0;
 			level1 = false;
 			level2 = false;
 			credits = false;
@@ -373,25 +377,58 @@ bool j1Scene::MouseEvents(Element* element)
 
 	case MOUSE_UP:
 
-		if (element == StartButton && options==false)
+		if (element == Continue || QuitButton || StartButton || Options || Credits || Menu_Options || Menu_Credits)
 		{
+			element->texture_rect = &hover;
+		}
+		if (element == Plus)
+		{
+			element->texture_rect = &plus_hover;
+		}
+		if (element == Minus)
+		{
+			element->texture_rect = &minus_hover;
+		}
+
+		if (element == StartButton)
+		{
+			/*BigWindow->show = false;
+			Plus->show = false;
+			Minus->show = false;
+			Menu_Options->show = false;
+			Continue->show = false;
+			StartButton->show = false;
+			Options->show = false;
+			Credits->show = false;
+			QuitButton->show = false;*/
 			App->gui->cleaning = true;
 			start = false;
 			level1 = true;
+			
 		}
-		if (element == Menu_Credits && start==false)
+		if (element == Menu_Credits)
 		{
-			App->gui->cleaning = true;
-			credits = false;
-			start = true;
-			previousScene = CREDITS;
+			BigWindow->show = false;
+			Plus->show = false;
+			Minus->show = false;
+			Menu_Options->show = false;
+			Continue->show = true;
+			StartButton->show = true;
+			Options->show = true;
+			Credits->show = true;
+			QuitButton->show = true;
 		}
-		if (element == Menu_Options && start == false)
+		if (element == Menu_Options)
 		{
-			App->gui->cleaning = true;
-			options = false;
-			start = true;
-			previousScene = OPTIONS;
+			BigWindow->show = false;
+			Plus->show = false;
+			Minus->show = false;
+			Menu_Options->show = false;
+			Continue->show = true;
+			StartButton->show = true;
+			Options->show = true;
+			Credits->show = true;
+			QuitButton->show = true;
 		}
 		if (element == QuitButton)
 		{
@@ -412,12 +449,16 @@ bool j1Scene::MouseEvents(Element* element)
 		}
 		if (element == Credits)
 		{
-			App->gui->cleaning = true;
-			credits = true;
-			options = false;
-			start = false;
-			level1 = false;
-			level2 = false;
+			BigWindow->show = true;
+			Plus->show = false;
+			Minus->show = false;
+			Menu_Options->show = true;
+			Continue->show = false;
+			StartButton->show = false;
+			Options->show = false;
+			Credits->show = false;
+			QuitButton->show = false;
+			
 		}
 		if (element == Continue && maycontinue == true)
 		{
