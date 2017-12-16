@@ -84,6 +84,8 @@ private:
 	Element* BigWindow = nullptr;
 	Element* Menu_Credits = nullptr;
 	Element* Menu_Options = nullptr;
+	Element* OptionsTitle = nullptr;
+	Element* CreditTitle = nullptr;
 	Element* CreditText = nullptr;
 	Element* CreditText1 = nullptr;
 	Element* CreditText2 = nullptr;
@@ -100,6 +102,10 @@ private:
 	Element* CreditText13 = nullptr;
 	Element* Plus = nullptr;
 	Element* Minus = nullptr;
+	Element* SFXPlus = nullptr;
+	Element* SFXMinus = nullptr;
+	Element* MusicVol = nullptr;
+	Element* SFXVol = nullptr;
 };
 
 #endif // __j1SCENE_H__

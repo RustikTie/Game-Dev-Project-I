@@ -94,6 +94,8 @@ bool j1Scene::Start()
 			Menu_Credits = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			Menu_Options = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			BigWindow = App->gui->AddWindow(200, 180, WINDOW, false, rect_window);
+			CreditTitle = App->gui->AddText(475, 120, TEXT, false, "CREDITS");
+			OptionsTitle = App->gui->AddText(475, 120, TEXT, false, "OPTIONS");
 			CreditText = App->gui->AddText(250, 230, TEXT, false, "Developed By:");
 			CreditText1 = App->gui->AddText(250, 250, TEXT, false, "Clara R. Garcia & Ivan Drofiak");
 			CreditText2 = App->gui->AddText(250, 270, TEXT, false, "Art By:");
@@ -108,15 +110,14 @@ bool j1Scene::Start()
 			CreditText11 = App->gui->AddText(250, 450, TEXT, false, "Menu music: Spooky Scary Skeletons 8-bits");
 			CreditText12 = App->gui->AddText(250, 470, TEXT, false, "Level music: This Is Halloween 8-bit");
 			CreditText13 = App->gui->AddText(250, 490, TEXT, false, "Walk FX: Finnolia Productions Inc");
-			Plus = App->gui->AddButton(370, 230, BUTTON, false, &plus_idle);
-			Minus = App->gui->AddButton(250, 230, BUTTON, false, &minus_idle);
+			MusicVol = App->gui->AddText(310, 220, TEXT, false, "Music Vol.");
+			SFXVol = App->gui->AddText(600, 220, TEXT, false, "SFX Vol.");
+			Plus = App->gui->AddButton(370, 250, BUTTON, false, &plus_idle);
+			Minus = App->gui->AddButton(250, 250, BUTTON, false, &minus_idle);
+			SFXPlus = App->gui->AddButton(650, 250, BUTTON, false, &plus_idle);
+			SFXMinus = App->gui->AddButton(530, 250, BUTTON, false, &minus_idle);
 
-			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
-			/*if (previousScene == LVL1)
-			{
-
-			}*/
-		
+			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");	
 		
 		previousScene = MENU;
 
@@ -176,7 +177,7 @@ bool j1Scene::Start()
 
 		App->entity_manager->Start();
 		//App->entity_manager->AddEnemy(WOLF, 1300, 0);
-		//App->entity_manager->AddEnemy(BAT, 500, 100);
+		App->entity_manager->AddEnemy(BAT, 500, 100);
 		//App->entity_manager->AddEnemy(WOLF, 5000, 0);
 		App->entity_manager->AddEnemy(CANDY_PINK, 600, 675);
 		App->entity_manager->AddEnemy(CANDY_ORANGE, 600, 600);
@@ -348,11 +349,11 @@ bool j1Scene::MouseEvents(Element* element)
 		{
 			element->texture_rect = &hover;
 		}
-		if (element == Plus)
+		if (element == Plus || element == SFXPlus)
 		{
 			element->texture_rect = &plus_hover;
 		}
-		if (element == Minus)
+		if (element == Minus || element == SFXMinus)
 		{
 			element->texture_rect = &minus_hover;
 		}
@@ -363,11 +364,11 @@ bool j1Scene::MouseEvents(Element* element)
 		{
 			element->texture_rect = &idle;
 		}
-		if (element == Plus)
+		if (element == Plus || element == SFXPlus)
 		{
 			element->texture_rect = &plus_idle;
 		}
-		if (element == Minus)
+		if (element == Minus || element == SFXMinus)
 		{
 			element->texture_rect = &minus_idle;
 		}
@@ -378,11 +379,11 @@ bool j1Scene::MouseEvents(Element* element)
 		{
 			element->texture_rect = &click;
 		}
-		if (element == Plus)
+		if (element == Plus || element == SFXPlus)
 		{
 			element->texture_rect = &plus_click;
 		}
-		if (element == Minus)
+		if (element == Minus || element == SFXMinus)
 		{
 			element->texture_rect = &minus_click;
 		}
@@ -394,11 +395,11 @@ bool j1Scene::MouseEvents(Element* element)
 		{
 			element->texture_rect = &hover;
 		}
-		if (element == Plus)
+		if (element == Plus || element == SFXPlus)
 		{
 			element->texture_rect = &plus_hover;
 		}
-		if (element == Minus)
+		if (element == Minus || element == SFXMinus)
 		{
 			element->texture_rect = &minus_hover;
 		}
@@ -444,7 +445,12 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = false;
 			CreditText12->show = false;
 			CreditText13->show = false;
-
+			CreditTitle->show = false;
+			OptionsTitle->show = false;
+			MusicVol->show = false;
+			SFXVol->show = false;
+			SFXPlus->show = false;
+			SFXMinus->show = false;
 		}
 		if (element == Menu_Options && element->show)
 		{
@@ -471,6 +477,12 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = false;
 			CreditText12->show = false;
 			CreditText13->show = false;
+			CreditTitle->show = false;
+			OptionsTitle->show = false;
+			MusicVol->show = false;
+			SFXVol->show = false;
+			SFXPlus->show = false;
+			SFXMinus->show = false;
 		}
 		if (element == QuitButton && element->show)
 		{
@@ -502,6 +514,12 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = false;
 			CreditText12->show = false;
 			CreditText13->show = false;
+			CreditTitle->show = false;
+			OptionsTitle->show = true;
+			MusicVol->show = true;
+			SFXVol->show = true;
+			SFXPlus->show = true;
+			SFXMinus->show = true;
 		}
 		if (element == Credits && element->show)
 		{
@@ -528,7 +546,12 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = true;
 			CreditText12->show = true;
 			CreditText13->show = true;
-			
+			CreditTitle->show = true;
+			OptionsTitle->show = false;
+			MusicVol->show = false;
+			SFXVol->show = false;
+			SFXPlus->show = false;
+			SFXMinus->show = false;
 		}
 		if (element == Continue && maycontinue == true && element->show)
 		{
