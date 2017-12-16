@@ -31,3 +31,8 @@ void Text::Draw()
 		App->render->Blit(tex, pos.x, pos.y, 1.0f, 1.0f, false);
 	}
 }
+
+void Text::EditText(char* text)
+{
+	tex = App->font->Print(text, { 0,0,0 }, App->gui->credits_font);
+}

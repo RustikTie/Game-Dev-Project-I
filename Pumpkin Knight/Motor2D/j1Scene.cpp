@@ -12,6 +12,9 @@
 #include "j1EntityManager.h"
 #include "j1Gui.h"
 #include "Element.h"
+#include "j1Fonts.h"
+#include "Text.h"
+#include "Image.h"
 #include "Brofiler\Brofiler.h"
 //#include "SDL_mixer.h"
 
@@ -136,7 +139,6 @@ bool j1Scene::Start()
 		App->render->camera.x = 500;
 		App->render->camera.y = -180;
 		App->map->Load("level1_v4.tmx");
-
 		App->entity_manager->Start();
 		//App->entity_manager->AddEnemy(WOLF, 1300, 0);
 		App->entity_manager->AddEnemy(BAT, 500, 100);
@@ -146,8 +148,10 @@ bool j1Scene::Start()
 		App->entity_manager->AddEnemy(CANDY_PINK, 600, 550);
 		App->entity_manager->AddEnemy(CANDY_PINK, 500, 675);
 		App->entity_manager->AddEnemy(CANDY_BLUE, 750, 675);
-
+		Score = App->gui->AddText(500, 300, TEXT, true, "SCORE");
 		previousScene = LVL1;
+		//score = App->font->Print("SCORE", { 255, 255,255 }, App->gui->font);
+
 		App->audio->PlayMusic("audio/music/Halloween.ogg");
 	}
 
@@ -158,7 +162,6 @@ bool j1Scene::Start()
 		App->gui->CleanUp();
 		App->entity_manager->CleanUp();
 		App->collisions->Erase_Non_Player_Colliders();
-
 		App->map->Load("level2_v2.tmx");
 		App->entity_manager->Start();
 		App->entity_manager->AddEnemy(WOLF, 1000, 0);
@@ -192,7 +195,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {	
 	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
-
+	
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
 	{
 		volume -= 1;
@@ -278,7 +281,11 @@ bool j1Scene::Update(float dt)
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-	
+	if (level1 == true || level2 == true)
+	{
+		App->gui->AddText(520, -250, TEXT, true, "SCORE: ");
+
+	}
 
 	return true;
 }
@@ -388,7 +395,7 @@ bool j1Scene::MouseEvents(Element* element)
 			App->gui->cleaning = true;
 			start = false;
 			level1 = true;
-			
+			start_counter = SDL_GetTicks();			
 		}
 		if (element == Menu_Credits && element->show)
 		{
@@ -554,9 +561,4 @@ bool j1Scene::MouseEvents(Element* element)
 	}
 
 	return true;
-}
-
-void j1Scene::Transition()
-{
-
 }

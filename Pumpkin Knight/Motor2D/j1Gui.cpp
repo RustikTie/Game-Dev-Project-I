@@ -12,6 +12,7 @@
 #include "Button.h"
 #include "Text.h"
 #include "Window.h"
+#include "Image.h"
 #include "Brofiler\Brofiler.h"
 
 //#include "Text_Box.h"
@@ -176,12 +177,21 @@ Element* j1Gui::AddText(int x, int y, ElementType type, bool show, const char* t
 {
 	Element* elem = new Text(x, y, type, show, text);
 	elements.add(elem);
+
 	return elem;
 }
 
 Element* j1Gui::AddWindow(int x, int y, ElementType type, bool show, SDL_Rect rec)
 {
 	Element* elem = new Window(x, y, type, show, rec);
+	elements.add(elem);
+
+	return elem;
+}
+
+Element* j1Gui::AddImage(int x, int y, ElementType type, bool show, SDL_Rect rec)
+{
+	Element* elem = new Image(x, y, type, show, rec);
 	elements.add(elem);
 
 	return elem;

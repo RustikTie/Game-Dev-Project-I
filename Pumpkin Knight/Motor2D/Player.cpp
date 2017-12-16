@@ -60,7 +60,6 @@ Player::Player(int x, int y) : Entity(x, y)
 	//animation = &idle;
 	initial_pos = original_pos.x;
 
-	scoreChar = App->font->Print("SCORE:", { 255,255,255 }, App->gui->font);
 }
 
 
@@ -273,7 +272,7 @@ void Player::Draw(float dt)
 	//animation->speed = 10.f*dt;
 	collider->SetPos(pos.x + 10, pos.y + 50);
 	App->render->Blit(sprites, pos.x, pos.y, x_scale, y_scale, flip, &(animation->GetCurrentFrame()));
-
+	
 	if (lives >= 1)
 	{
 		App->render->Blit(App->gui->GetGuiAtlas(), pos.x-5, pos.y, 0.2, 0.2, false, &heart);
