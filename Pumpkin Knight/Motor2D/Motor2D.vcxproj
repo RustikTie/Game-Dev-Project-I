@@ -85,6 +85,7 @@
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="j1EntityManager.h" />
+    <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Pathfinding.h" />

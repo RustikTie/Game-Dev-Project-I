@@ -83,6 +83,7 @@ public:
 	SDL_Texture* button = nullptr;
 	SDL_Texture* box = nullptr;
 	_TTF_Font* font = nullptr;
+	_TTF_Font* font2 = nullptr;
 
 private:
 	

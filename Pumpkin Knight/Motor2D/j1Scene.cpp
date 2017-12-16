@@ -94,9 +94,9 @@ bool j1Scene::Start()
 			Menu_Credits = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			Menu_Options = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			BigWindow = App->gui->AddWindow(200, 180, WINDOW, false, rect_window);
+			CreditText = App->gui->AddText(250, 230, TEXT, false, "FUCK");
 			Plus = App->gui->AddButton(370, 230, BUTTON, false, &plus_idle);
 			Minus = App->gui->AddButton(250, 230, BUTTON, false, &minus_idle);
-			CreditText = App->gui->AddText(250, 230, TEXT, false, "test");
 
 			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");
 			/*if (previousScene == LVL1)
@@ -390,7 +390,7 @@ bool j1Scene::MouseEvents(Element* element)
 			element->texture_rect = &minus_hover;
 		}
 
-		if (element == StartButton)
+		if (element == StartButton && element->show)
 		{
 			/*BigWindow->show = false;
 			Plus->show = false;
@@ -406,7 +406,7 @@ bool j1Scene::MouseEvents(Element* element)
 			level1 = true;
 			
 		}
-		if (element == Menu_Credits)
+		if (element == Menu_Credits && element->show)
 		{
 			BigWindow->show = false;
 			Plus->show = false;
@@ -418,7 +418,7 @@ bool j1Scene::MouseEvents(Element* element)
 			Credits->show = true;
 			QuitButton->show = true;
 		}
-		if (element == Menu_Options)
+		if (element == Menu_Options && element->show)
 		{
 			BigWindow->show = false;
 			Plus->show = false;
@@ -430,12 +430,12 @@ bool j1Scene::MouseEvents(Element* element)
 			Credits->show = true;
 			QuitButton->show = true;
 		}
-		if (element == QuitButton)
+		if (element == QuitButton && element->show)
 		{
 			LOG("CY@");
 			exit = false;
 		}
-		if (element == Options)
+		if (element == Options && element->show)
 		{
 			BigWindow->show = true;
 			Plus->show = true;
@@ -447,7 +447,7 @@ bool j1Scene::MouseEvents(Element* element)
 			Credits->show = false;
 			QuitButton->show = false;
 		}
-		if (element == Credits)
+		if (element == Credits && element->show)
 		{
 			BigWindow->show = true;
 			Plus->show = false;
@@ -456,20 +456,20 @@ bool j1Scene::MouseEvents(Element* element)
 			Continue->show = false;
 			StartButton->show = false;
 			Options->show = false;
-			Credits->show = false;
+			Credits->show = true;
 			QuitButton->show = false;
 			
 		}
-		if (element == Continue && maycontinue == true)
+		if (element == Continue && maycontinue == true && element->show)
 		{
 			App->LoadGame();
 		}
-		if (element == Plus)
+		if (element == Plus && element->show)
 		{
 			volume += 10;
 			Mix_VolumeMusic(volume);
 		}
-		if (element == Minus)
+		if (element == Minus && element->show)
 		{			
 			volume -= 10;
  			Mix_VolumeMusic(volume);

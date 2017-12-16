@@ -20,6 +20,7 @@ class j1Pathfinding;
 class j1EntityManager;
 class j1Gui;
 class j1Fonts;
+class j1FadeToBlack;
 class Entity;
 
 class j1App
@@ -99,6 +100,7 @@ public:
 	j1EntityManager*	entity_manager = NULL;
 	j1Gui*				gui = NULL;
 	j1Fonts*			font = NULL;
+	j1FadeToBlack*		fade_to_black = NULL;
 	Entity*				entity = NULL;
 
 private:

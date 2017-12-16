@@ -49,6 +49,7 @@ bool j1Gui::Start()
 	fonts.PushBack(App->font->Load("fonts/CFNightmarePERSONAL-Regular.ttf", 30));
 
 	font = App->font->Load("fonts/CFNightmarePERSONAL-Regular.ttf", 30);
+	font2 = App->font->Load("fonts/CFNightmarePERSONAL-Regular.ttf", 30);
 	return true;
 }
 

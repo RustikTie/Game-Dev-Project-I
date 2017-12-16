@@ -51,8 +51,6 @@ private:
 	SDL_Texture* ButtonBox = nullptr;
 	SDL_Texture* ButtonText = nullptr;
 
-	SDL_Rect rec;
-
 };
 
 

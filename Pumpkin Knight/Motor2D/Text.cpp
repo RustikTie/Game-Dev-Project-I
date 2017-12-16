@@ -10,9 +10,11 @@
 
 Text::Text(int x, int y, ElementType type, bool show, const char* text) :Element(x, y, type)
 {
-	this->text = text;
-	tex = App->font->Print(this->text, { 255, 0, 255 }, App->gui->font);
-
+	if (text != nullptr)
+	{
+		this->text = text;
+		tex = App->font->Print(this->text, { 0, 0, 0 }, App->gui->font2);
+	}
 	this->show = show;
 }
 
@@ -24,5 +26,8 @@ Text::~Text()
 
 void Text::Draw()
 {
-	App->render->Blit(tex, pos.x , pos.y , 1, 1, false);
+	if (show)
+	{
+		App->render->Blit(tex, pos.x, pos.y, 1.0f, 1.0f, false);
+	}
 }

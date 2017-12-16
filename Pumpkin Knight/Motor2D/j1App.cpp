@@ -17,6 +17,7 @@
 #include "j1EntityManager.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
+#include "j1FadeToBlack.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
@@ -42,6 +43,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entity_manager = new j1EntityManager();
 	gui = new j1Gui();
 	font = new j1Fonts();
+	fade_to_black = new j1FadeToBlack();
 	
 
 	// Ordered for awake / Start / Update
@@ -57,6 +59,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entity_manager);
 	AddModule(pathfinding);
 	AddModule(font);
+	AddModule(fade_to_black);
 
 	// render last to swap buffer
 	AddModule(render);
