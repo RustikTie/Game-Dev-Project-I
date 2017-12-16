@@ -1,4 +1,5 @@
-#pragma once
+#include "j1Module.h"
+
 class j1FadeToBlack : public j1Module
 {
 public:

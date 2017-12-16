@@ -94,7 +94,20 @@ bool j1Scene::Start()
 			Menu_Credits = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			Menu_Options = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			BigWindow = App->gui->AddWindow(200, 180, WINDOW, false, rect_window);
-			CreditText = App->gui->AddText(250, 230, TEXT, false, "FUCK");
+			CreditText = App->gui->AddText(250, 230, TEXT, false, "Developed By:");
+			CreditText1 = App->gui->AddText(250, 250, TEXT, false, "Clara R. Garcia & Ivan Drofiak");
+			CreditText2 = App->gui->AddText(250, 270, TEXT, false, "Art By:");
+			CreditText3 = App->gui->AddText(250, 290, TEXT, false, "Skeleton: Jesse M/Twitter-@Jsf23Art");
+			CreditText4 = App->gui->AddText(250, 310, TEXT, false, "Wolf: William.Thompsonj");
+			CreditText5 = App->gui->AddText(250, 330, TEXT, false, "Bat: MoikMellah");
+			CreditText6 = App->gui->AddText(250, 350, TEXT, false, "Candy: Iumimae");
+			CreditText7 = App->gui->AddText(250, 370, TEXT, false, "Tileset: KIRA");
+			CreditText8 = App->gui->AddText(250, 390, TEXT, false, "Background: GameArt2D.com");
+			CreditText9 = App->gui->AddText(250, 410, TEXT, false, "GUI: GameArt2D.com");
+			CreditText10 = App->gui->AddText(250, 430, TEXT, false, "Music:");
+			CreditText11 = App->gui->AddText(250, 450, TEXT, false, "Menu music: Spooky Scary Skeletons 8-bits");
+			CreditText12 = App->gui->AddText(250, 470, TEXT, false, "Level music: This Is Halloween 8-bit");
+			CreditText13 = App->gui->AddText(250, 490, TEXT, false, "Walk FX: Finnolia Productions Inc");
 			Plus = App->gui->AddButton(370, 230, BUTTON, false, &plus_idle);
 			Minus = App->gui->AddButton(250, 230, BUTTON, false, &minus_idle);
 
@@ -417,6 +430,21 @@ bool j1Scene::MouseEvents(Element* element)
 			Options->show = true;
 			Credits->show = true;
 			QuitButton->show = true;
+			CreditText->show = false;
+			CreditText1->show = false;
+			CreditText2->show = false;
+			CreditText3->show = false;
+			CreditText4->show = false;
+			CreditText5->show = false;
+			CreditText6->show = false;
+			CreditText7->show = false;
+			CreditText8->show = false;
+			CreditText9->show = false;
+			CreditText10->show = false;
+			CreditText11->show = false;
+			CreditText12->show = false;
+			CreditText13->show = false;
+
 		}
 		if (element == Menu_Options && element->show)
 		{
@@ -429,6 +457,20 @@ bool j1Scene::MouseEvents(Element* element)
 			Options->show = true;
 			Credits->show = true;
 			QuitButton->show = true;
+			CreditText->show = false;
+			CreditText1->show = false;
+			CreditText2->show = false;
+			CreditText3->show = false;
+			CreditText4->show = false;
+			CreditText5->show = false;
+			CreditText6->show = false;
+			CreditText7->show = false;
+			CreditText8->show = false;
+			CreditText9->show = false;
+			CreditText10->show = false;
+			CreditText11->show = false;
+			CreditText12->show = false;
+			CreditText13->show = false;
 		}
 		if (element == QuitButton && element->show)
 		{
@@ -446,6 +488,20 @@ bool j1Scene::MouseEvents(Element* element)
 			Options->show = false;
 			Credits->show = false;
 			QuitButton->show = false;
+			CreditText->show = false;
+			CreditText1->show = false;
+			CreditText2->show = false;
+			CreditText3->show = false;
+			CreditText4->show = false;
+			CreditText5->show = false;
+			CreditText6->show = false;
+			CreditText7->show = false;
+			CreditText8->show = false;
+			CreditText9->show = false;
+			CreditText10->show = false;
+			CreditText11->show = false;
+			CreditText12->show = false;
+			CreditText13->show = false;
 		}
 		if (element == Credits && element->show)
 		{
@@ -456,8 +512,22 @@ bool j1Scene::MouseEvents(Element* element)
 			Continue->show = false;
 			StartButton->show = false;
 			Options->show = false;
-			Credits->show = true;
+			Credits->show = false;
 			QuitButton->show = false;
+			CreditText->show = true;
+			CreditText1->show = true;
+			CreditText2->show = true;
+			CreditText3->show = true;
+			CreditText4->show = true;
+			CreditText5->show = true;
+			CreditText6->show = true;
+			CreditText7->show = true;
+			CreditText8->show = true;
+			CreditText9->show = true;
+			CreditText10->show = true;
+			CreditText11->show = true;
+			CreditText12->show = true;
+			CreditText13->show = true;
 			
 		}
 		if (element == Continue && maycontinue == true && element->show)

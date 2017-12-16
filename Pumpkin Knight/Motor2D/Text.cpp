@@ -13,7 +13,7 @@ Text::Text(int x, int y, ElementType type, bool show, const char* text) :Element
 	if (text != nullptr)
 	{
 		this->text = text;
-		tex = App->font->Print(this->text, { 0, 0, 0 }, App->gui->font2);
+		tex = App->font->Print(this->text, { 0, 0, 0 }, App->gui->credits_font);
 	}
 	this->show = show;
 }
