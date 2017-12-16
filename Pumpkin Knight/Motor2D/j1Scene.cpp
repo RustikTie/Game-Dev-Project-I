@@ -36,11 +36,15 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	level2 = false;
 	credits = false;
 
-	Mix_VolumeMusic(volume);
-
-	//rect_credits = { 1256, 3151, 365, 185 };
+	button_click = App->audio->LoadFx("audio/fx/ButtonClick.wav");
 
 	transition = App->tex->Load("gui/transition.png");
+
+	Mix_VolumeMusic(volume);
+	Mix_Volume(-1, volume);
+
+	//rect_credits = { 1256, 3151, 365, 185 };
+	
 
 	return ret;
 }
@@ -111,59 +115,17 @@ bool j1Scene::Start()
 			CreditText12 = App->gui->AddText(250, 470, TEXT, false, "Level music: This Is Halloween 8-bit");
 			CreditText13 = App->gui->AddText(250, 490, TEXT, false, "Walk FX: Finnolia Productions Inc");
 			MusicVol = App->gui->AddText(310, 220, TEXT, false, "Music Vol.");
-			SFXVol = App->gui->AddText(600, 220, TEXT, false, "SFX Vol.");
+			FXVol = App->gui->AddText(600, 220, TEXT, false, "SFX Vol.");
 			Plus = App->gui->AddButton(370, 250, BUTTON, false, &plus_idle);
 			Minus = App->gui->AddButton(250, 250, BUTTON, false, &minus_idle);
-			SFXPlus = App->gui->AddButton(650, 250, BUTTON, false, &plus_idle);
-			SFXMinus = App->gui->AddButton(530, 250, BUTTON, false, &minus_idle);
+			FXPlus = App->gui->AddButton(650, 250, BUTTON, false, &plus_idle);
+			FXMinus = App->gui->AddButton(530, 250, BUTTON, false, &minus_idle);
 
 			App->audio->PlayMusic("audio/music/Spooky Scary Skeletons.ogg");	
 		
 		previousScene = MENU;
 
 	}
-
-	//if (credits)
-	//{
-	//	if (previousScene == MENU)
-	//	{
-	//		//App->gui->CleanUp();
-	//		App->render->camera.x = 0;
-	//		App->render->camera.y = 0;
-
-	//		App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
-	//		
-	//		BigWindow = App->gui->AddWindow(200, 180, WINDOW, rect_window);
-	//		CreditText = App->gui->AddText(250, 230, TEXT, "test");
-	//		Menu_Credits = App->gui->AddButton(0, 0, BUTTON, &idle, "BACK");
-	//	}
-	//	//App->map->CleanUp();
-	//	//App->entity_manager->CleanUp();
-	//	//App->collisions->Erase_Non_Player_Colliders();
-	//	
-	//	previousScene = CREDITS;
-	//}
-
-	//if (options)
-	//{
-	//	if (previousScene == MENU)
-	//	{
-	//		//App->gui->CleanUp();
-	//		App->render->camera.x = 0;
-	//		App->render->camera.y = 0;
-
-	//		App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
-	//		rect_window = { 1187, 0, 1113, 848 };
-	//		BigWindow = App->gui->AddWindow(200, 180, WINDOW, rect_window);
-	//		Menu_Options = App->gui->AddButton(0, 0, BUTTON, &idle, "BACK");
-	//		Plus = App->gui->AddButton(370, 230, BUTTON, &plus_idle);
-	//		Minus = App->gui->AddButton(250, 230, BUTTON, &minus_idle);
-	//	}
-	//	//App->map->CleanUp();
-	//	//App->entity_manager->CleanUp();
-	//	//App->collisions->Erase_Non_Player_Colliders();
-
-	//}
 
 	if (level1) 
 	{
@@ -345,15 +307,19 @@ bool j1Scene::MouseEvents(Element* element)
 	switch (element->event_type)
 	{
 	case MOUSE_ENTER:
+		if (element->show)
+		{
+			App->audio->PlayFx(button_click);
+		}
 		if (element == Continue || QuitButton || StartButton || Options || Credits || Menu_Options || Menu_Credits)
 		{
 			element->texture_rect = &hover;
 		}
-		if (element == Plus || element == SFXPlus)
+		if (element == Plus || element == FXPlus)
 		{
 			element->texture_rect = &plus_hover;
 		}
-		if (element == Minus || element == SFXMinus)
+		if (element == Minus || element == FXMinus)
 		{
 			element->texture_rect = &minus_hover;
 		}
@@ -364,26 +330,30 @@ bool j1Scene::MouseEvents(Element* element)
 		{
 			element->texture_rect = &idle;
 		}
-		if (element == Plus || element == SFXPlus)
+		if (element == Plus || element == FXPlus)
 		{
 			element->texture_rect = &plus_idle;
 		}
-		if (element == Minus || element == SFXMinus)
+		if (element == Minus || element == FXMinus)
 		{
 			element->texture_rect = &minus_idle;
 		}
 		break;
 
 	case MOUSE_DOWN:
+		if (element->show)
+		{
+			App->audio->PlayFx(button_click);
+		}
 		if (element == Continue || QuitButton || StartButton || Options || Credits || Menu_Options || Menu_Credits )
 		{
 			element->texture_rect = &click;
 		}
-		if (element == Plus || element == SFXPlus)
+		if (element == Plus || element == FXPlus)
 		{
 			element->texture_rect = &plus_click;
 		}
-		if (element == Minus || element == SFXMinus)
+		if (element == Minus || element == FXMinus)
 		{
 			element->texture_rect = &minus_click;
 		}
@@ -395,11 +365,11 @@ bool j1Scene::MouseEvents(Element* element)
 		{
 			element->texture_rect = &hover;
 		}
-		if (element == Plus || element == SFXPlus)
+		if (element == Plus || element == FXPlus)
 		{
 			element->texture_rect = &plus_hover;
 		}
-		if (element == Minus || element == SFXMinus)
+		if (element == Minus || element == FXMinus)
 		{
 			element->texture_rect = &minus_hover;
 		}
@@ -448,9 +418,9 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditTitle->show = false;
 			OptionsTitle->show = false;
 			MusicVol->show = false;
-			SFXVol->show = false;
-			SFXPlus->show = false;
-			SFXMinus->show = false;
+			FXVol->show = false;
+			FXPlus->show = false;
+			FXMinus->show = false;
 		}
 		if (element == Menu_Options && element->show)
 		{
@@ -480,9 +450,9 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditTitle->show = false;
 			OptionsTitle->show = false;
 			MusicVol->show = false;
-			SFXVol->show = false;
-			SFXPlus->show = false;
-			SFXMinus->show = false;
+			FXVol->show = false;
+			FXPlus->show = false;
+			FXMinus->show = false;
 		}
 		if (element == QuitButton && element->show)
 		{
@@ -517,9 +487,9 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditTitle->show = false;
 			OptionsTitle->show = true;
 			MusicVol->show = true;
-			SFXVol->show = true;
-			SFXPlus->show = true;
-			SFXMinus->show = true;
+			FXVol->show = true;
+			FXPlus->show = true;
+			FXMinus->show = true;
 		}
 		if (element == Credits && element->show)
 		{
@@ -549,9 +519,9 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditTitle->show = true;
 			OptionsTitle->show = false;
 			MusicVol->show = false;
-			SFXVol->show = false;
-			SFXPlus->show = false;
-			SFXMinus->show = false;
+			FXVol->show = false;
+			FXPlus->show = false;
+			FXMinus->show = false;
 		}
 		if (element == Continue && maycontinue == true && element->show)
 		{
@@ -566,6 +536,16 @@ bool j1Scene::MouseEvents(Element* element)
 		{			
 			volume -= 10;
  			Mix_VolumeMusic(volume);
+		}
+		if (element == FXPlus && element->show)
+		{
+			volume += 10;
+			Mix_Volume(-1, volume);
+		}
+		if (element == FXMinus && element->show)
+		{
+			volume -= 10;
+			Mix_Volume(-1, volume);
 		}
 		break;
 	

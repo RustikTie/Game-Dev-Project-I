@@ -51,6 +51,7 @@ public:
 
 private:
 	int volume = 50;
+	int button_click;
 
 	bool exit = true;
 	bool level1 = false;
@@ -102,10 +103,10 @@ private:
 	Element* CreditText13 = nullptr;
 	Element* Plus = nullptr;
 	Element* Minus = nullptr;
-	Element* SFXPlus = nullptr;
-	Element* SFXMinus = nullptr;
+	Element* FXPlus = nullptr;
+	Element* FXMinus = nullptr;
 	Element* MusicVol = nullptr;
-	Element* SFXVol = nullptr;
+	Element* FXVol = nullptr;
 };
 
 #endif // __j1SCENE_H__
