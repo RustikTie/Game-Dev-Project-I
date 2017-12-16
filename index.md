@@ -1,12 +1,17 @@
 # Team
-Ivan Drofiak Clara Ratera
+Ivan Drofiak 
+
+Clara Ratera
+
 # Subsystems
 GUI, Entity Manager
+
 # The Game
 instructions and video 
 
-### Repo: https://github.com/RustikTie/Pumpkin-Knight
-### Latest Release: 
+Repo: https://github.com/RustikTie/Pumpkin-Knight
+
+Latest Release: 
 
 # License
 
