@@ -68,6 +68,23 @@ bool j1Gui::PostUpdate()
 	BROFILER_CATEGORY("PostUpdate GUI", Profiler::Color::Blue)
 
 	p2List_item<Element*>* element = elements.start;
+	p2List_item<Element*>* debug_element = elements.start;
+
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		while (element != nullptr)
+		{
+			if (element->data->debug == false)
+			{
+				element->data->debug = true;
+			}
+			else
+			{
+				element->data->debug = false;
+			}
+			element = element->next;
+		}
+	}
 
 	while (element != NULL)
 	{
@@ -105,6 +122,8 @@ bool j1Gui::PostUpdate()
 
 		element = element->next;
 	}
+
+	
 
 	if (cleaning)
 	{

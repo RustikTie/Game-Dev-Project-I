@@ -24,6 +24,7 @@ public:
 	UIEvents event_type;
 
 	SDL_Rect* texture_rect;
+	SDL_Rect debug_rect;
 
 	uint tex_width;
 	uint tex_height;
@@ -31,6 +32,7 @@ public:
 	bool mouse_in = false;
 	bool mouse_out = false;
 
+	bool debug = false;
 	bool show = false;
 
 };

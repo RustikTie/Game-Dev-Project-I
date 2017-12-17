@@ -1,53 +1,4 @@
-//#include "Button.h"
-//#include "Element.h"
-//#include "p2Log.h"
-//#include "j1App.h"
-//#include "j1Render.h"
-//#include "j1Textures.h"
-//#include "j1Window.h"
-//#include "j1Gui.h"
-//
-//
-//Button::Button(int x, int y, ElementType type, SDL_Rect rec, const char* text, _TTF_Font* font) : Element(x, y, type)
-//{
-//	this->rec = rec;
-//	this->text = text;
-//	this->font = font;
-//	
-//	idle.PushBack({ 102,3152,363,181 });
-//	hover.PushBack({ 487,3152,363,181 });
-//	click.PushBack({ 870,3152,363,181 });
-//	locked.PushBack({ 1257,3152,363,181 });
-//	curr = &idle;
-//}
-//
-//
-//Button::~Button()
-//{
-//
-//}
-//
-//void Button::OnClick()
-//{
-//
-//}
-//
-//void Button::OnHover()
-//{
-//
-//}
-//
-//void Button::Draw()
-//{
-//	App->render->Blit(App->gui->GetGuiAtlas(), pos.x, pos.y, 0.4f, 0.4f, false, &curr->GetCurrentFrame(), NULL);
-//	
-//	if (text != nullptr)
-//	{
-//		SDL_Texture* textPrint = App->font->Print(text, { (255),(255),(255),(255) }, font);
-//		App->render->Blit(textPrint, pos.x + 1, pos.y + 2, 1, 1, false, &rec, NULL);
-//	}
-//}
-//
+
 #include "Button.h"
 #include "p2Log.h"
 #include "j1App.h"
@@ -66,7 +17,6 @@ Button::Button(int x, int y, ElementType types, bool show, SDL_Rect* rec, const 
 	}
 
 	texture_rect = rec;
-
 	ButtonBox = App->gui->GetAtlas();
 	tex_width = rec->w;
 	tex_height = rec->h;
@@ -84,7 +34,16 @@ void Button::Draw()
 {
 	if (show)
 	{
+		int rect_x = pos.x - App->render->camera.x;
+		int rect_y = pos.y - App->render->camera.y;
+
+		debug_rect = { rect_x, rect_y, (int)(tex_width*0.5f), (int)(tex_height*0.5f) };
+
 		App->render->Blit(ButtonBox, pos.x, pos.y, 0.5f, 0.5f, false, texture_rect);
 		App->render->Blit(ButtonText, pos.x + (tex_width / 6), pos.y + (tex_height / 7), 1, 1, false);
+		if (debug == true)
+		{
+			App->render->DrawQuad(debug_rect, 0, 255, 0, 50);
+		}
 	}
 }
