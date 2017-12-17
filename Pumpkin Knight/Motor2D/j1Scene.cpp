@@ -100,10 +100,11 @@ bool j1Scene::Start()
 			CreditText7 = App->gui->AddText(250, 370, TEXT, false, "Tileset: KIIRA",1);
 			CreditText8 = App->gui->AddText(250, 390, TEXT, false, "Background: GameArt2D.com",1);
 			CreditText9 = App->gui->AddText(250, 410, TEXT, false, "GUI: GameArt2D.com",1);
-			CreditText10 = App->gui->AddText(250, 430, TEXT, false, "Music:",1);
+			CreditText10 = App->gui->AddText(250, 430, TEXT, false, "Music By:",1);
 			CreditText11 = App->gui->AddText(250, 450, TEXT, false, "Menu music: Spooky Scary Skeletons 8-bits",1);
 			CreditText12 = App->gui->AddText(250, 470, TEXT, false, "Level music: This Is Halloween 8-bit",1);
 			CreditText13 = App->gui->AddText(250, 490, TEXT, false, "Walk FX: Finnolia Productions Inc",1);
+			CreditText14 = App->gui->AddText(250, 510, TEXT, false, "Button FX: Dusty Room", 1);
 			MusicVol = App->gui->AddText(310, 220, TEXT, false, "Music Vol.",1);
 			FXVol = App->gui->AddText(600, 220, TEXT, false, "SFX Vol.",1);
 			Plus = App->gui->AddButton(370, 250, BUTTON, false, &plus_idle);
@@ -438,6 +439,7 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = false;
 			CreditText12->show = false;
 			CreditText13->show = false;
+			CreditText14->show = false;
 			CreditTitle->show = false;
 			OptionsTitle->show = false;
 			MusicVol->show = false;
@@ -470,6 +472,7 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = false;
 			CreditText12->show = false;
 			CreditText13->show = false;
+			CreditText14->show = false;
 			CreditTitle->show = false;
 			OptionsTitle->show = false;
 			MusicVol->show = false;
@@ -507,6 +510,7 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = false;
 			CreditText12->show = false;
 			CreditText13->show = false;
+			CreditText14->show = false;
 			CreditTitle->show = false;
 			OptionsTitle->show = true;
 			MusicVol->show = true;
@@ -539,6 +543,7 @@ bool j1Scene::MouseEvents(Element* element)
 			CreditText11->show = true;
 			CreditText12->show = true;
 			CreditText13->show = true;
+			CreditText14->show = true;
 			CreditTitle->show = true;
 			OptionsTitle->show = false;
 			MusicVol->show = false;
