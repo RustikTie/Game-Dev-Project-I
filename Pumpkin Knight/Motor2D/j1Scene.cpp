@@ -262,6 +262,18 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F10))
+	{
+		if (App->entity_manager->player_entity->godmode == false)
+		{
+			App->entity_manager->player_entity->godmode = true;
+		}
+		else
+		{
+			App->entity_manager->player_entity->godmode = false;
+		}
+	}
+
 	//CHANGE LEVEL
 	if (level1)
 	{
@@ -681,6 +693,7 @@ bool j1Scene::checkSaveFile()
 	bool ret = false;
 
 	pugi::xml_document data;
+	pugi::xml_node root;
 
 	pugi::xml_parse_result result = data.load_file(App->load_game.GetString());
 

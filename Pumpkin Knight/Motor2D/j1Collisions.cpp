@@ -119,7 +119,7 @@ bool j1Collisions::Update(float dt)
 			c2 = colliders[k];
 
 			//GRAVITY PLAYER
-			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
+			if (c1->type == COLLIDER_GROUND && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true && !App->entity_manager->player_entity->godmode)
 			{
 					App->entity_manager->player_entity->pos.y -= (App->entity_manager->player_entity->gravity)*dt;
 					App->entity_manager->player_entity->falling = false;
@@ -127,7 +127,7 @@ bool j1Collisions::Update(float dt)
 				//App->entity_manager->OnCollision(c2, c1, enemygravity);
 			}
 			//FOWARD and BACKWARD COLLISION PLAYER w/ WALL
-			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect))
+			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) && !App->entity_manager->player_entity->godmode)
 			{
 				App->entity_manager->player_entity->pos.x -= (App->entity_manager->player_entity->speed)*dt;
 			}

@@ -141,6 +141,19 @@ void Player::MoveEntity(float dt)
 		double_jumping = false;
 		falling = true;
 	}
+
+	if (godmode)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			pos.y += gravity*dt;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			pos.y -= gravity*dt;
+		}
+	}
 	//FORWARD
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -189,17 +202,6 @@ void Player::MoveEntity(float dt)
 		animation = &jump;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F10))
-	{
-		if (!godmode)
-		{
-			godmode = true;
-		}
-		else
-		{
-			godmode = false;
-		}
-	}
 	////DRAW PLAYER -----------------------------------------
 	////App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
@@ -229,7 +231,7 @@ void Player::MoveEntity(float dt)
 
 void Player::Jump(float dt)
 {
-	if (!jumping)
+	if (!jumping && !godmode)
 	{
 		pos.y += gravity*dt;
 	}
