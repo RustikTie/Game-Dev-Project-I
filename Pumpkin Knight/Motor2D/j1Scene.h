@@ -43,6 +43,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&)const;
+
 	bool MouseEvents(Element* element);
 	p2DynArray<iPoint> path;
 	bool start = true;

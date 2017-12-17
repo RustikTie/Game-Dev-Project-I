@@ -247,7 +247,12 @@ bool j1Scene::Update(float dt)
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_F6))
-		App->LoadGame();
+	{
+		if (!start && level1 || !start && level2)
+		{
+			App->LoadGame();
+		}
+	}
 
 	//CHANGE LEVEL
 	if (level1)
@@ -551,6 +556,8 @@ bool j1Scene::MouseEvents(Element* element)
 		}
 		if (element == Continue && maycontinue == true && element->show)
 		{
+			App->entity_manager->Start();
+			start = false;
 			App->LoadGame();
 		}
 		if (element == Plus && element->show)
@@ -578,6 +585,29 @@ bool j1Scene::MouseEvents(Element* element)
 	default:
 		break;
 	}
+
+	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& data)
+{
+	/*player_entity->pos.x = data.child("player_pos").attribute("x").as_float();*/
+	curr_counter = data.child("timer").attribute("time").as_uint();
+	level1 = data.child("level1").attribute("bool").as_bool();
+	level2 = data.child("level2").attribute("bool").as_bool();
+		
+	return true;
+}
+
+bool j1Scene::Save(pugi::xml_node& data)const
+{
+	pugi::xml_node& node = data.append_child("timer");
+	pugi::xml_node& node2 = data.append_child("level1");
+	pugi::xml_node& node3 = data.append_child("level2");
+
+	node.append_attribute("time") = curr_counter;
+	node2.append_attribute("bool") = level1;
+	node3.append_attribute("bool") = level2;
 
 	return true;
 }

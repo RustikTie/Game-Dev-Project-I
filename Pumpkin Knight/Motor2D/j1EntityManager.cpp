@@ -277,6 +277,9 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 {
 	player_entity->pos.x = data.child("player_pos").attribute("x").as_float();
 	player_entity->pos.y = data.child("player_pos").attribute("y").as_float();
+	player_entity->lives = data.child("Lives").attribute("lives").as_int();
+	player_entity->score = data.child("Score").attribute("score").as_int();
+	player_entity->candiesGrabbed = data.child("candy").attribute("candies").as_int();
 
 	return true;
 }
@@ -284,9 +287,15 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 bool j1EntityManager::Save(pugi::xml_node& data)const
 {
 	pugi::xml_node& node = data.append_child("player_pos");
+	pugi::xml_node& node2 = data.append_child("Lives");
+	pugi::xml_node& node3 = data.append_child("Score");
+	pugi::xml_node& node4 = data.append_child("candy");
 
 	node.append_attribute("x") = player_entity->pos.x;
 	node.append_attribute("y") = player_entity->pos.y;
+	node2.append_attribute("lives") = player_entity->lives;
+	node3.append_attribute("score") = player_entity->score;
+	node4.append_attribute("candies") = player_entity->candiesGrabbed;
 
 	return true;
 }
