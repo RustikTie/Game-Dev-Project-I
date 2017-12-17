@@ -91,7 +91,7 @@ bool j1Scene::Start()
 			App->collisions->Erase_Non_Player_Colliders();
 			App->render->camera.x = 0;
 			App->render->camera.y = 0;
-			App->gui->AddBackground( 0, 0, BACKGROUND, true, { 0,0,1024,768 });
+			Background = App->gui->AddBackground( 0, 0, BACKGROUND, true, { 0,0,1024,768 });
 
 			Continue = App->gui->AddButton(400, 50, BUTTON, true, &idle, "CONTINUE");
 			QuitButton = App->gui->AddButton(400, 450, BUTTON, true, &idle, "QUIT");
@@ -141,7 +141,7 @@ bool j1Scene::Start()
 		App->map->Load("level1_v4.tmx");
 		App->entity_manager->Start();
 		//App->entity_manager->AddEnemy(WOLF, 1300, 0);
-		App->entity_manager->AddEnemy(BAT, 500, 100);
+		//App->entity_manager->AddEnemy(BAT, 500, 100);
 		//App->entity_manager->AddEnemy(WOLF, 5000, 0);
 		App->entity_manager->AddEnemy(CANDY_PINK, 600, 675);
 		App->entity_manager->AddEnemy(CANDY_ORANGE, 600, 600);
@@ -269,6 +269,8 @@ bool j1Scene::Update(float dt)
 		{
 			//App->render->camera.x = 0;
 			//App->render->camera.y = 0;
+			App->entity_manager->CleanUp();
+			App->collisions->Erase_Non_Player_Colliders();
 			level1 = false;
 			level2 = false;
 			credits = false;

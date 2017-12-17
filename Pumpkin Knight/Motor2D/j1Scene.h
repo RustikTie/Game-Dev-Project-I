@@ -78,6 +78,7 @@ private:
 	SDL_Texture* transition = nullptr;
 	SDL_Texture* score = nullptr;
 
+	Element* Background = nullptr;
 	Element* Continue = nullptr;
 	Element* StartButton = nullptr;
 	Element* QuitButton = nullptr;
