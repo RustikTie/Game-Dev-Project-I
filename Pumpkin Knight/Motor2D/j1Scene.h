@@ -76,7 +76,9 @@ private:
 	SDL_Rect minus_click;
 
 	SDL_Texture* transition = nullptr;
-	SDL_Texture* score = nullptr;
+
+	char currScore[100];
+	char currCandies[100];
 
 	Element* Continue = nullptr;
 	Element* StartButton = nullptr;
@@ -109,7 +111,9 @@ private:
 	Element* MusicVol = nullptr;
 	Element* FXVol = nullptr;
 	Element* Candies = nullptr;
+	Element* CandyCount = nullptr;
 	Element* Score = nullptr;
+	Element* ScoreCount = nullptr;
 	Element* Counter = nullptr;
 };
 

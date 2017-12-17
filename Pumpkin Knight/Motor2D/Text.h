@@ -8,7 +8,7 @@
 class Text : public Element
 {
 public:
-	Text(int x, int y, ElementType type, bool show, const char* text);
+	Text(int x, int y, ElementType type, bool show, const char* text, int font);
 	~Text();
 
 	void Draw();
@@ -18,7 +18,7 @@ private:
 
 	const char* text = nullptr;
 	SDL_Texture* tex = nullptr;
-
+	int font;
 };
 
 #endif // !__TEXT_H__

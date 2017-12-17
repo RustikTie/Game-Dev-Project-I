@@ -192,9 +192,9 @@ Element* j1Gui::AddButton(int x, int y, ElementType type, bool show, SDL_Rect* r
 	return elem;
 }
 
-Element* j1Gui::AddText(int x, int y, ElementType type, bool show, const char* text)
+Element* j1Gui::AddText(int x, int y, ElementType type, bool show, const char* text, int font)
 {
-	Element* elem = new Text(x, y, type, show, text);
+	Element* elem = new Text(x, y, type, show, text, font);
 	elements.add(elem);
 
 	return elem;
