@@ -1,9 +1,10 @@
 # Team
 
-<img src="https://github.com/RustikTie/Pumpkin-Knight/blob/master/website%20Images/both.png"/>
 ![Pic](website%20Images/both.png)
 
 ### Ivan Drofiak
+
+[Git](https://github.com/FurryGhoul)
 
 - Pathfinding module design and implementation
 - Player movement
@@ -13,6 +14,8 @@
 - Map design
 
 ### Clara R. Gracia
+
+[Git](https://github.com/RustikTie)
 
 - Brofiler implementation
 - GUI modules
