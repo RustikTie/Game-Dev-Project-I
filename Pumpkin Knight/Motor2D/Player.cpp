@@ -80,6 +80,8 @@ bool Player::Start()
 	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 	sprites = App->tex->Load("assets/Pumpkin sprites.png");
 	lives = 3;
+	score = 0;
+	candiesGrabbed = 0;
 
 	return true;
 }

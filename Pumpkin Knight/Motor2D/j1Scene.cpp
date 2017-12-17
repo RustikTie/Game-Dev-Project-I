@@ -556,11 +556,16 @@ bool j1Scene::MouseEvents(Element* element)
 			FXPlus->show = false;
 			FXMinus->show = false;
 		}
-		if (element == Continue && maycontinue == true && element->show)
+		if (element == Continue && element->show)
 		{
-			App->entity_manager->Start();
+			if (checkSaveFile())
+			{
+			maycontinue = true;
 			start = false;
-			App->LoadGame();
+			App->entity_manager->Start();
+			App->gui->cleaning = true;
+		
+			}
 		}
 		if (element == Plus && element->show)
 		{
@@ -594,10 +599,15 @@ bool j1Scene::MouseEvents(Element* element)
 
 bool j1Scene::Load(pugi::xml_node& data)
 {
-	/*player_entity->pos.x = data.child("player_pos").attribute("x").as_float();*/
 	curr_counter = data.child("timer").attribute("time").as_uint();
 	level1 = data.child("level1").attribute("bool").as_bool();
 	level2 = data.child("level2").attribute("bool").as_bool();
+
+	if (level1 || level2)
+	{
+		Start();
+	}
+	//App->gui->cleaning = true;
 		
 	return true;
 }
@@ -655,3 +665,22 @@ void j1Scene::TimerUpdate(uint32 time)
 	
 }
 
+bool j1Scene::checkSaveFile()
+{
+	bool ret = false;
+
+	pugi::xml_document data;
+
+	pugi::xml_parse_result result = data.load_file(App->load_game.GetString());
+
+	if (result != NULL)
+	{
+		ret = true;
+	}
+	else
+	{
+		ret = false;
+	}
+
+	return ret;
+}

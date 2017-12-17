@@ -131,6 +131,10 @@ bool j1Gui::PostUpdate()
 		cleaning = false;
 		CleanUp();
 		App->scene->Start();
+		if (App->scene->maycontinue)
+		{
+			App->LoadGame();
+		}
 	}
 
 	return true;
