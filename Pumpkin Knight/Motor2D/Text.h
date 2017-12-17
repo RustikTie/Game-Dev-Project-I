@@ -12,6 +12,7 @@ public:
 	~Text();
 
 	void Draw();
+	void EditText(char* text);
 
 private:
 

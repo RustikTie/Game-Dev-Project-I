@@ -44,14 +44,14 @@ public:
 	bool CleanUp();
 
 	bool MouseEvents(Element* element);
-	void Transition();
 	p2DynArray<iPoint> path;
-
 	bool start = true;
 
 private:
 	int volume = 50;
 	int button_click;
+	uint32 start_counter = 0;
+	uint32 curr_counter = 0;
 
 	bool exit = true;
 	bool level1 = false;
@@ -76,6 +76,7 @@ private:
 	SDL_Rect minus_click;
 
 	SDL_Texture* transition = nullptr;
+	SDL_Texture* score = nullptr;
 
 	Element* Continue = nullptr;
 	Element* StartButton = nullptr;
@@ -107,6 +108,9 @@ private:
 	Element* FXMinus = nullptr;
 	Element* MusicVol = nullptr;
 	Element* FXVol = nullptr;
+	Element* Candies = nullptr;
+	Element* Score = nullptr;
+	Element* Counter = nullptr;
 };
 
 #endif // __j1SCENE_H__

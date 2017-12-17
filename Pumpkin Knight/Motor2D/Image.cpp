@@ -3,9 +3,10 @@
 #include "j1Render.h"
 
 
-Image::Image(int x, int y, ElementType type, SDL_Rect rec):Element(x,y,type)
+Image::Image(int x, int y, ElementType type, bool show, SDL_Rect rec):Element(x,y,type)
 {
 	this->rec = rec;
+	this->show = show;
 }
 
 

@@ -4,16 +4,17 @@
 	<window />
 	<textures />
 	<audio />
+	<gui />
 	<scene />
-	<map />
 	<colliders />
+	<map />
 	<entities>
-		<player_pos x="201.45433" y="609.275085" />
+		<player_pos x="100" y="522.952271" />
 	</entities>
 	<:anonymous />
-	<gui />
 	<fonts />
+	<:anonymous />
 	<renderer>
-		<camera x="198" y="-180" />
+		<camera x="300" y="-180" />
 	</renderer>
 </game_state>

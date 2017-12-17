@@ -6,7 +6,7 @@
 class Image : public Element
 {
 public:
-	Image(int x, int y, ElementType type, SDL_Rect rec);
+	Image(int x, int y, ElementType type, bool show, SDL_Rect rec);
 	~Image();
 	void Draw();
 private: 
