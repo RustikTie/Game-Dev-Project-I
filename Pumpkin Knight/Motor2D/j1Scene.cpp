@@ -693,7 +693,6 @@ bool j1Scene::checkSaveFile()
 	bool ret = false;
 
 	pugi::xml_document data;
-	pugi::xml_node root;
 
 	pugi::xml_parse_result result = data.load_file(App->load_game.GetString());
 
