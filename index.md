@@ -19,9 +19,9 @@ GUI, Entity Manager
 - Press F11 to enable/disable frame cap
 - Quit hitting Escape 
 
-and video 
+[VIDEO](https://youtu.be/Wc1BQ4BfsB8)
 
-Repo: https://github.com/RustikTie/Pumpkin-Knight
+[REPO](https://github.com/RustikTie/Pumpkin-Knight)
 
 Latest Release: 
 

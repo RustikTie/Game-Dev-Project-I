@@ -5,16 +5,23 @@
 	<textures />
 	<audio />
 	<gui />
-	<scene />
+	<scene>
+		<timer time="6" />
+		<level1 bool="true" />
+		<level2 bool="false" />
+	</scene>
 	<colliders />
 	<map />
 	<entities>
-		<player_pos x="100" y="522.952271" />
+		<player_pos x="531.929382" y="609.170349" />
+		<Lives lives="3" />
+		<Score score="0" />
+		<candy candies="0" />
 	</entities>
 	<:anonymous />
 	<fonts />
-	<:anonymous />
+	<fadetoblack />
 	<renderer>
-		<camera x="300" y="-180" />
+		<camera x="-131" y="-180" />
 	</renderer>
 </game_state>
