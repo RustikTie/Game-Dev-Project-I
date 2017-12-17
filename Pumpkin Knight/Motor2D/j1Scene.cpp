@@ -149,10 +149,11 @@ bool j1Scene::Start()
 		App->entity_manager->AddEnemy(CANDY_PINK, 500, 675);
 		App->entity_manager->AddEnemy(CANDY_BLUE, 750, 675);
 		Score = App->gui->AddText(500, 220, TEXT, true, "SCORE",2);
-		ScoreCount = App->gui->AddText(600, 220, TEXT, true, "100", 1);
-		//Candies = App->gui->AddImage()
+		ScoreCount = App->gui->AddText(600, 220, TEXT, true, "0", 1);
+		Candies = App->gui->AddText(500, 320, TEXT, true, "CANDIES", 2);
 		CandyCount = App->gui->AddText(600, 320, TEXT, true, "0", 1);
-
+		Counter = App->gui->AddText(500, 420, TEXT, true, "TIME", 2);
+		CounterTimer = App->gui->AddText(600, 420, TEXT, true, "0", 1);
 		previousScene = LVL1;
 		//score = App->font->Print("SCORE", { 255, 255,255 }, App->gui->font);
 
@@ -170,14 +171,18 @@ bool j1Scene::Start()
 		App->entity_manager->Start();
 		App->entity_manager->AddEnemy(WOLF, 1000, 0);
 		App->entity_manager->AddEnemy(BAT, 1300, 450);
-
+		Score = App->gui->AddText(500, 220, TEXT, true, "SCORE", 2);
+		ScoreCount = App->gui->AddText(600, 220, TEXT, true, "0", 1);
+		Candies = App->gui->AddText(500, 320, TEXT, true, "CANDIES", 2);
+		CandyCount = App->gui->AddText(600, 320, TEXT, true, "0", 1);
+		Counter = App->gui->AddText(500, 420, TEXT, true, "TIME", 2);
+		CounterTimer = App->gui->AddText(600, 420, TEXT, true, "0", 1);
 		//if (App->entity_manager->player_entity == nullptr)
 		//{
 		//	App->entity_manager->player_entity = new Player(100, 200);
 		//	App->entity_manager->player_entity->Awake(App->entity_manager->entity_config);
 		//	App->entity_manager->player_entity->Start();
 		//}
-		Score = App->gui->AddText(500, 220, TEXT, true, "SCORE", 2);
 		App->audio->PlayMusic("audio/music/Halloween.ogg");
 		previousScene = LVL2;
 
@@ -262,6 +267,9 @@ bool j1Scene::Update(float dt)
 		ScoreCount->EditText(currScore);
 		sprintf_s(currCandies, 10, "%i", App->entity_manager->player_entity->candiesGrabbed);
 		CandyCount->EditText(currCandies);
+		curr_counter = (SDL_GetTicks() - start_counter)/1000;
+		sprintf_s(currTime, 10, "%i", curr_counter);
+		CounterTimer->EditText(currTime);
 
 		if (App->entity_manager->player_entity->getX() >= 6200.f)
 
@@ -291,7 +299,16 @@ bool j1Scene::Update(float dt)
 		
 	}
 
-
+	if (level2)
+	{
+		sprintf_s(currScore, 10, "%i", App->entity_manager->player_entity->score);
+		ScoreCount->EditText(currScore);
+		sprintf_s(currCandies, 10, "%i", App->entity_manager->player_entity->candiesGrabbed);
+		CandyCount->EditText(currCandies);
+		curr_counter = SDL_GetTicks() - start_counter;
+		sprintf_s(currTime, 10, "%i", curr_counter);
+		CounterTimer->EditText(currTime);
+	}
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 	

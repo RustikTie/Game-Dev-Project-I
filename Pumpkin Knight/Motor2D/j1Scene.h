@@ -79,6 +79,7 @@ private:
 
 	char currScore[100];
 	char currCandies[100];
+	char currTime[100];
 
 	Element* Background = nullptr;
 	Element* Continue = nullptr;
@@ -116,6 +117,7 @@ private:
 	Element* Score = nullptr;
 	Element* ScoreCount = nullptr;
 	Element* Counter = nullptr;
+	Element* CounterTimer = nullptr;
 };
 
 #endif // __j1SCENE_H__
