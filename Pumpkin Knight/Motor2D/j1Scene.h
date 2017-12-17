@@ -49,6 +49,8 @@ public:
 
 	bool MouseEvents(Element* element);
 
+	bool checkSaveFile();
+
 	void TimerUpdate(uint32 time);
 
 	p2DynArray<iPoint> path;
@@ -61,6 +63,8 @@ public:
 	Element* ScoreCount = nullptr;
 	Element* Counter = nullptr;
 	Element* CounterTimer = nullptr;
+
+	bool maycontinue = false;
 private:
 	int volume = 50;
 	int button_click;
@@ -82,15 +86,13 @@ private:
 	bool options = false;
 	bool transitioning = false;
 	bool maycontinue = false;
-	bool fading = false;
-	float control = 0;
+
 
 	SCENE previousScene;
 
 	SDL_Rect hover;
 	SDL_Rect idle;
 	SDL_Rect click;
-	//SDL_Rect rect_credits;
 	SDL_Rect rect_window;
 	SDL_Rect plus_hover;
 	SDL_Rect plus_idle;

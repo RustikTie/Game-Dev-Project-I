@@ -103,6 +103,9 @@ public:
 	j1FadeToBlack*		fade_to_black = NULL;
 	Entity*				entity = NULL;
 
+	p2SString			load_game;
+	mutable p2SString	save_game;
+
 private:
 
 	p2List<j1Module*>	modules;
@@ -115,8 +118,7 @@ private:
 
 	mutable bool		want_to_save = false;
 	bool				want_to_load = false;
-	p2SString			load_game;
-	mutable p2SString	save_game;
+	
 
 	j1PerfTimer			ptimer;
 	uint64				frame_count = 0;

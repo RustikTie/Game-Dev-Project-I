@@ -80,6 +80,8 @@ bool Player::Start()
 	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 	sprites = App->tex->Load("assets/Pumpkin sprites.png");
 	lives = 3;
+	score = 0;
+	candiesGrabbed = 0;
 
 	return true;
 }
@@ -139,6 +141,19 @@ void Player::MoveEntity(float dt)
 		double_jumping = false;
 		falling = true;
 	}
+
+	if (godmode)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			pos.y += gravity*dt;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			pos.y -= gravity*dt;
+		}
+	}
 	//FORWARD
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -187,17 +202,6 @@ void Player::MoveEntity(float dt)
 		animation = &jump;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F10))
-	{
-		if (!godmode)
-		{
-			godmode = true;
-		}
-		else
-		{
-			godmode = false;
-		}
-	}
 	////DRAW PLAYER -----------------------------------------
 	////App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
@@ -227,7 +231,7 @@ void Player::MoveEntity(float dt)
 
 void Player::Jump(float dt)
 {
-	if (!jumping)
+	if (!jumping && !godmode)
 	{
 		pos.y += gravity*dt;
 	}
