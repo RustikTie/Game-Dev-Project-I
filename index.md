@@ -1,6 +1,7 @@
 # Team
 
 <img src="https://github.com/RustikTie/Pumpkin-Knight/blob/master/website%20Images/both.png"/>
+![Pic](website%20Images/both.png)
 
 ### Ivan Drofiak
 
