@@ -170,10 +170,6 @@ SDL_Texture* j1Gui::GetBackground() const
 	return background;
 }
 
-SDL_Texture* j1Gui::GetButton() const
-{
-	return button;
-}
 SDL_Texture* j1Gui::GetGuiAtlas() const
 {
 	return guiAtlas;
