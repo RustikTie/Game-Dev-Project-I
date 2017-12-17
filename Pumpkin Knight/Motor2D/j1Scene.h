@@ -47,6 +47,9 @@ public:
 	bool Save(pugi::xml_node&)const;
 
 	bool MouseEvents(Element* element);
+
+	void TimerUpdate(uint32 time);
+
 	p2DynArray<iPoint> path;
 	bool start = true;
 
@@ -61,6 +64,12 @@ private:
 	int button_click;
 	uint32 start_counter = 0;
 	uint32 curr_counter = 0;
+	uint32 currSec = 0;
+	uint32 currMin = 0;
+	uint32 currHour = 0;
+	uint32 currSec2 = 0;
+	uint32 currMin2 = 0;
+	uint32 currHour2 = 0;
 
 	bool exit = true;
 	bool level1 = false;
