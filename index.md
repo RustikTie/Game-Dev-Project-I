@@ -1,10 +1,35 @@
 # Team
-Ivan Drofiak 
 
-Clara Ratera
+<img src="https://github.com/RustikTie/Pumpkin-Knight/blob/master/website%20Images/both.png"/>
+
+### Ivan Drofiak
+
+- Pathfinding module design and implementation
+- Player movement
+- UI Button system
+- Enemy entity movement
+- Save and Load
+- Map design
+
+### Clara R. Gracia
+
+- Brofiler implementation
+- GUI modules
+- Designing and implementing score system, candy counter, timer
+- Collider system
+- Frame cap and normalization of movement
+- Assets organization 
 
 # Subsystems
-GUI, Entity Manager
+
+- Main Menu with Start, Continue, Options, Credit and Quit working elements.
+- Player data, important game data and map information is loaded from an XML file
+- FPS capped by default at 30FPS, can be uncapped in-game and FPS cap can be edited from the config.xml file
+- Maps created on tiled, contain collider information, load through their XML file 
+- Two types of enemies, ground and air, pathfind their way to the player 
+- Game music and sound FX can be lowered or increased through the Options menu
+- GUI is managed through an UIManager system which creates and updates all UI during runtime.
+- Enemies and interactive items(Candy) are managed through an EntityManager system which creates and updates them. 
 
 # The Game
 
@@ -23,7 +48,7 @@ GUI, Entity Manager
 
 [REPO](https://github.com/RustikTie/Pumpkin-Knight)
 
-Latest Release: 
+[LATEST RELEASE](https://github.com/RustikTie/Pumpkin-Knight/releases/tag/v2.0)
 
 # License
 
