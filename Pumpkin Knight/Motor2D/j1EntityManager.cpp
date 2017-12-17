@@ -42,6 +42,10 @@ bool j1EntityManager::Start()
 			player_entity->Awake(entity_config);
 			player_entity->Start();
 		}
+		else
+		{
+			player_entity->Start();
+		}
 	}
 	return true;
 }
@@ -123,7 +127,7 @@ bool j1EntityManager::CleanUp()
 {
 	LOG("Freeing all enemies");
 
-	//App->tex->UnLoad(sprites);
+	//App->tex->UnLoad(App->entity->sprites);
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{

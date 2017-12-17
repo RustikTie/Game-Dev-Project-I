@@ -2,6 +2,8 @@
 #include "j1Gui.h"
 #include "j1Render.h"
 #include "j1Fonts.h"
+#include "j1Scene.h"
+#include "Element.h"
 
 Player::Player(int x, int y) : Entity(x, y)
 {
@@ -67,6 +69,8 @@ Player::~Player()
 {
 	App->tex->UnLoad(sprites);
 
+	if (playercollider != nullptr)
+		playercollider->to_delete = true;
 }
 
 bool Player::Start()
@@ -75,6 +79,7 @@ bool Player::Start()
 
 	collider = App->collisions->AddCollider({ (int)pos.x, (int)pos.y, 18 * 3, 27 * 3 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 	sprites = App->tex->Load("assets/Pumpkin sprites.png");
+	lives = 3;
 
 	return true;
 }
@@ -109,9 +114,6 @@ void Player::MoveEntity(float dt)
 	idle.speed = 10.f*dt;
 	forward.speed = 10.f*dt;
 	jump.speed = 10.f*dt;
-
-	//pos = original_pos;
-	//animation = &idle;
 
 	//MOVEMEMT
 	//JUMP
@@ -180,12 +182,6 @@ void Player::MoveEntity(float dt)
 		pos.x += speed*dt;
 	}
 
-	//if (collider->CheckCollision(App->map->collider) == false)
-	//{
-	//	//speed = gravity*dt;
-	//	pos.y += gravity*dt;
-	//}
-
 	if (falling)
 	{
 		animation = &jump;
@@ -205,17 +201,21 @@ void Player::MoveEntity(float dt)
 	////DRAW PLAYER -----------------------------------------
 	////App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
 
-	App->render->camera.x = (-pos.x + 400);
-
-	//if (playercollider != nullptr)
-	//{
-	//	playercollider->SetPos(pos.x + 10, pos.y + 50);
-	//}
-
-	if (pos.y > 500)
+	if (lives > -1)
 	{
-		if (pos.y > 800)
+		
+		App->render->camera.x = (-pos.x + 400);
+	}
+	else
+	{
+		App->render->camera.x = 0;
+	}
+
+	if (pos.y >= 500)
+	{
+		if (pos.y >= 800)
 		{
+			//App->render->camera.x = 0;
 			pos.x = 100;
 			pos.y = 200;
 			lives -= 1;

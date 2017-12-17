@@ -47,6 +47,12 @@ public:
 	p2DynArray<iPoint> path;
 	bool start = true;
 
+	Element* Candies = nullptr;
+	Element* CandyCount = nullptr;
+	Element* Score = nullptr;
+	Element* ScoreCount = nullptr;
+	Element* Counter = nullptr;
+	Element* CounterTimer = nullptr;
 private:
 	int volume = 50;
 	int button_click;
@@ -112,12 +118,7 @@ private:
 	Element* FXMinus = nullptr;
 	Element* MusicVol = nullptr;
 	Element* FXVol = nullptr;
-	Element* Candies = nullptr;
-	Element* CandyCount = nullptr;
-	Element* Score = nullptr;
-	Element* ScoreCount = nullptr;
-	Element* Counter = nullptr;
-	Element* CounterTimer = nullptr;
+	
 };
 
 #endif // __j1SCENE_H__

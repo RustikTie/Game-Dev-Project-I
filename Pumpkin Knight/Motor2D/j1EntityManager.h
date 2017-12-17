@@ -69,7 +69,7 @@ public:
 	pugi::xml_document config_file;
 	pugi::xml_node entity_config;
 	EntityInfo playerInfo;
-	Player* player_entity;
+	Player* player_entity = nullptr;
 	p2List<Entity*> candies;
 
 private:

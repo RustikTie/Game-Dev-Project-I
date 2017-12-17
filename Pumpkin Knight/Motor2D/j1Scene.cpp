@@ -15,6 +15,7 @@
 #include "j1Fonts.h"
 #include "Text.h"
 #include "Image.h"
+#include "Player.h"
 #include "Brofiler\Brofiler.h"
 //#include "SDL_mixer.h"
 
@@ -71,24 +72,10 @@ bool j1Scene::Start()
 
 	if (start)
 	{
-		//if (previousScene == CREDITS || previousScene == OPTIONS)
-		//{
-		//	//App->gui->CleanUp();
-		//	App->gui->AddBackground(0, 0, BACKGROUND, { 0,0,1024,768 });
-
-		//	Continue = App->gui->AddButton(400, 50, BUTTON, true, &idle, "CONTINUE");
-		//	QuitButton = App->gui->AddButton(400, 450, BUTTON, true, &idle, "QUIT");
-		//	StartButton = App->gui->AddButton(400, 150, BUTTON, true, &idle, "START");
-		//	Options = App->gui->AddButton(400, 250, BUTTON, true, &idle, "OPTIONS");
-		//	Credits = App->gui->AddButton(400, 350, BUTTON, true, &idle, "CREDITS");
-
-
-		//}
-		
-			App->map->CleanUp();
+	
 			//App->gui->CleanUp();
-			App->entity_manager->CleanUp();
-			App->collisions->Erase_Non_Player_Colliders();
+			/*App->entity_manager->CleanUp();
+			App->collisions->Erase_Non_Player_Colliders();*/
 			App->render->camera.x = 0;
 			App->render->camera.y = 0;
 			Background = App->gui->AddBackground( 0, 0, BACKGROUND, true, { 0,0,1024,768 });
@@ -129,13 +116,14 @@ bool j1Scene::Start()
 		previousScene = MENU;
 
 	}
-
+	//player_entity = new Player(100, 200);
 	if (level1) 
 	{
 		//App->map->CleanUp();
 		////App->gui->CleanUp();
 		//App->entity_manager->CleanUp();
 		//App->collisions->Erase_Non_Player_Colliders();
+
 		App->render->camera.x = 500;
 		App->render->camera.y = -180;
 		App->map->Load("level1_v4.tmx");
@@ -284,18 +272,16 @@ bool j1Scene::Update(float dt)
 		}
 		else if (App->entity_manager->player_entity->lives <= -1)
 		{
-			//App->render->camera.x = 0;
-			//App->render->camera.y = 0;
+			App->map->CleanUp();
 			App->entity_manager->CleanUp();
+			App->entity_manager->EraseEnemies();
 			App->collisions->Erase_Non_Player_Colliders();
 			level1 = false;
 			level2 = false;
-			credits = false;
 			start = true;
 			Start();
 
 		}
-
 		
 	}
 

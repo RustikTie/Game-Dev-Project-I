@@ -36,9 +36,9 @@ void Text::Draw()
 {
 	if (show)
 	{
-		App->render->Blit(tex, pos.x, pos.y, 1.0f, 1.0f, false);
+		App->render->Blit(tex, pos.x - App->render->camera.x, pos.y - App->render->camera.y, 1.0f, 1.0f, false);
 	}
-}
+}	
 
 void Text::EditText(char* newText)
 {
