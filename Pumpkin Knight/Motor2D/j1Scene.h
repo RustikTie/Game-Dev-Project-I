@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "p2DynArray.h"
 #include "p2Point.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 class Element;
@@ -46,6 +47,8 @@ public:
 	bool MouseEvents(Element* element);
 
 	void TimerUpdate(uint32 time);
+
+	void Transition();
 
 	p2DynArray<iPoint> path;
 	bool start = true;
@@ -91,6 +94,9 @@ private:
 	SDL_Rect minus_click;
 
 	SDL_Texture* transition = nullptr;
+	Animation* _anim = nullptr;
+	Animation backToBlack;
+	bool _transitioning = false;
 
 	char currScore[100];
 	char currCandies[100];

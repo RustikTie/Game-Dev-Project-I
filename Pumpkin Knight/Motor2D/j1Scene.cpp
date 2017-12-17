@@ -11,6 +11,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1Gui.h"
+#include "Animation.h"
 #include "Element.h"
 #include "j1Fonts.h"
 #include "Text.h"
@@ -48,7 +49,13 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	Mix_Volume(-1, volume);
 
 	//rect_credits = { 1256, 3151, 365, 185 };
-	
+	backToBlack.PushBack({3080,772,1024,764});
+	backToBlack.PushBack({ 2053,772,1024,764 });
+	backToBlack.PushBack({ 1029,772,1024,764 });
+	backToBlack.PushBack({ 0,772,1024,764 });
+	backToBlack.PushBack({ 0,0,1024,764 });
+	backToBlack.loop = false;
+	backToBlack.speed = 0.5f;
 
 	return ret;
 }
@@ -129,14 +136,14 @@ bool j1Scene::Start()
 		App->render->camera.y = -180;
 		App->map->Load("level1_v4.tmx");
 		App->entity_manager->Start();
-		//App->entity_manager->AddEnemy(WOLF, 1300, 0);
-		//App->entity_manager->AddEnemy(BAT, 500, 100);
+		App->entity_manager->AddEnemy(WOLF, 1300, 0);
+		App->entity_manager->AddEnemy(BAT, 500, 100);
 		//App->entity_manager->AddEnemy(WOLF, 5000, 0);
-		App->entity_manager->AddEnemy(CANDY_PINK, 600, 675);
-		App->entity_manager->AddEnemy(CANDY_ORANGE, 600, 600);
-		App->entity_manager->AddEnemy(CANDY_PINK, 600, 550);
-		App->entity_manager->AddEnemy(CANDY_PINK, 500, 675);
-		App->entity_manager->AddEnemy(CANDY_BLUE, 750, 675);
+		App->entity_manager->AddEnemy(CANDY_PINK, 600, 700);
+		App->entity_manager->AddEnemy(CANDY_ORANGE, 650, 650);
+		App->entity_manager->AddEnemy(CANDY_PINK, 700, 600);
+		App->entity_manager->AddEnemy(CANDY_PINK, 800, 700);
+		App->entity_manager->AddEnemy(CANDY_BLUE, 750, 650);
 		Score = App->gui->AddText(0, 0, TEXT, true, "SCORE",2);
 		ScoreCount = App->gui->AddText(100, 10, TEXT, true, "0", 1);
 		Candies = App->gui->AddText(1024 - 95, 0, TEXT, true, "CANDIES", 2);
@@ -193,7 +200,8 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {	
 	BROFILER_CATEGORY("Update Scene", Profiler::Color::Green)
-	
+
+
 	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_REPEAT)
 	{
 		volume -= 1;
@@ -300,7 +308,8 @@ bool j1Scene::Update(float dt)
 	}
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-	
+	Transition();
+
 					
 	
 
@@ -412,7 +421,8 @@ bool j1Scene::MouseEvents(Element* element)
 			App->gui->cleaning = true;
 			start = false;
 			level1 = true;
-			start_counter = SDL_GetTicks();			
+			start_counter = SDL_GetTicks();	
+			_transitioning = true;
 		}
 		if (element == Menu_Credits && element->show)
 		{
@@ -622,4 +632,17 @@ void j1Scene::TimerUpdate(uint32 time)
 	currTime[6] = currSec2 + 48;
 	currTime[7] = currSec + 48;
 	
+}
+
+void j1Scene::Transition()
+{
+	_anim = &backToBlack;
+	while (_transitioning == true)
+	{
+		App->render->Blit(transition, 0, 0, 1, 1, false, &_anim->GetCurrentFrame());
+		if (_anim->Finished() == true)
+		{
+			_transitioning = false;
+		}
+	}
 }
