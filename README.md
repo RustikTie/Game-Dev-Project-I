@@ -31,12 +31,13 @@ The game is capped at 30FPS by default, you can edit the frame cap by accessing 
 - Submit a pull request :D
 
 ## History
-- Added entity system
-- Added enemies
-- Added god mode
-- Implemented Brofiler
-- Implemented frame cap
-- Normalized movement
+- Implemented UI System
+- Start menu Screen with continue, start, options, credits and quit
+- Lower and increase music and SFX volume
+- Brofiler on UI
+- Added candy and score
+- Player lives
+- Timer
 
 ## Credits
 

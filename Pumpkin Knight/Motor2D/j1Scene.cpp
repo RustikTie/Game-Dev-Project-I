@@ -339,21 +339,7 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	if (fading)
-	{
-		if (control <= 1)
-		{
-			SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(control * 255.0f));
-			SDL_RenderFillRect(App->render->renderer, &screen);
-			control += 0.2f;
-		}
-		if (control == 1)
-		{
-			fading = false;
-		}
-
 	
-	}
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 

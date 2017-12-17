@@ -85,7 +85,6 @@ private:
 	bool credits = false;
 	bool options = false;
 	bool transitioning = false;
-	bool maycontinue = false;
 
 
 	SCENE previousScene;
