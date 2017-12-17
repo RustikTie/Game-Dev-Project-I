@@ -136,12 +136,12 @@ bool j1Scene::Start()
 		App->entity_manager->AddEnemy(CANDY_PINK, 600, 550);
 		App->entity_manager->AddEnemy(CANDY_PINK, 500, 675);
 		App->entity_manager->AddEnemy(CANDY_BLUE, 750, 675);
-		Score = App->gui->AddText(500, 220, TEXT, true, "SCORE",2);
-		ScoreCount = App->gui->AddText(600, 220, TEXT, true, "0", 1);
-		Candies = App->gui->AddText(500, 320, TEXT, true, "CANDIES", 2);
-		CandyCount = App->gui->AddText(600, 320, TEXT, true, "0", 1);
-		Counter = App->gui->AddText(500, 420, TEXT, true, "TIME", 2);
-		CounterTimer = App->gui->AddText(600, 420, TEXT, true, "0", 1);
+		Score = App->gui->AddText(0, 0, TEXT, true, "SCORE",2);
+		ScoreCount = App->gui->AddText(100, 10, TEXT, true, "0", 1);
+		Candies = App->gui->AddText(1024 - 95, 0, TEXT, true, "CANDIES", 2);
+		CandyCount = App->gui->AddText(1024 - 130, 10, TEXT, true, "0", 1);
+		Counter = App->gui->AddText(475, 0, TEXT, true, "TIME", 2);
+		CounterTimer = App->gui->AddText(460, 40, TEXT, true, "0", 1);
 		previousScene = LVL1;
 		//score = App->font->Print("SCORE", { 255, 255,255 }, App->gui->font);
 
@@ -251,12 +251,13 @@ bool j1Scene::Update(float dt)
 	//CHANGE LEVEL
 	if (level1)
 	{
+		//UI
 		sprintf_s(currScore, 10, "%i", App->entity_manager->player_entity->score);
 		ScoreCount->EditText(currScore);
 		sprintf_s(currCandies, 10, "%i", App->entity_manager->player_entity->candiesGrabbed);
 		CandyCount->EditText(currCandies);
-		curr_counter = (SDL_GetTicks() - start_counter)/1000;
-		sprintf_s(currTime, 10, "%i", curr_counter);
+		curr_counter = (SDL_GetTicks() - start_counter)/1000;		
+		TimerUpdate(curr_counter);
 		CounterTimer->EditText(currTime);
 
 		if (App->entity_manager->player_entity->getX() >= 6200.f)
@@ -287,12 +288,13 @@ bool j1Scene::Update(float dt)
 
 	if (level2)
 	{
+		//UI
 		sprintf_s(currScore, 10, "%i", App->entity_manager->player_entity->score);
 		ScoreCount->EditText(currScore);
 		sprintf_s(currCandies, 10, "%i", App->entity_manager->player_entity->candiesGrabbed);
 		CandyCount->EditText(currCandies);
-		curr_counter = SDL_GetTicks() - start_counter;
-		sprintf_s(currTime, 10, "%i", curr_counter);
+		curr_counter = (SDL_GetTicks() - start_counter) / 1000;
+		TimerUpdate(curr_counter);
 		CounterTimer->EditText(currTime);
 	}
 	//App->render->Blit(img, 0, 0);
@@ -575,4 +577,44 @@ bool j1Scene::MouseEvents(Element* element)
 	}
 
 	return true;
+}
+
+void j1Scene::TimerUpdate(uint32 time)
+{
+	int aux = time;
+	
+	if (aux >= 0)
+	{
+		currSec += 1;
+	}
+	if (currSec >= 6)
+	{
+		currSec = 0;
+		currSec2 += 1;
+	}
+	if (currSec2 >= 6)
+	{
+		currSec2 = 0;
+		currMin += 1;
+	}
+	if (currMin >= 10)
+	{
+		currMin = 0;
+		currMin2 += 1;
+	}
+	if (currMin2 >= 6)
+	{
+		currMin2 = 0;
+		currHour += 1;
+	}
+
+	currTime[0] = currHour2 + 48;
+	currTime[1] = currHour + 48;
+	currTime[2] = 58;
+	currTime[3] = currMin2 + 48;
+	currTime[4] = currMin + 48;
+	currTime[5] = 58;
+	currTime[6] = currSec2 + 48;
+	currTime[7] = currSec + 48;
+	
 }
