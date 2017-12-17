@@ -13,6 +13,7 @@ public:
 	~Element();
 
 	virtual void Draw() {}
+	virtual void EditText(char* text){}
 	//virtual void OnClick() {}
 	//virtual void OnEntry() {}
 	//virtual void OnExit() {}

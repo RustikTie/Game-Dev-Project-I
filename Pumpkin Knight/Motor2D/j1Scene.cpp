@@ -101,24 +101,24 @@ bool j1Scene::Start()
 			Menu_Credits = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			Menu_Options = App->gui->AddButton(0, 0, BUTTON, false, &idle, "BACK");
 			BigWindow = App->gui->AddWindow(200, 180, WINDOW, false, rect_window);
-			CreditTitle = App->gui->AddText(475, 120, TEXT, false, "CREDITS");
-			OptionsTitle = App->gui->AddText(475, 120, TEXT, false, "OPTIONS");
-			CreditText = App->gui->AddText(250, 230, TEXT, false, "Developed By:");
-			CreditText1 = App->gui->AddText(250, 250, TEXT, false, "Clara R. Garcia & Ivan Drofiak");
-			CreditText2 = App->gui->AddText(250, 270, TEXT, false, "Art By:");
-			CreditText3 = App->gui->AddText(250, 290, TEXT, false, "Skeleton: Jesse M/Twitter-@Jsf23Art");
-			CreditText4 = App->gui->AddText(250, 310, TEXT, false, "Wolf: William.Thompsonj");
-			CreditText5 = App->gui->AddText(250, 330, TEXT, false, "Bat: MoikMellah");
-			CreditText6 = App->gui->AddText(250, 350, TEXT, false, "Candy: Iumimae");
-			CreditText7 = App->gui->AddText(250, 370, TEXT, false, "Tileset: KIRA");
-			CreditText8 = App->gui->AddText(250, 390, TEXT, false, "Background: GameArt2D.com");
-			CreditText9 = App->gui->AddText(250, 410, TEXT, false, "GUI: GameArt2D.com");
-			CreditText10 = App->gui->AddText(250, 430, TEXT, false, "Music:");
-			CreditText11 = App->gui->AddText(250, 450, TEXT, false, "Menu music: Spooky Scary Skeletons 8-bits");
-			CreditText12 = App->gui->AddText(250, 470, TEXT, false, "Level music: This Is Halloween 8-bit");
-			CreditText13 = App->gui->AddText(250, 490, TEXT, false, "Walk FX: Finnolia Productions Inc");
-			MusicVol = App->gui->AddText(310, 220, TEXT, false, "Music Vol.");
-			FXVol = App->gui->AddText(600, 220, TEXT, false, "SFX Vol.");
+			CreditTitle = App->gui->AddText(475, 120, TEXT, false, "CREDITS", 1);
+			OptionsTitle = App->gui->AddText(475, 120, TEXT, false, "OPTIONS", 1);
+			CreditText = App->gui->AddText(250, 230, TEXT, false, "Developed By:", 1);
+			CreditText1 = App->gui->AddText(250, 250, TEXT, false, "Clara R. Garcia & Ivan Drofiak", 1);
+			CreditText2 = App->gui->AddText(250, 270, TEXT, false, "Art By:", 1);
+			CreditText3 = App->gui->AddText(250, 290, TEXT, false, "Skeleton: Jesse M/Twitter-@Jsf23Art", 1);
+			CreditText4 = App->gui->AddText(250, 310, TEXT, false, "Wolf: William.Thompsonj", 1);
+			CreditText5 = App->gui->AddText(250, 330, TEXT, false, "Bat: MoikMellah",1);
+			CreditText6 = App->gui->AddText(250, 350, TEXT, false, "Candy: Iumimae",1);
+			CreditText7 = App->gui->AddText(250, 370, TEXT, false, "Tileset: KIIRA",1);
+			CreditText8 = App->gui->AddText(250, 390, TEXT, false, "Background: GameArt2D.com",1);
+			CreditText9 = App->gui->AddText(250, 410, TEXT, false, "GUI: GameArt2D.com",1);
+			CreditText10 = App->gui->AddText(250, 430, TEXT, false, "Music:",1);
+			CreditText11 = App->gui->AddText(250, 450, TEXT, false, "Menu music: Spooky Scary Skeletons 8-bits",1);
+			CreditText12 = App->gui->AddText(250, 470, TEXT, false, "Level music: This Is Halloween 8-bit",1);
+			CreditText13 = App->gui->AddText(250, 490, TEXT, false, "Walk FX: Finnolia Productions Inc",1);
+			MusicVol = App->gui->AddText(310, 220, TEXT, false, "Music Vol.",1);
+			FXVol = App->gui->AddText(600, 220, TEXT, false, "SFX Vol.",1);
 			Plus = App->gui->AddButton(370, 250, BUTTON, false, &plus_idle);
 			Minus = App->gui->AddButton(250, 250, BUTTON, false, &minus_idle);
 			FXPlus = App->gui->AddButton(650, 250, BUTTON, false, &plus_idle);
@@ -148,7 +148,11 @@ bool j1Scene::Start()
 		App->entity_manager->AddEnemy(CANDY_PINK, 600, 550);
 		App->entity_manager->AddEnemy(CANDY_PINK, 500, 675);
 		App->entity_manager->AddEnemy(CANDY_BLUE, 750, 675);
-		Score = App->gui->AddText(500, 300, TEXT, true, "SCORE");
+		Score = App->gui->AddText(500, 220, TEXT, true, "SCORE",2);
+		ScoreCount = App->gui->AddText(600, 220, TEXT, true, "100", 1);
+		//Candies = App->gui->AddImage()
+		CandyCount = App->gui->AddText(600, 320, TEXT, true, "0", 1);
+
 		previousScene = LVL1;
 		//score = App->font->Print("SCORE", { 255, 255,255 }, App->gui->font);
 
@@ -173,7 +177,7 @@ bool j1Scene::Start()
 		//	App->entity_manager->player_entity->Awake(App->entity_manager->entity_config);
 		//	App->entity_manager->player_entity->Start();
 		//}
-
+		Score = App->gui->AddText(500, 220, TEXT, true, "SCORE", 2);
 		App->audio->PlayMusic("audio/music/Halloween.ogg");
 		previousScene = LVL2;
 
@@ -254,6 +258,11 @@ bool j1Scene::Update(float dt)
 	//CHANGE LEVEL
 	if (level1)
 	{
+		sprintf_s(currScore, 10, "%i", App->entity_manager->player_entity->score);
+		ScoreCount->EditText(currScore);
+		sprintf_s(currCandies, 10, "%i", App->entity_manager->player_entity->candiesGrabbed);
+		CandyCount->EditText(currCandies);
+
 		if (App->entity_manager->player_entity->getX() >= 6200.f)
 
 		{
@@ -278,16 +287,16 @@ bool j1Scene::Update(float dt)
 			Start();
 
 		}
+
+		
 	}
 
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-	if (level1 == true || level2 == true)
-	{
-		App->gui->AddText(520, -250, TEXT, true, "SCORE: ");
-
-	}
+	
+					
+	
 
 	return true;
 }

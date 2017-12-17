@@ -8,14 +8,22 @@
 #include "j1Gui.h"
 
 
-Text::Text(int x, int y, ElementType type, bool show, const char* text) :Element(x, y, type)
+Text::Text(int x, int y, ElementType type, bool show, const char* text, int font):Element(x, y, type)
 {
 	if (text != nullptr)
 	{
 		this->text = text;
-		tex = App->font->Print(this->text, { 0, 0, 0 }, App->gui->credits_font);
+		if (font == 1)
+		{
+			tex = App->font->Print(this->text, { 0, 0, 0 }, App->gui->credits_font);
+		}
+		else if (font == 2)
+		{
+			tex = App->font->Print(this->text, { 255,255,255 }, App->gui->font);
+		}
 	}
 	this->show = show;
+	this->font = font;
 }
 
 
@@ -32,7 +40,16 @@ void Text::Draw()
 	}
 }
 
-void Text::EditText(char* text)
+void Text::EditText(char* newText)
 {
-	tex = App->font->Print(text, { 0,0,0 }, App->gui->credits_font);
+	if (font == 1)
+	{
+		tex = App->font->Print(newText, { 0,0,0 }, App->gui->credits_font);
+
+	}
+	else if (font == 2)
+	{
+		tex = App->font->Print(newText, {255,255,255}, App->gui->font);
+
+	}
 }

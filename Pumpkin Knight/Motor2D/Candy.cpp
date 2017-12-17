@@ -76,14 +76,7 @@ void Candy::Draw(float dt)
 void Candy::OnCollision()
 {
 	grabbed = true;
-	if (score == 500)
-	{
-		App->entity_manager->player_entity->score += 500;
-	}
-	if (score == 100)
-	{
-		App->entity_manager->player_entity->score += 100;
-	}
+	App->entity_manager->player_entity->score += score;
 	App->entity_manager->player_entity->candiesGrabbed += 1;
 	LOG("SCORE: %d, CANDIES: %d", App->entity_manager->player_entity->score , App->entity_manager->player_entity->candiesGrabbed);
 }

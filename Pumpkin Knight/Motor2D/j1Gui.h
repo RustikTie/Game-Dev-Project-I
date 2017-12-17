@@ -66,7 +66,7 @@ public:
 
 	Element* AddBackground(int x, int y, ElementType type, bool show, SDL_Rect rec);
 	Element* AddButton(int x, int y, ElementType type, bool show, SDL_Rect* rec, const char* text = nullptr);
-	Element* AddText(int x, int y, ElementType type, bool show, const char* text);
+	Element* AddText(int x, int y, ElementType type, bool show, const char* text, int font);
 	Element* AddWindow(int x, int y, ElementType type, bool show, SDL_Rect rec);
 	Element* AddImage(int x, int y, ElementType type, bool show, SDL_Rect rec);
 
