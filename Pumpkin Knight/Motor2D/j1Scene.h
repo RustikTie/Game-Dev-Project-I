@@ -112,6 +112,7 @@ private:
 	Element* CreditText11 = nullptr;
 	Element* CreditText12 = nullptr;
 	Element* CreditText13 = nullptr;
+	Element* CreditText14 = nullptr;
 	Element* Plus = nullptr;
 	Element* Minus = nullptr;
 	Element* FXPlus = nullptr;
