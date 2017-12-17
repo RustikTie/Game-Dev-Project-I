@@ -51,11 +51,10 @@ public:
 
 	void TimerUpdate(uint32 time);
 
-	void Transition();
-
 	p2DynArray<iPoint> path;
 	bool start = true;
 
+	
 	Element* Candies = nullptr;
 	Element* CandyCount = nullptr;
 	Element* Score = nullptr;
@@ -67,6 +66,8 @@ private:
 	int button_click;
 	uint32 start_counter = 0;
 	uint32 curr_counter = 0;
+
+	SDL_Rect screen = { 0, 0, 1024, 764 };
 	uint32 currSec = 0;
 	uint32 currMin = 0;
 	uint32 currHour = 0;
@@ -81,6 +82,8 @@ private:
 	bool options = false;
 	bool transitioning = false;
 	bool maycontinue = false;
+	bool fading = false;
+	float control = 0;
 
 	SCENE previousScene;
 

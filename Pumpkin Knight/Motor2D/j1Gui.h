@@ -77,7 +77,6 @@ public:
 
 	SDL_Texture* GetAtlas() const;
 	SDL_Texture* GetBackground() const;
-	SDL_Texture* GetButton() const;
 	SDL_Texture* GetGuiAtlas() const;
 
 	p2List<Element*> elements;

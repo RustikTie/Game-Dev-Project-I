@@ -11,6 +11,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1Gui.h"
+#include "j1FadeToBlack.h"
 #include "Animation.h"
 #include "Element.h"
 #include "j1Fonts.h"
@@ -127,11 +128,12 @@ bool j1Scene::Start()
 	//player_entity = new Player(100, 200);
 	if (level1) 
 	{
+		
 		//App->map->CleanUp();
 		////App->gui->CleanUp();
 		//App->entity_manager->CleanUp();
 		//App->collisions->Erase_Non_Player_Colliders();
-
+		//App->fade_to_black->FadeToBlack();
 		App->render->camera.x = 500;
 		App->render->camera.y = -180;
 		App->map->Load("level1_v4.tmx");
@@ -228,6 +230,7 @@ bool j1Scene::Update(float dt)
 	{
 		if (level1 == false)
 		{
+			
 			start = false;
 			App->map->CleanUp();
 			App->gui->cleaning = true;
@@ -310,12 +313,39 @@ bool j1Scene::Update(float dt)
 		curr_counter = (SDL_GetTicks() - start_counter) / 1000;
 		TimerUpdate(curr_counter);
 		CounterTimer->EditText(currTime);
+		if (App->entity_manager->player_entity->lives <= -1)
+		{
+		App->map->CleanUp();
+		App->entity_manager->CleanUp();
+		App->entity_manager->EraseEnemies();
+		App->collisions->Erase_Non_Player_Colliders();
+		level1 = false;
+		level2 = false;
+		start = true;
+		Start();
+
+		}
+	}
+
+	if (fading)
+	{
+		if (control <= 1)
+		{
+			SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(control * 255.0f));
+			SDL_RenderFillRect(App->render->renderer, &screen);
+			control += 0.2f;
+		}
+		if (control == 1)
+		{
+			fading = false;
+		}
+
+	
 	}
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-	Transition();
 
-					
+	
 	
 
 	return true;
@@ -663,20 +693,6 @@ void j1Scene::TimerUpdate(uint32 time)
 	currTime[6] = currSec2 + 48;
 	currTime[7] = currSec + 48;
 	
-}
-
-
-void j1Scene::Transition()
-{
-	_anim = &backToBlack;
-	while (_transitioning == true)
-	{
-		App->render->Blit(transition, 0, 0, 1, 1, false, &_anim->GetCurrentFrame());
-		if (_anim->Finished() == true)
-		{
-			_transitioning = false;
-		}
-	}
 }
 
 
