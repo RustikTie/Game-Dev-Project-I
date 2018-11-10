@@ -124,6 +124,7 @@ bool j1Collisions::Update(float dt)
 					App->entity_manager->player_entity->pos.y -= (App->entity_manager->player_entity->gravity)*dt;
 					App->entity_manager->player_entity->falling = false;
 					App->entity_manager->player_entity->contact = false;
+					App->entity_manager->player_entity->gliding = false;
 				//App->entity_manager->OnCollision(c2, c1, enemygravity);
 			}
 			//FOWARD and BACKWARD COLLISION PLAYER w/ WALL
