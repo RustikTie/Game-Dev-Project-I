@@ -138,8 +138,8 @@ bool j1Scene::Start()
 		App->render->camera.y = -180;
 		App->map->Load("level1_v4.tmx");
 		App->entity_manager->Start();
-		/*App->entity_manager->AddEnemy(WOLF, 1300, 0);
-		App->entity_manager->AddEnemy(BAT, 500, 100);*/
+		App->entity_manager->AddEnemy(WOLF, 1300, 0);
+		App->entity_manager->AddEnemy(BAT, 500, 100);
 		//App->entity_manager->AddEnemy(WOLF, 5000, 0);
 		App->entity_manager->AddEnemy(CANDY_PINK, 600, 700);
 		App->entity_manager->AddEnemy(CANDY_ORANGE, 650, 650);

@@ -59,8 +59,8 @@ Player::Player(int x, int y) : Entity(x, y)
 	jump.loop = false;
 	jump.speed = 0.04f;
 
-	animation = &idle;
-	//initial_pos = original_pos.x;
+	//animation = &idle;
+	initial_pos = original_pos.x;
 
 }
 
@@ -99,8 +99,8 @@ bool Player::Awake(pugi::xml_node& config)
 	velocity.y = config2.child("velocity").attribute("value").as_float();
 	acceleration.x = config2.child("acceleration").attribute("x").as_float();
 	acceleration.y = config2.child("acceleration").attribute("y").as_float();
-	gravity = 400.f;
-	jump_speed.y = 1.5f;
+	gravity = config2.child("gravity").attribute("value").as_float();
+	jump_speed.y = config2.child("jump").attribute("velocity_y").as_float();
 	jump_height = config2.child("jump").attribute("height").as_float();
 	jump_speed.x = config2.child("jump").attribute("velocity_x").as_float();
 	x_scale = config2.child("scale").attribute("x").as_int();
@@ -124,22 +124,36 @@ void Player::MoveEntity(float dt)
 		jumping = true;
 		max_height = (pos.y - jump_height);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT )
-	{
-		gliding = true;
-		jumping = false;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
-	{
-		gliding = false;
-	}
-	/*if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 	{
 		jumping = false;
 		falling = true;
-	}*/
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && pos.y - max_height != jump_height && !contact)
+	{
+		jumping = false;
+		double_jumping = true;
+		contact = true;
+		max_height = (pos.y - jump_height);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
+		double_jumping = false;
+		falling = true;
+	}
 
+	if (godmode)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			pos.y += gravity*dt;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			pos.y -= gravity*dt;
+		}
+	}
 	//FORWARD
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -163,7 +177,30 @@ void Player::MoveEntity(float dt)
 	}
 
 	Jump(dt);
-	
+	//JUMP LEFT OR RIGHT
+
+	if (jumping == true)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			pos.x += speed*dt;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			pos.x += speed*dt;
+		}
+		pos.y -= jump_speed.y*dt;
+	}
+	if (!dead && !jumping)
+	{
+		speed;
+		pos.x += speed*dt;
+	}
+
+	if (falling)
+	{
+		animation = &jump;
+	}
 
 	////DRAW PLAYER -----------------------------------------
 	////App->render->Blit(graphics, pos.x, pos.y, 3, 3, flip, &(animation->GetCurrentFrame()), 1.0f);
@@ -194,31 +231,43 @@ void Player::MoveEntity(float dt)
 
 void Player::Jump(float dt)
 {
-	if (!jumping && !godmode && !gliding)
+	if (!jumping && !godmode)
 	{
 		pos.y += gravity*dt;
 	}
-	if (gliding)
+	if (jumping)
 	{
-		pos.y += gravity * dt / 5;
-	}
-	if (jumping && pos.y > max_height)
-	{
-		animation = &jump;
-		pos.y -= jump_speed.y*gravity * dt;
-	}
-	else if (pos.y <= max_height)
-	{
-		jumping = false;
+		if (pos.y >= max_height)
+		{
+			jumping_speed.y = jump_speed.y*dt;
+			animation = &jump;
+			pos.y -= jumping_speed.y;
+		}
+		if (pos.y < max_height)
+		{
+			jumping_speed.y = 0;
+			jumping = false;
+			jump.Reset();
+			falling = true;
+		}
 	}
 
-}
-
-void Player::Glide(float dt)
-{
-	if (gliding)
+	if (double_jumping)
 	{
-		pos.y += gravity * dt / 5;
+		jumping_speed.y = 0;
+		if (pos.y >= max_height)
+		{
+			jumping_speed.y = jump_speed.y*dt * 2;
+			animation = &jump;
+			pos.y -= jumping_speed.y;
+		}
+		if (pos.y < max_height)
+		{
+			jumping_speed.y = 0;
+			double_jumping = false;
+			jump.Reset();
+			falling = true;
+		}
 	}
 }
 

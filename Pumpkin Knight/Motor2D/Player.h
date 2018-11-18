@@ -17,7 +17,6 @@ public:
 	bool Start();
 	void MoveEntity(float dt);
 	void Jump(float dt);
-	void Glide(float dt);
 	bool Awake(pugi::xml_node& config);
 	void Draw(float dt);
 
@@ -46,7 +45,6 @@ public:
 	bool double_jumping = false;
 	bool contact = false;
 	bool godmode = false;
-	bool gliding = false;
 
 	fPoint velocity;
 	fPoint acceleration;
